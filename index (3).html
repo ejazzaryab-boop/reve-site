@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Revé · peptides and supplements, built around your cycle</title>
+<meta name="description" content="Revé is built for women who run peptide and supplement protocols. Log every dose and check-in, and Revé tags it to your cycle phase so your own patterns surface over 90 days. From Trendset LLC, New York." />
+<meta property="og:title" content="Revé · peptides and supplements, built around your cycle" />
+<meta property="og:description" content="Log your protocol. Revé tags every dose to your cycle phase, so your own patterns surface over 90 days. By Trendset LLC." />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://usereve.com/" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='11' fill='none' stroke='%23DB7093' stroke-width='4'/%3E%3C/svg%3E" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400;1,6..72,500&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --paper:      #FFF7FA;
+    --card:       #FCFBF7;
+    --card-alt:   #F0ECE2;
+    --border:     #E7E1D5;
+    --divider:    #EFEADF;
+    --ink:        #211D17;
+    --ink-soft:   #5A5247;
+    --muted:      #857C6E;
+    --faint:      #ABA292;
+    --accent:     #DB7093;
+    --accent-soft:#FAD9E4;
+    --menstrual:  #A8503A;
+    --follicular: #6E7B53;
+    --ovulatory:  #A36A1E;
+    --luteal:     #DB7093;
+
+    --serif: "Newsreader", Georgia, serif;
+    --sans:  "Hanken Grotesk", system-ui, -apple-system, sans-serif;
+    --mono:  "IBM Plex Mono", ui-monospace, monospace;
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 18px;
+    line-height: 1.62;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 3px; }
+
+  .wrap { width: 100%; max-width: 1040px; margin: 0 auto; padding: 0 24px; }
+  .narrow { max-width: 760px; }
+
+  .eyebrow {
+    font-family: var(--mono); font-size: 11.5px; font-weight: 500;
+    letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted);
+    display: inline-flex; align-items: center; gap: 9px;
+  }
+  .eyebrow .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--accent); flex: none; }
+
+  em { font-style: italic; }
+
+  .serif-head {
+    font-family: var(--serif); font-weight: 500;
+    font-size: clamp(28px, 3.7vw, 42px); line-height: 1.12;
+    letter-spacing: -0.005em; margin: 14px 0 0; color: var(--ink);
+  }
+  .serif-head em { color: var(--accent); }
+
+  .kicker {
+    font-family: var(--serif); font-style: italic; font-weight: 500;
+    font-size: clamp(22px, 2.8vw, 30px); line-height: 1.3; color: var(--ink); margin: 0;
+  }
+  .kicker.accent { color: var(--accent); }
+
+  .lede { font-size: 19px; color: var(--ink-soft); }
+
+  /* ---------- Header ---------- */
+  header {
+    position: sticky; top: 0; z-index: 30;
+    background: rgba(255,247,250,0.90);
+    backdrop-filter: saturate(150%) blur(9px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav { display: flex; align-items: center; justify-content: space-between; height: 66px; }
+  .wordmark { font-family: var(--sans); font-weight: 500; font-size: 14px; letter-spacing: 0.30em; color: var(--accent); }
+  .nav-links { display: flex; gap: 28px; align-items: center; }
+  .nav-links a { color: var(--ink-soft); font-size: 15px; font-weight: 500; }
+  .nav-links a:hover { color: var(--ink); text-decoration: none; }
+  @media (max-width: 720px) { .nav-links { display: none; } }
+
+  /* ---------- Hero ---------- */
+  .hero { padding: 74px 0 62px; }
+  .hero-grid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 52px; align-items: center; }
+  .pill {
+    display: inline-block; margin: 16px 0 0;
+    font-family: var(--mono); font-size: 11px; font-weight: 500;
+    letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent);
+    background: var(--card); border: 1px solid var(--border);
+    padding: 7px 14px; border-radius: 100px;
+  }
+  .hero h1 {
+    font-family: var(--serif); font-weight: 500;
+    font-size: clamp(36px, 5.3vw, 60px); line-height: 1.06;
+    letter-spacing: -0.008em; margin: 22px 0 20px; color: var(--ink);
+  }
+  .hero h1 em { color: var(--accent); }
+  .hero .lede { max-width: 30em; margin: 0 0 26px; }
+  .chip {
+    display: inline-flex; align-items: center; gap: 9px;
+    padding: 8px 15px; border: 1px solid var(--border); background: var(--card);
+    border-radius: 100px; font-family: var(--mono); font-size: 12px; color: var(--muted);
+  }
+  .chip .pulse { width: 7px; height: 7px; border-radius: 50%; background: var(--accent); flex: none; }
+
+  /* ---------- Cycle ring ---------- */
+  .ring-stage { display: flex; justify-content: center; }
+  .ring-card {
+    width: 100%; max-width: 330px; padding: 30px;
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 18px; box-shadow: 0 4px 10px rgba(33,29,23,0.045);
+    display: flex; flex-direction: column; align-items: center; gap: 20px;
+  }
+  .ring-viz { position: relative; width: 196px; height: 196px; }
+  svg.ring { position: absolute; inset: 0; width: 196px; height: 196px; display: block; }
+  .ring-arc { fill: none; stroke-width: 18; stroke-linecap: round; }
+  .ring-center { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; }
+  .ring-day { font-family: var(--serif); font-weight: 500; font-size: 26px; color: var(--ink); line-height: 1; }
+  .ring-phase { font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--follicular); }
+  .legend { font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.10em; text-transform: uppercase; text-align: center; line-height: 1.9; }
+  .legend .m { color: var(--menstrual); } .legend .f { color: var(--follicular); }
+  .legend .o { color: var(--ovulatory); } .legend .l { color: var(--luteal); }
+  .legend .sep { color: var(--faint); }
+
+  /* ---------- Section shell ---------- */
+  section { padding: 62px 0; }
+  .head-block { max-width: 32em; margin-bottom: 34px; }
+  hr.divider { height: 1px; background: var(--border); border: 0; margin: 0; }
+  .band { background: var(--card-alt); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+
+  /* ---------- Cards ---------- */
+  .card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 18px; padding: 22px 22px 24px; box-shadow: 0 4px 10px rgba(33,29,23,0.045);
+  }
+  .card-label { font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.15em; text-transform: uppercase; }
+  .card p.body { margin: 8px 0 0; color: var(--ink); font-size: 16.5px; line-height: 1.5; }
+
+  /* ---------- Timeline (frustration) ---------- */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 26px; }
+  @media (max-width: 620px) { .two-col { grid-template-columns: 1fr; } }
+
+  /* ---------- Response curve ---------- */
+  .curve-card { margin: 8px 0 28px; }
+  .curve-viz { border-radius: 12px; overflow: hidden; border: 1px solid var(--border); }
+  .curve-viz svg { display: block; width: 100%; height: auto; }
+  .curve-cap { margin-top: 12px; font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); }
+
+  /* ---------- Dark thesis card ---------- */
+  .thesis-band { padding: 34px 0; }
+  .thesis {
+    position: relative; overflow: hidden; background: var(--ink); color: var(--accent-soft);
+    border-radius: 18px; padding: 52px; box-shadow: 0 10px 18px rgba(33,29,23,0.20);
+  }
+  .thesis::before {
+    content: ""; position: absolute; top: -60px; right: -30px; width: 250px; height: 250px;
+    border-radius: 50%; background: radial-gradient(circle, rgba(219,112,147,0.50), transparent 70%);
+    filter: blur(8px); pointer-events: none;
+  }
+  .thesis .eyebrow { color: var(--accent); position: relative; }
+  .thesis .eyebrow .dot { background: var(--accent); }
+  .thesis p {
+    position: relative; font-family: var(--serif); font-weight: 400;
+    font-size: clamp(24px, 3.1vw, 34px); line-height: 1.3; color: #FBEFE6; max-width: 16em; margin: 18px 0 0;
+  }
+  .thesis p em { color: var(--accent); font-style: italic; }
+  @media (max-width: 560px) { .thesis { padding: 40px 26px; } }
+
+  /* ---------- Gap rows ---------- */
+  .gap-list { padding: 4px 22px; }
+  .gap-row { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; padding: 18px 0; }
+  .gap-row + .gap-row { border-top: 1px solid var(--divider); }
+  .gap-row .t { font-family: var(--sans); font-weight: 600; font-size: 17px; color: var(--ink); }
+  .gap-row .d { font-family: var(--mono); font-size: 12.5px; color: var(--muted); }
+
+  /* ---------- Steps ---------- */
+  .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 26px; }
+  .step .num { font-family: var(--serif); font-weight: 500; font-size: 30px; color: var(--accent); display: block; margin-bottom: 10px; }
+  .step h3 { font-family: var(--sans); font-weight: 600; font-size: 17px; margin: 0 0 6px; color: var(--ink); }
+  .step p { font-size: 15.5px; color: var(--ink-soft); margin: 0; }
+  .step + .step { border-left: 1px solid var(--border); padding-left: 26px; }
+  @media (max-width: 760px) {
+    .steps { grid-template-columns: 1fr; gap: 20px; }
+    .step + .step { border-left: 0; padding-left: 0; border-top: 1px solid var(--border); padding-top: 20px; }
+  }
+
+  /* ---------- Notification (daily) ---------- */
+  .notif { max-width: 460px; margin-top: 8px; }
+  .notif .top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+  .notif .top .l { font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink); }
+  .notif .top .n { font-family: var(--mono); font-size: 11px; color: var(--muted); }
+  .notif .msg { font-size: 16px; color: var(--ink); }
+
+  /* ---------- 90 day cycles ---------- */
+  .cycles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 6px 0 26px; max-width: 480px; }
+  .cyc { background: var(--card); border: 1px solid var(--border); border-radius: 13px; padding: 13px; }
+  .cyc .lab { font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-bottom: 9px; }
+  .cyc .bars > div { height: 9px; border-radius: 2px; margin-bottom: 5px; }
+  .cyc .bars > div:last-child { margin-bottom: 0; }
+
+  /* ---------- CTA ---------- */
+  .cta { background: var(--accent-soft); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); text-align: center; }
+  .cta .serif-head { max-width: 16em; margin: 0 auto; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 10px; margin-top: 8px;
+    height: 52px; padding: 0 26px; background: var(--accent); color: #fff;
+    font-weight: 600; font-size: 16px; border-radius: 14px; box-shadow: 0 5px 12px rgba(219,112,147,0.20);
+  }
+  .btn:hover { background: #D25F86; text-decoration: none; }
+  .cta-row { display: flex; flex-direction: column; align-items: center; gap: 16px; margin-top: 26px; }
+  .disclaimer { max-width: 42em; margin: 22px auto 0; font-size: 14.5px; color: var(--ink-soft); }
+
+  /* ---------- Company + Footer ---------- */
+  .company .lede { color: var(--ink-soft); max-width: 40em; }
+  .company strong { color: var(--ink); font-weight: 600; }
+  footer { padding: 44px 0 56px; border-top: 1px solid var(--border); }
+  .foot-top { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 18px; align-items: center; }
+  .foot-links { display: flex; flex-wrap: wrap; gap: 24px; }
+  .foot-links a { color: var(--ink-soft); font-size: 15px; }
+  .foot-links a:hover { color: var(--ink); text-decoration: none; }
+  .foot-legal { margin-top: 20px; color: var(--faint); font-size: 13px; font-family: var(--mono); letter-spacing: 0.02em; }
+
+  @media (max-width: 860px) {
+    .hero-grid { grid-template-columns: 1fr; gap: 40px; }
+    .hero { padding: 54px 0 48px; }
+  }
+
+  .rise { opacity: 0; transform: translateY(9px); animation: rise 0.6s ease forwards; }
+  .rise.d1 { animation-delay: 0.05s; } .rise.d2 { animation-delay: 0.13s; } .rise.d3 { animation-delay: 0.21s; }
+  @keyframes rise { to { opacity: 1; transform: none; } }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .rise { opacity: 1; transform: none; animation: none; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <div class="wordmark">REVÉ</div>
+    <nav class="nav-links">
+      <a href="#how">How it works</a>
+      <a href="#company">Company</a>
+      <a href="mailto:zareef@usereve.com">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+  <!-- 1. HOOK -->
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <span class="eyebrow rise d1"><span class="dot"></span> Peptides and supplements, built around your cycle</span>
+        <div><span class="pill rise d1">For her biology</span></div>
+        <h1 class="rise d2">Most tracking apps were built for <em>men</em>.</h1>
+        <p class="lede rise d3">Your biology runs on a 28-day rhythm. Your results should too. Revé is built around the one variable every other tracker ignores: where you are in your cycle.</p>
+        <span class="chip rise d3"><span class="pulse"></span> Coming soon to the App Store</span>
+      </div>
+      <div class="ring-stage rise d3">
+        <div class="ring-card">
+          <div class="ring-viz">
+            <svg class="ring" viewBox="0 0 240 240" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A cycle ring divided into four phases">
+              <g transform="rotate(-90 120 120)">
+                <circle class="ring-arc" cx="120" cy="120" r="94" pathLength="1" stroke="#A8503A" stroke-dasharray="0.18 1" stroke-dashoffset="0" />
+                <circle class="ring-arc" cx="120" cy="120" r="94" pathLength="1" stroke="#6E7B53" stroke-dasharray="0.24 1" stroke-dashoffset="-0.22" />
+                <circle class="ring-arc" cx="120" cy="120" r="94" pathLength="1" stroke="#A36A1E" stroke-dasharray="0.08 1" stroke-dashoffset="-0.50" />
+                <circle class="ring-arc" cx="120" cy="120" r="94" pathLength="1" stroke="#DB7093" stroke-dasharray="0.34 1" stroke-dashoffset="-0.62" />
+              </g>
+            </svg>
+            <div class="ring-center">
+              <span class="ring-day">Day 9</span>
+              <span class="ring-phase">Follicular</span>
+            </div>
+          </div>
+          <p class="legend">
+            <span class="m">Menstrual</span> <span class="sep">·</span>
+            <span class="f">Follicular</span> <span class="sep">·</span>
+            <span class="o">Ovulatory</span> <span class="sep">·</span>
+            <span class="l">Luteal</span>
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- 2. FRUSTRATION -->
+  <section>
+    <div class="wrap narrow">
+      <div class="head-block">
+        <span class="eyebrow"><span class="dot"></span> The pattern</span>
+        <h2 class="serif-head">You felt it working. Then it didn't.</h2>
+      </div>
+      <div class="two-col">
+        <div class="card">
+          <span class="card-label" style="color:#6E7B53">The first two weeks</span>
+          <p class="body">Everything is working. Energy up. Recovery feels different. Skin brighter.</p>
+        </div>
+        <div class="card">
+          <span class="card-label" style="color:#DB7093">Weeks three and four</span>
+          <p class="body">Then it stalls. Mood drops. Results flatten. So you reach for a higher dose.</p>
+        </div>
+      </div>
+      <p class="kicker">This was never a dose problem.</p>
+    </div>
+  </section>
+
+  <!-- 3. BIOLOGICAL INSIGHT -->
+  <section>
+    <div class="wrap narrow">
+      <div class="head-block">
+        <span class="eyebrow"><span class="dot"></span> The variable</span>
+        <h2 class="serif-head">Your body isn't the same body every week.</h2>
+      </div>
+      <p class="lede" style="margin:0 0 24px;">Every week of your cycle, your body runs on different chemistry. Different inflammation. Different recovery speed. Different hormone receptors. It isn't the same internal environment week to week. It's a whole different one.</p>
+
+      <div class="card curve-card">
+        <div class="curve-viz">
+          <svg viewBox="0 0 400 150" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A response curve rising to a peak near ovulation, then falling, across four cycle phases">
+            <rect x="0"   y="0" width="100" height="150" fill="#6E7B53" opacity="0.30" />
+            <rect x="100" y="0" width="100" height="150" fill="#A36A1E" opacity="0.30" />
+            <rect x="200" y="0" width="100" height="150" fill="#DB7093" opacity="0.30" />
+            <rect x="300" y="0" width="100" height="150" fill="#A8503A" opacity="0.30" />
+            <rect x="99.25"  y="0" width="1.5" height="150" fill="#FCFBF7" />
+            <rect x="199.25" y="0" width="1.5" height="150" fill="#FCFBF7" />
+            <rect x="299.25" y="0" width="1.5" height="150" fill="#FCFBF7" />
+            <path d="M0 117 C 80 105, 152 30, 208 27 C 272 24, 344 99, 400 108"
+                  fill="none" stroke="#211D17" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+            <circle cx="208" cy="27" r="4.5" fill="#DB7093" />
+          </svg>
+        </div>
+        <p class="curve-cap">One compound, felt differently across your month</p>
+      </div>
+
+      <p class="lede" style="margin:0;">The thing that made you feel amazing in week one can quietly work against you by week three. The peptide didn't change on you. <em>Your body did.</em> And no one ever told you that.</p>
+    </div>
+  </section>
+
+  <!-- INSIGHT (dark) -->
+  <div class="thesis-band">
+    <div class="wrap">
+      <div class="thesis">
+        <span class="eyebrow"><span class="dot"></span> The insight</span>
+        <p>The compound was never the variable. <em>Your cycle is.</em></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. WHY EXISTING APPS FAIL -->
+  <div class="band">
+    <section>
+      <div class="wrap narrow">
+        <div class="head-block">
+          <span class="eyebrow"><span class="dot"></span> The gap</span>
+          <h2 class="serif-head">So why isn't anyone tracking this?</h2>
+        </div>
+        <div class="card gap-list" style="margin-bottom:24px;">
+          <div class="gap-row"><span class="t">Fitness apps</span><span class="d">track workouts</span></div>
+          <div class="gap-row"><span class="t">Supplement apps</span><span class="d">track doses</span></div>
+          <div class="gap-row"><span class="t">Cycle apps</span><span class="d">track periods</span></div>
+        </div>
+        <p class="kicker" style="margin-bottom:14px;">None of them talk to each other.</p>
+        <p class="lede" style="margin:0;">So you're left connecting the dots in your head, hoping you remembered right.</p>
+      </div>
+    </section>
+  </div>
+
+  <!-- 5. HOW REVÉ WORKS -->
+  <section id="how">
+    <div class="wrap">
+      <div class="head-block">
+        <span class="eyebrow"><span class="dot"></span> How Revé works</span>
+        <h2 class="serif-head">Your stack, your timing, and your cycle finally live in one place.</h2>
+      </div>
+      <p class="lede" style="margin:0 0 34px; max-width:34em;">You log it once. The pattern shows up on its own.</p>
+      <div class="steps">
+        <div class="step">
+          <span class="num">01</span>
+          <h3>Log a dose or check-in</h3>
+          <p>Add what you took, or how you're feeling. A few taps and you're done.</p>
+        </div>
+        <div class="step">
+          <span class="num">02</span>
+          <h3>Revé tags it to your phase</h3>
+          <p>Every entry is stamped with your cycle phase and cycle day, automatically.</p>
+        </div>
+        <div class="step">
+          <span class="num">03</span>
+          <h3>Your patterns surface</h3>
+          <p>See the same compound across phases, and the same phase across cycles.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. DAILY EXPERIENCE -->
+  <section>
+    <div class="wrap narrow">
+      <div class="head-block">
+        <span class="eyebrow"><span class="dot"></span> The daily 47 seconds</span>
+        <h2 class="serif-head">Your daily check-in takes 47 seconds.</h2>
+      </div>
+      <p class="lede" style="margin:0 0 10px;">Dose logged. Mood noted. Phase updated. That's it. Revé does the pattern-finding.</p>
+      <div class="card notif">
+        <div class="top"><span class="l">Daily check-in</span><span class="n">now</span></div>
+        <div class="msg">How are you feeling today? Take 47 seconds to log it.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. 90-DAY VALUE -->
+  <div class="band">
+    <section>
+      <div class="wrap narrow">
+        <div class="head-block">
+          <span class="eyebrow"><span class="dot"></span> The window</span>
+          <h2 class="serif-head">Ninety days. That's the window.</h2>
+        </div>
+        <div class="cycles">
+          <div class="cyc">
+            <div class="lab">Cycle 1</div>
+            <div class="bars" style="opacity:0.55">
+              <div style="background:#A8503A"></div><div style="background:#6E7B53"></div>
+              <div style="background:#A36A1E"></div><div style="background:#DB7093"></div>
+            </div>
+          </div>
+          <div class="cyc">
+            <div class="lab">Cycle 2</div>
+            <div class="bars" style="opacity:0.78">
+              <div style="background:#A8503A"></div><div style="background:#6E7B53"></div>
+              <div style="background:#A36A1E"></div><div style="background:#DB7093"></div>
+            </div>
+          </div>
+          <div class="cyc">
+            <div class="lab">Cycle 3</div>
+            <div class="bars" style="opacity:1">
+              <div style="background:#A8503A"></div><div style="background:#6E7B53"></div>
+              <div style="background:#A36A1E"></div><div style="background:#DB7093"></div>
+            </div>
+          </div>
+        </div>
+        <p class="lede" style="margin:0 0 14px;">Three cycles in, the pattern is impossible to miss. One cycle just isn't enough to see it.</p>
+        <p class="kicker">This was built for the long game. Most things quit on you by week two.</p>
+      </div>
+    </section>
+  </div>
+
+  <!-- CTA -->
+
+  <div class="cta">
+    <section>
+      <div class="wrap">
+        <span class="eyebrow" style="justify-content:center; display:flex;"><span class="dot"></span> Your 90 days</span>
+        <h2 class="serif-head" style="text-align:center;">Give yourself the 90 days to find out.</h2>
+        <div class="cta-row">
+          <span class="chip"><span class="pulse"></span> Coming soon to the App Store</span>
+          <a class="btn" href="mailto:zareef@usereve.com?subject=Notify%20me%20when%20Rev%C3%A9%20launches">Email me at launch</a>
+        </div>
+        <p class="disclaimer">Revé helps you see your own logged patterns. It doesn't tell you what to take, and it doesn't predict how you'll respond. It isn't medical advice. Talk to a qualified professional about your own health decisions.</p>
+      </div>
+    </section>
+  </div>
+
+  <!-- COMPANY -->
+  <section id="company" class="company">
+    <div class="wrap narrow">
+      <div class="head-block">
+        <span class="eyebrow"><span class="dot"></span> The company</span>
+        <h2 class="serif-head">Built by Trendset&nbsp;LLC.</h2>
+      </div>
+      <p class="lede" style="margin:0 0 16px;">Revé is designed and operated by <strong>Trendset LLC</strong>, a limited liability company based in New York, USA. We build careful, private tools for women who take their own health data seriously.</p>
+      <p class="lede" style="margin:0;">Questions about Revé, your account, or your data? Reach us at <a href="mailto:zareef@usereve.com">zareef@usereve.com</a>.</p>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-top">
+      <div class="wordmark">REVÉ</div>
+      <nav class="foot-links">
+        <a href="https://legal.usereve.com/privacy">Privacy Policy</a>
+        <a href="https://legal.usereve.com/terms">Terms of Service</a>
+        <a href="mailto:zareef@usereve.com">Contact</a>
+      </nav>
+    </div>
+    <p class="foot-legal">© 2026 Trendset LLC · New York, USA · Revé is not yet available on the App Store.</p>
+  </div>
+</footer>
+
+</body>
+</html>
