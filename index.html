@@ -4,6 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Revé · peptides and supplements, built around your cycle</title>
+<link rel="canonical" href="https://usereve.com/">
 <meta name="description" content="Revé is built for women who run peptide and supplement protocols. Log every dose and check-in, and Revé tags it to your cycle phase so your own patterns surface over 90 days. From Trendset LLC, New York." />
 <meta property="og:title" content="Revé · peptides and supplements, built around your cycle" />
 <meta property="og:description" content="Log your protocol. Revé tags every dose to your cycle phase, so your own patterns surface over 90 days. By Trendset LLC." />
@@ -251,15 +252,69 @@
     html { scroll-behavior: auto; }
     .rise { opacity: 1; transform: none; animation: none; }
   }
+
+/* Shared grouped footer layout; all rules are scoped to the footer. */
+footer .footer-layout { display: flex; justify-content: space-between; align-items: flex-start; gap: 40px; }
+footer .footer-brand { flex-shrink: 0; }
+footer .footer-groups { display: flex; gap: 40px; }
+footer .footer-group { display: flex; flex-direction: column; align-items: flex-start; gap: 12px; }
+footer .footer-group .eyebrow { margin-bottom: 4px; }
+footer .footer-group a { color: var(--ink-soft); font-size: 15px; }
+footer .footer-group a:hover { color: var(--ink); text-decoration: none; }
+@media (max-width: 960px) {
+  footer .footer-layout { flex-direction: column; }
+}
+@media (max-width: 560px) {
+  footer .footer-groups { flex-direction: column; gap: 28px; }
+}
+
+@media (min-width: 561px) {
+  footer .footer-groups { column-gap: 28px; }
+  footer .footer-group:first-child { margin-right: 12px; }
+}
 </style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://usereve.com/#organization",
+      "name": "Trendset LLC",
+      "url": "https://usereve.com/"
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://usereve.com/#website",
+      "name": "Revé",
+      "url": "https://usereve.com/",
+      "publisher": {
+        "@id": "https://usereve.com/#organization"
+      }
+    },
+    {
+      "@type": "SoftwareApplication",
+      "@id": "https://usereve.com/#app",
+      "name": "Revé",
+      "url": "https://usereve.com/",
+      "description": "Revé is a peptide tracker built for women. Track doses, symptoms, progress, supplements, and menstrual-cycle context together in one app.",
+      "installUrl": "https://apps.apple.com/us/app/reve-health/id6810085933",
+      "publisher": {
+        "@id": "https://usereve.com/#organization"
+      }
+    }
+  ]
+}
+</script>
 </head>
 <body>
 
 <header>
   <div class="wrap nav">
-    <img src="assets/reve-wordmark.png" alt="Revé" class="wordmark-img">
+    <a href="/" aria-label="Revé home"><img src="assets/reve-wordmark.png" alt="Revé" class="wordmark-img"></a>
     <nav class="nav-links">
       <a href="#how">How it works</a>
+      <a href="/faq/">FAQ</a>
       <a href="#company">Company</a>
       <a href="mailto:zareef@usereve.com">Contact</a>
     </nav>
@@ -501,18 +556,32 @@
 </main>
 
 <footer>
-  <div class="wrap">
-    <div class="foot-top">
-      <img src="assets/reve-wordmark.png" alt="Revé" class="wordmark-img">
-      <nav class="foot-links">
-        <a href="https://legal.usereve.com/privacy">Privacy Policy</a>
-        <a href="https://legal.usereve.com/terms">Terms of Service</a>
-        <a href="mailto:zareef@usereve.com">Contact</a>
+    <div class="wrap footer-layout">
+      <div class="footer-brand">
+        <a href="/" aria-label="Revé home"><img src="assets/reve-wordmark.png" alt="Revé" class="wordmark-img"></a>
+        <p class="foot-legal">© 2026 Trendset LLC · New York, USA</p>
+      </div>
+      <nav class="footer-groups" aria-label="Footer navigation">
+        <div class="footer-group" role="group" aria-labelledby="footer-explore">
+          <span id="footer-explore" class="eyebrow">Explore</span>
+          <a href="/peptide-tracker-for-women/">Peptide Tracker for Women</a>
+          <a href="/glp-1-tracker-for-women/">GLP-1 Tracker for Women</a>
+          <a href="/peptide-menstrual-cycle-tracker/">Peptide &amp; Menstrual Cycle Tracker</a>
+          <a href="/womens-peptide-app/">Women's Peptide App</a>
+          <a href="/faq/">FAQ</a>
+        </div>
+        <div class="footer-group" role="group" aria-labelledby="footer-company">
+          <span id="footer-company" class="eyebrow">Company</span>
+          <a href="mailto:zareef@usereve.com">Contact</a>
+        </div>
+        <div class="footer-group" role="group" aria-labelledby="footer-legal">
+          <span id="footer-legal" class="eyebrow">Legal</span>
+          <a href="https://legal.usereve.com/privacy">Privacy Policy</a>
+          <a href="https://legal.usereve.com/terms">Terms of Service</a>
+        </div>
       </nav>
     </div>
-    <p class="foot-legal">© 2026 Trendset LLC · New York, USA</p>
-  </div>
-</footer>
+  </footer>
 
 </body>
 </html>
