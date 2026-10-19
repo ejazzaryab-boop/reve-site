@@ -1,0 +1,93 @@
+name: Submit changed pages to IndexNow
+
+on:
+  workflow_run:
+    workflows: ["pages build and deployment"]
+    types: [completed]
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  submit:
+    if: >-
+      github.event.workflow_run.conclusion == 'success' &&
+      github.event.workflow_run.head_branch == 'main' &&
+      github.event.workflow_run.head_repository.full_name == github.repository
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Check out the deployed commit
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          ref: ${{ github.event.workflow_run.head_sha }}
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Submit changed public HTML URLs
+        shell: python
+        run: |
+          import json
+          import re
+          import subprocess
+          from pathlib import Path, PurePosixPath
+          from urllib.error import HTTPError
+          from urllib.parse import quote
+          from urllib.request import Request, urlopen
+
+          # Compare the deployed commit with its first parent, including merges.
+          # Disable rename detection so a move submits both old and new URLs.
+          changed = subprocess.check_output([
+              "git", "diff", "--name-only", "--no-renames",
+              "--diff-filter=AMD", "-z", "HEAD^1", "HEAD", "--",
+          ]).decode("utf-8").split("\0")
+          urls = set()
+          for name in filter(None, changed):
+              path = PurePosixPath(name)
+              if path.suffix != ".html" or path.parts[0] == "assets":
+                  continue
+              if any(part.startswith((".", "_")) for part in path.parts):
+                  continue
+              if path.name == "index.html":
+                  route = "/" if len(path.parts) == 1 else "/" + str(path.parent) + "/"
+              else:
+                  route = "/" + name
+              urls.add("https://usereve.com" + quote(route, safe="/"))
+
+          if not urls:
+              print("No public HTML pages changed; skipping IndexNow.")
+              raise SystemExit(0)
+
+          key_file = Path("408d5246f6e34bb39a80434efbf3e1c9.txt")
+          key = key_file.read_text(encoding="utf-8").strip()
+          if key != key_file.stem or not re.fullmatch(r"[A-Za-z0-9-]{8,128}", key):
+              raise SystemExit("IndexNow verification file is invalid.")
+          print("::add-mask::" + key)
+          ordered = sorted(urls)
+          print("Submitting URLs:")
+          for url in ordered:
+              print(url)
+
+          # IndexNow accepts at most 10,000 URLs per request.
+          for offset in range(0, len(ordered), 10000):
+              payload = {
+                  "host": "usereve.com",
+                  "key": key,
+                  "keyLocation": "https://usereve.com/" + key_file.name,
+                  "urlList": ordered[offset:offset + 10000],
+              }
+              request = Request(
+                  "https://api.indexnow.org/indexnow",
+                  data=json.dumps(payload).encode("utf-8"),
+                  headers={"Content-Type": "application/json; charset=utf-8"},
+                  method="POST",
+              )
+              try:
+                  with urlopen(request, timeout=30) as response:
+                      status = response.status
+              except HTTPError as error:
+                  status = error.code
+              print(f"IndexNow HTTP status: {status}")
+              if status not in (200, 202):
+                  raise SystemExit(f"IndexNow submission failed (HTTP {status}).")
