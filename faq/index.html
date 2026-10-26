@@ -31,60 +31,82 @@
   <link rel="stylesheet" href="/assets/content.css?v=footer-groups-2">
   <script type="application/ld+json">
 {
-  "@type": "FAQPage",
-  "@id": "https://usereve.com/faq/#faqs",
-  "url": "https://usereve.com/faq/",
-  "mainEntity": [
+  "@context": "https://schema.org",
+  "@graph": [
     {
-      "@type": "Question",
-      "name": "What is the best way to track peptide doses?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "A consistent tracking system can make it easier to keep your routine organized and review your history over time. Revé lets you keep your peptide tracking and related check-ins together in one place."
-      }
+      "@type": "FAQPage",
+      "@id": "https://usereve.com/faq/#faqs",
+      "url": "https://usereve.com/faq/",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is the best way to track peptide doses?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "A consistent tracking system can make it easier to keep your routine organized and review your history over time. Revé lets you keep your peptide tracking and related check-ins together in one place."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is Revé made specifically for women?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Revé is designed around women's tracking needs and includes menstrual-cycle context alongside peptide, supplement, symptom, and progress tracking."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I track peptides and my menstrual cycle together?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Revé lets you keep your peptide tracking alongside menstrual-cycle information so you can review your own entries with cycle context."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does Revé track GLP-1 routines too?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Revé can be used to organize supported peptide and GLP-1 routines alongside your symptoms, progress, and other check-ins."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I track supplements alongside peptides?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Revé is designed to keep peptide and supplement tracking together so related routines do not have to be split across separate notes or apps."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does Revé tell me when or how much peptide to take?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. Revé is a personal tracking tool. It helps you organize and review the information you log, but it does not prescribe peptides, recommend doses, or tell you to change a protocol based on your menstrual cycle."
+          }
+        }
+      ]
     },
     {
-      "@type": "Question",
-      "name": "Is Revé made specifically for women?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Yes. Revé is designed around women's tracking needs and includes menstrual-cycle context alongside peptide, supplement, symptom, and progress tracking."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Can I track peptides and my menstrual cycle together?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Yes. Revé lets you keep your peptide tracking alongside menstrual-cycle information so you can review your own entries with cycle context."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Does Revé track GLP-1 routines too?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Revé can be used to organize supported peptide and GLP-1 routines alongside your symptoms, progress, and other check-ins."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Can I track supplements alongside peptides?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Yes. Revé is designed to keep peptide and supplement tracking together so related routines do not have to be split across separate notes or apps."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Does Revé tell me when or how much peptide to take?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "No. Revé is a personal tracking tool. It helps you organize and review the information you log, but it does not prescribe peptides, recommend doses, or tell you to change a protocol based on your menstrual cycle."
-      }
+      "@type": "BreadcrumbList",
+      "@id": "https://usereve.com/faq/#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://usereve.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "FAQ",
+          "item": "https://usereve.com/faq/"
+        }
+      ]
     }
-  ],
-  "@context": "https://schema.org"
+  ]
 }
   </script>
 </head>
@@ -114,15 +136,27 @@
         <div class="wrap narrow">
           <section id="faqs" class="content-section" aria-labelledby="questions-title">
             <h2 id="questions-title" class="serif-head">Questions about Revé</h2>
-            <div class="faq-slot"><h3>What is the best way to track peptide doses?</h3><p>A consistent tracking system can make it easier to keep your routine organized and review your history over time. Revé lets you keep your peptide tracking and related check-ins together in one place.</p></div>
-            <div class="faq-slot"><h3>Is Revé made specifically for women?</h3><p>Yes. Revé is designed around women&#x27;s tracking needs and includes menstrual-cycle context alongside peptide, supplement, symptom, and progress tracking.</p></div>
-            <div class="faq-slot"><h3>Can I track peptides and my menstrual cycle together?</h3><p>Yes. Revé lets you keep your peptide tracking alongside menstrual-cycle information so you can review your own entries with cycle context.</p></div>
-            <div class="faq-slot"><h3>Does Revé track GLP-1 routines too?</h3><p>Revé can be used to organize supported peptide and GLP-1 routines alongside your symptoms, progress, and other check-ins.</p></div>
+            <div class="faq-slot"><h3>What is the best way to track peptide doses?</h3><p>A consistent tracking system can make it easier to keep your routine organized and review your history over time. Revé lets you keep your <a href="/peptide-tracker-for-women/">peptide tracking</a> and related check-ins together in one place.</p></div>
+            <div class="faq-slot"><h3>Is Revé made specifically for women?</h3><p>Yes. Revé is designed around <a href="/womens-peptide-app/">women&#x27;s tracking needs</a> and includes menstrual-cycle context alongside peptide, supplement, symptom, and progress tracking.</p></div>
+            <div class="faq-slot"><h3>Can I track peptides and my menstrual cycle together?</h3><p>Yes. Revé lets you keep your peptide tracking alongside <a href="/peptide-menstrual-cycle-tracker/">menstrual-cycle information</a> so you can review your own entries with cycle context.</p></div>
+            <div class="faq-slot"><h3>Does Revé track GLP-1 routines too?</h3><p>Revé can be used to organize supported peptide and <a href="/glp-1-tracker-for-women/">GLP-1 routines</a> alongside your symptoms, progress, and other check-ins.</p></div>
             <div class="faq-slot"><h3>Can I track supplements alongside peptides?</h3><p>Yes. Revé is designed to keep peptide and supplement tracking together so related routines do not have to be split across separate notes or apps.</p></div>
             <div class="faq-slot"><h3>Does Revé tell me when or how much peptide to take?</h3><p>No. Revé is a personal tracking tool. It helps you organize and review the information you log, but it does not prescribe peptides, recommend doses, or tell you to change a protocol based on your menstrual cycle.</p></div>
           </section>
         </div>
       </div>
+      <section class="cta" aria-labelledby="download-title">
+        <div class="wrap narrow">
+          <span class="eyebrow">On the App Store</span>
+          <h2 class="serif-head" id="download-title">Your log, tagged to your cycle.</h2>
+          <p class="lede">Log peptides, supplements, check-ins, and measurements. Revé tags each one to your cycle phase.</p>
+          <div class="app-store-cta">
+            <a href="https://apps.apple.com/us/app/id6810085933"><img src="/assets/app-store-badge.svg" alt="Download Reve: Peptide &amp; Cycle Tracker on the App Store" width="120" height="40"></a>
+            <span class="search-note">Search Reve: Peptide &amp; Cycle Tracker on the App Store.</span>
+          </div>
+          <p class="disclaimer">Revé helps you see your own logged patterns. It doesn't tell you what to take, and it doesn't predict how you'll respond. It isn't medical advice. Talk to a qualified professional about your own health decisions.</p>
+        </div>
+      </section>
     </article>
   </main>
 
