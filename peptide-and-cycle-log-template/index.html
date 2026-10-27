@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Printable Peptide Log Sheet + Cycle Phase | Revé</title>
+  <meta name="description" content="Free printable peptide log sheet with cycle day, cycle phase, and check-ins you choose to write down. Print it or download a CSV. Nothing you type is uploaded.">
+  <link rel="canonical" href="https://usereve.com/peptide-and-cycle-log-template/">
+  <meta property="og:title" content="Printable Peptide Log Sheet + Cycle Phase | Revé">
+  <meta property="og:description" content="Free printable peptide log sheet with cycle day, cycle phase, and check-ins you choose to write down. Print it or download a CSV. Nothing you type is uploaded.">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Revé">
+  <meta property="og:url" content="https://usereve.com/peptide-and-cycle-log-template/">
+  <meta property="og:image" content="https://usereve.com/assets/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Revé wordmark on a cream background">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Printable Peptide Log Sheet + Cycle Phase | Revé">
+  <meta name="twitter:description" content="Free printable peptide log sheet with cycle day, cycle phase, and check-ins you choose to write down. Print it or download a CSV. Nothing you type is uploaded.">
+  <meta name="twitter:image" content="https://usereve.com/assets/og-image.png">
+  <meta name="twitter:image:alt" content="Revé wordmark on a cream background">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
+  <meta name="apple-itunes-app" content="app-id=6810085933">
+  <meta name="theme-color" content="#FBF9F4">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&amp;family=IBM+Plex+Mono:wght@400;500&amp;family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400;1,6..72,500&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/content.css?v=footer-groups-2">
+  <style>
+    .sheet-section .head-block { max-width: 40em; }
+    .log-card { padding: 22px 18px 18px; }
+    .log-controls {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px 16px;
+      margin: 0;
+    }
+    .log-controls label,
+    .phase-ranges label {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--ink);
+    }
+    .field-hint {
+      font-weight: 400;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.45;
+    }
+    .log-controls input,
+    .log-controls select,
+    .phase-ranges input {
+      font: 16px/1.3 var(--sans);
+      color: var(--ink);
+      background: var(--paper);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 10px 12px;
+      width: 100%;
+    }
+    .phase-ranges {
+      grid-column: 1 / -1;
+      margin: 4px 0 0;
+      padding: 16px 0 0;
+      border: 0;
+      border-top: 1px solid var(--divider);
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px 16px;
+    }
+    .phase-ranges legend {
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+      padding: 0;
+      margin-bottom: 2px;
+    }
+    .phase-note { grid-column: 1 / -1; margin: 0; }
+    .apply-label {
+      grid-column: 1 / -1;
+      flex-direction: row !important;
+      align-items: flex-start;
+      gap: 10px !important;
+      font-weight: 500 !important;
+    }
+    .apply-label input { width: auto; margin-top: 3px; accent-color: var(--accent); }
+    .log-actions { display: flex; flex-wrap: wrap; gap: 10px; grid-column: 1 / -1; }
+    .log-actions button {
+      font: 600 15px/1 var(--sans);
+      background: var(--accent);
+      color: var(--paper);
+      border: 1px solid var(--accent);
+      border-radius: 999px;
+      padding: 12px 16px;
+      cursor: pointer;
+    }
+    .log-actions button.secondary { background: transparent; color: var(--accent); }
+    .log-actions button:hover { background: #023d27; color: var(--paper); }
+    .log-actions button.secondary:hover { background: var(--accent-soft); color: var(--accent); }
+    .sheet-status { min-height: 1.45em; margin: 12px 0 0; font-size: 14.5px; color: var(--ink-soft); }
+    .sheet-status[data-state="error"] { color: var(--menstrual); }
+    .phase-legend {
+      display: flex; flex-wrap: wrap; gap: 8px 16px;
+      list-style: none; margin: 18px 0 0; padding: 0;
+      font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.12em; text-transform: uppercase;
+    }
+    .phase-legend li::before {
+      content: ""; display: inline-block; width: 7px; height: 7px;
+      border-radius: 50%; margin-right: 6px; background: currentColor;
+    }
+    .phase-legend .m { color: var(--menstrual); }
+    .phase-legend .f { color: var(--follicular); }
+    .phase-legend .o { color: var(--ovulatory); }
+    .phase-legend .l { color: var(--luteal); }
+    .table-scroll { overflow-x: auto; margin-top: 14px; -webkit-overflow-scrolling: touch; }
+    .sheet-caption {
+      caption-side: top; text-align: left; padding: 0 0 12px;
+      font-family: var(--sans); font-size: 14.5px; line-height: 1.5;
+      letter-spacing: 0; text-transform: none; color: var(--ink-soft); font-weight: 400;
+    }
+    .log-table { width: 100%; border-collapse: collapse; min-width: 980px; }
+    .log-table th {
+      font-family: var(--mono); font-size: 10.5px; font-weight: 500;
+      letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted);
+      text-align: left; padding: 8px; border-bottom: 1px solid var(--border); vertical-align: bottom;
+    }
+    .col-note {
+      display: block; margin-top: 3px; letter-spacing: 0; text-transform: none;
+      font-family: var(--sans); font-size: 12px; font-weight: 400; color: var(--faint);
+    }
+    .log-table td { border-bottom: 1px solid var(--divider); padding: 0; vertical-align: top; background: var(--card); }
+    .log-table input,
+    .log-table select {
+      width: 100%; border: 0; background: transparent; color: var(--ink);
+      font: 16px/1.3 var(--sans); padding: 8px; border-radius: 0;
+    }
+    .log-table tr[data-phase="Menstrual"] td:nth-child(3) { box-shadow: inset 3px 0 0 var(--menstrual); }
+    .log-table tr[data-phase="Follicular"] td:nth-child(3) { box-shadow: inset 3px 0 0 var(--follicular); }
+    .log-table tr[data-phase="Ovulatory"] td:nth-child(3) { box-shadow: inset 3px 0 0 var(--ovulatory); }
+    .log-table tr[data-phase="Luteal"] td:nth-child(3) { box-shadow: inset 3px 0 0 var(--luteal); }
+    .log-table th:first-child,
+    .log-table td:first-child { position: sticky; left: 0; z-index: 1; background: var(--card); }
+    .log-table th:first-child { z-index: 2; background: var(--card); }
+    .scroll-hint { margin: 10px 0 0; font-family: var(--mono); font-size: 11px; letter-spacing: 0.04em; color: var(--muted); }
+    .print-only, .print-value { display: none; }
+    .compare-note { margin-top: 16px; }
+    @media (max-width: 860px) {
+      .log-controls, .phase-ranges { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 560px) {
+      .log-controls, .phase-ranges { grid-template-columns: 1fr; }
+      .log-card { padding: 18px 14px 14px; }
+    }
+    @page { size: letter landscape; margin: 0.45in; }
+    @media print {
+      header, footer, .no-print, .skip-link,
+      main > article > *:not(#log-sheet),
+      #log-sheet .head-block,
+      #log-sheet .compare-note { display: none !important; }
+      body { background: #fff; color: #211D17; }
+      main { padding: 0; }
+      .sheet-section { padding: 0 !important; background: #fff; border: 0; }
+      .sheet-section .wrap { max-width: none; padding: 0; }
+      .log-card { box-shadow: none; border: 0; padding: 0; background: #fff; }
+      .print-only { display: block; }
+      .print-kicker {
+        font-family: "IBM Plex Mono", ui-monospace, monospace;
+        font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; margin: 0 0 4px;
+      }
+      .print-title {
+        font-family: Newsreader, Georgia, serif; font-weight: 500; font-size: 22px;
+        line-height: 1.15; margin: 0 0 4px;
+      }
+      .print-label { margin: 0 0 4px; font-size: 12px; }
+      .print-disclaimer { margin: 0 0 10px; font-size: 9px; line-height: 1.35; max-width: none; }
+      .table-scroll { overflow: visible; margin: 0; }
+      .log-table { min-width: 0; table-layout: fixed; width: 100%; }
+      .log-table th:first-child,
+      .log-table td:first-child { position: static; }
+      .log-table th { font-size: 8px; letter-spacing: 0.04em; padding: 3px 2px; }
+      .col-note { font-size: 8px; }
+      .sheet-caption { font-size: 9px; padding-bottom: 6px; }
+      .log-table th,
+      .log-table td { border: 0.6pt solid #cfc6b8; }
+      .log-table td { height: 26px; background: #fff; }
+      .log-table input,
+      .log-table select { display: none !important; }
+      .print-value {
+        display: block; min-height: 16px; padding: 2px;
+        font: 10px/1.25 "Hanken Grotesk", system-ui, sans-serif;
+        overflow-wrap: anywhere; white-space: pre-wrap;
+      }
+      .log-table tr { break-inside: avoid; }
+      thead { display: table-header-group; }
+      .log-table td, .log-table th { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    }
+  </style>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://usereve.com/#organization",
+      "name": "Trendset LLC",
+      "url": "https://usereve.com/"
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://usereve.com/peptide-and-cycle-log-template/#webpage",
+      "url": "https://usereve.com/peptide-and-cycle-log-template/",
+      "name": "Printable Peptide Log Sheet + Cycle Phase | Revé",
+      "description": "Free printable peptide log sheet with cycle day, cycle phase, and check-ins you choose to write down. Print it or download a CSV. Nothing you type is uploaded.",
+      "inLanguage": "en",
+      "isAccessibleForFree": true,
+      "publisher": {
+        "@id": "https://usereve.com/#organization"
+      },
+      "breadcrumb": {
+        "@id": "https://usereve.com/peptide-and-cycle-log-template/#breadcrumb"
+      },
+      "mainEntity": {
+        "@id": "https://usereve.com/peptide-and-cycle-log-template/#sheet"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://usereve.com/peptide-and-cycle-log-template/#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://usereve.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Peptide and Cycle Log Template",
+          "item": "https://usereve.com/peptide-and-cycle-log-template/"
+        }
+      ]
+    },
+    {
+      "@type": "CreativeWork",
+      "@id": "https://usereve.com/peptide-and-cycle-log-template/#sheet",
+      "name": "Peptide and cycle log template",
+      "description": "A free personal log sheet with date, cycle day, cycle phase, a routine or supplement entry in your own words, and optional check-ins. Print it or download a CSV.",
+      "url": "https://usereve.com/peptide-and-cycle-log-template/",
+      "inLanguage": "en",
+      "isAccessibleForFree": true,
+      "creator": {
+        "@id": "https://usereve.com/#organization"
+      },
+      "publisher": {
+        "@id": "https://usereve.com/#organization"
+      }
+    },
+    {
+      "@type": "HowTo",
+      "@id": "https://usereve.com/peptide-and-cycle-log-template/#howto",
+      "name": "How to use the peptide and cycle log template",
+      "description": "Number the rows if you want, write the notes you choose, then print the sheet or download a CSV. For journaling organization only.",
+      "step": [
+        {
+          "@type": "HowToStep",
+          "position": 1,
+          "name": "Set the rows",
+          "url": "https://usereve.com/peptide-and-cycle-log-template/#how-to-use",
+          "text": "Choose how many days to show. Enter a start date if you want the date column filled in. Enter a cycle length if you want cycle day to count up and start again at 1. Leave either blank if you would rather write those by hand."
+        },
+        {
+          "@type": "HowToStep",
+          "position": 2,
+          "name": "Write only what you choose",
+          "url": "https://usereve.com/peptide-and-cycle-log-template/#how-to-use",
+          "text": "Use the routine column for a supplement or routine entry in your own words. Mood, energy, sleep, appetite, and notes are check-ins you may leave blank. The sheet does not tell you what to write or what to take."
+        },
+        {
+          "@type": "HowToStep",
+          "position": 3,
+          "name": "Print or download",
+          "url": "https://usereve.com/peptide-and-cycle-log-template/#how-to-use",
+          "text": "Print the page, or download a CSV to open in a spreadsheet. Both stay on your device. What you type is not uploaded."
+        }
+      ]
+    }
+  ]
+}
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header>
+    <div class="wrap nav">
+      <a href="/" aria-label="Revé home"><img src="/assets/reve-wordmark.png" alt="Revé" class="wordmark-img" width="640" height="191"></a>
+      <nav class="nav-links" aria-label="Main navigation">
+        <a href="#how-to-use">How to use the sheet</a>
+        <a href="/faq/">FAQ</a>
+        <a href="/#company">Company</a>
+        <a href="mailto:zareef@usereve.com">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <article aria-labelledby="page-title">
+      <div class="content-hero wrap">
+        <nav class="breadcrumbs" aria-label="Breadcrumb">
+          <a href="/">Home</a><span aria-hidden="true">/</span><span aria-current="page">Peptide and Cycle Log Template</span>
+        </nav>
+        <div class="hero-grid">
+          <div>
+            <span class="eyebrow"><span class="dot" aria-hidden="true"></span> Free printable log</span>
+            <h1 id="page-title">Peptide and cycle <em>log template</em></h1>
+            <p class="lede">A free peptide log sheet you can print or download as a CSV. Each row has a date, a cycle day, a cycle phase, a line for a routine or supplement entry in your own words, and check-ins you may leave blank. What you type stays in this browser.</p>
+            <p class="body-copy"><a href="#log-sheet">Go to the log sheet</a>. The iPhone app is the easier way to keep this log.</p>
+            <div class="app-store-cta">
+              <a href="https://apps.apple.com/us/app/reve-peptide-cycle-tracker/id6810085933"><img src="/assets/app-store-badge.svg" alt="Download Reve: Peptide &amp; Cycle Tracker on the App Store" width="120" height="40"></a>
+              <span class="search-note">Search Reve: Peptide &amp; Cycle Tracker on the App Store.</span>
+            </div>
+          </div>
+          <figure class="ring-card card">
+            <div class="ring-viz">
+              <svg class="ring" viewBox="0 0 240 240" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Illustrative cycle ring with four colored phases">
+                <g transform="rotate(-90 120 120)">
+                  <circle class="ring-arc" cx="120" cy="120" r="94" pathLength="1" stroke="#A8503A" stroke-dasharray="0.18 1" stroke-dashoffset="0" />
+                  <circle class="ring-arc" cx="120" cy="120" r="94" pathLength="1" stroke="#6E7B53" stroke-dasharray="0.24 1" stroke-dashoffset="-0.22" />
+                  <circle class="ring-arc" cx="120" cy="120" r="94" pathLength="1" stroke="#A36A1E" stroke-dasharray="0.08 1" stroke-dashoffset="-0.50" />
+                  <circle class="ring-arc" cx="120" cy="120" r="94" pathLength="1" stroke="#034F32" stroke-dasharray="0.34 1" stroke-dashoffset="-0.62" />
+                </g>
+              </svg>
+              <div class="ring-center" aria-hidden="true"><span class="ring-day">Day 9</span><span class="ring-phase">Follicular</span></div>
+            </div>
+            <figcaption class="legend"><span class="m">Menstrual</span><span class="f">Follicular</span><span class="o">Ovulatory</span><span class="l">Luteal</span></figcaption>
+          </figure>
+        </div>
+      </div>
+
+      <div class="wrap">
+        <section class="card answer-block" aria-labelledby="overview-title">
+          <div><h2 id="overview-title" class="serif-head">A free sheet, with cycle phase on the row.</h2></div>
+          <p class="lede">Print it, write on it, or download the rows as a CSV. <a href="/peptide-tracker-for-women/">Peptide Tracker for Women</a> describes the Revé iPhone app. This page is the printable log.</p>
+        </section>
+      </div>
+
+      <section id="why-cycle-phase" class="content-section wrap narrow" aria-labelledby="why-title">
+        <div class="head-block">
+          <span class="eyebrow">Why the phase column is there</span>
+          <h2 id="why-title" class="serif-head">Line the same point in each cycle up.</h2>
+        </div>
+        <p class="lede">A date tells you when you wrote something down. Cycle day and cycle phase give that row a second label, so a note from one cycle can sit next to the same point in a later cycle. One sheet per cycle, with the same day numbers, is an easy way to read them side by side.</p>
+        <p class="lede">That lineup is for your own reading. Day numbers and phase labels on this sheet are a journaling layout. They are for organizing notes, and they are not for contraception, fertility, or medical use.</p>
+        <p class="body-copy">On iPhone, <a href="/peptide-menstrual-cycle-tracker/">Revé keeps a routine next to menstrual-cycle context</a> and tags each logged dose, check-in, and measurement with your cycle phase, so you can compare your logs phase by phase and cycle to cycle. Questions about the app are in the <a href="/faq/">FAQ</a>. The short introduction is on the <a href="/">home page</a>.</p>
+      </section>
+
+      <section id="how-to-use" class="band" aria-labelledby="how-title">
+        <div class="wrap content-section">
+          <div class="head-block">
+            <span class="eyebrow">How to use the sheet</span>
+            <h2 id="how-title" class="serif-head">Fill what you want. Leave the rest blank.</h2>
+          </div>
+          <div class="steps">
+            <div class="card step">
+              <span class="num" aria-hidden="true">01</span>
+              <h3>Set the rows</h3>
+              <p class="body-copy">Choose how many days to show. Enter a start date if you want the date column filled in. Enter a cycle length if you want cycle day to count up and start again at 1. Leave either blank if you would rather write those by hand.</p>
+            </div>
+            <div class="card step">
+              <span class="num" aria-hidden="true">02</span>
+              <h3>Write only what you choose</h3>
+              <p class="body-copy">Use the routine column for a supplement or routine entry in your own words. Mood, energy, sleep, appetite, and notes are check-ins you may leave blank. The sheet does not tell you what to write or what to take.</p>
+            </div>
+            <div class="card step">
+              <span class="num" aria-hidden="true">03</span>
+              <h3>Print or download</h3>
+              <p class="body-copy">Print the page, or download a CSV to open in a spreadsheet. Both stay on your device. What you type is not uploaded.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="log-sheet" class="content-section wrap sheet-section" aria-labelledby="sheet-title">
+        <div class="head-block">
+          <span class="eyebrow">The sheet</span>
+          <h2 id="sheet-title" class="serif-head">Your peptide and cycle log.</h2>
+          <p class="lede">Fourteen blank rows are ready to print. Add a start date when you want the dates filled in. Cycle length only numbers the cycle-day column.</p>
+        </div>
+        <div class="card log-card">
+          <form id="log-setup" class="log-controls no-print" autocomplete="off">
+            <label for="start-date">Start date
+              <input id="start-date" type="date" autocomplete="off">
+            </label>
+            <label for="cycle-length">Cycle length (days)
+              <input id="cycle-length" type="number" inputmode="numeric" min="1" max="90" step="1" placeholder="Optional" autocomplete="off">
+            </label>
+            <label for="row-count">Rows
+              <select id="row-count">
+                <option value="7">7 days</option>
+                <option value="14" selected>14 days</option>
+                <option value="28">28 days</option>
+                <option value="42">42 days</option>
+              </select>
+            </label>
+            <label for="sheet-label">Sheet label
+              <input id="sheet-label" type="text" maxlength="80" placeholder="Optional, for the printed page" autocomplete="off">
+            </label>
+            <fieldset class="phase-ranges">
+              <legend>Optional phase labels</legend>
+              <label for="phase-menstrual">Menstrual through day
+                <input id="phase-menstrual" type="number" inputmode="numeric" min="1" max="90" step="1" placeholder="Blank to skip" autocomplete="off">
+              </label>
+              <label for="phase-follicular">Follicular through day
+                <input id="phase-follicular" type="number" inputmode="numeric" min="1" max="90" step="1" placeholder="Blank to skip" autocomplete="off">
+              </label>
+              <label for="phase-ovulatory">Ovulatory through day
+                <input id="phase-ovulatory" type="number" inputmode="numeric" min="1" max="90" step="1" placeholder="Blank to skip" autocomplete="off">
+              </label>
+              <p id="phase-help" class="field-hint phase-note">Leave a box blank to skip that label. Days after your last number are labeled Luteal. These labels only organize the grid. They are not for contraception, fertility, or medical use.</p>
+              <label class="apply-label" for="apply-phases">
+                <input id="apply-phases" type="checkbox">
+                <span>Apply these labels when filling the sheet</span>
+              </label>
+            </fieldset>
+            <div class="log-actions">
+              <button type="submit">Fill dates and cycle days</button>
+              <button type="button" id="print-sheet" class="secondary">Print</button>
+              <button type="button" id="download-csv" class="secondary">Download CSV</button>
+              <button type="button" id="clear-sheet" class="secondary">Clear sheet</button>
+            </div>
+          </form>
+          <p id="sheet-status" class="sheet-status no-print" role="status" aria-live="polite"></p>
+          <ul class="phase-legend no-print" aria-hidden="true">
+            <li class="m">Menstrual</li>
+            <li class="f">Follicular</li>
+            <li class="o">Ovulatory</li>
+            <li class="l">Luteal</li>
+          </ul>
+          <p class="scroll-hint no-print">On a small screen, swipe the table sideways for every column. Printing uses a landscape page. Entries stay in this browser and are not uploaded.</p>
+          <div class="print-only print-head">
+            <p class="print-kicker">Revé · personal log · usereve.com/peptide-and-cycle-log-template/</p>
+            <h2 class="print-title">Peptide and cycle log</h2>
+            <p id="print-label" class="print-label"></p>
+            <p class="print-disclaimer">Personal journal layout. Cycle day and phase labels organize notes. They are not for contraception, fertility, or medical use. Check-ins are observations you choose to write down. This sheet does not say what to take. Not medical advice.</p>
+          </div>
+          <div class="table-scroll">
+            <table class="log-table">
+              <caption class="sheet-caption">Personal peptide and cycle log.</caption>
+              <colgroup>
+                <col class="col-date" style="width:12%">
+                <col class="col-day" style="width:7%">
+                <col class="col-phase" style="width:12%">
+                <col class="col-routine" style="width:22%">
+                <col class="col-check" style="width:8%">
+                <col class="col-check" style="width:8%">
+                <col class="col-check" style="width:8%">
+                <col class="col-check" style="width:8%">
+                <col class="col-notes" style="width:15%">
+              </colgroup>
+              <thead>
+                <tr>
+                  <th scope="col" rowspan="2">Date</th>
+                  <th scope="col" rowspan="2">Cycle day</th>
+                  <th scope="col" rowspan="2">Cycle phase</th>
+                  <th scope="col" rowspan="2">Routine / supplement entry <span class="col-note">in your own words</span></th>
+                  <th scope="colgroup" colspan="5">Check-ins you may choose to log</th>
+                </tr>
+                <tr>
+                  <th scope="col">Mood</th>
+                  <th scope="col">Energy</th>
+                  <th scope="col">Sleep</th>
+                  <th scope="col">Appetite</th>
+                  <th scope="col">Notes</th>
+                </tr>
+              </thead>
+              <tbody id="log-rows"></tbody>
+            </table>
+          </div>
+          <noscript><p class="body-copy">JavaScript is off, so date fill and CSV download are unavailable. Turn it on to use the sheet in this browser. Nothing you type is sent to a server.</p></noscript>
+        </div>
+        <p class="body-copy compare-note">Check-in columns are observations you may choose to write down. They are a place for your own words, and the sheet does not treat them as effects of a routine.</p>
+      </section>
+
+      <div class="editorial-band">
+        <div class="wrap narrow">
+          <section id="about-this-page" class="content-section" aria-labelledby="sources-title">
+            <span class="eyebrow">A clear boundary</span>
+            <h2 id="sources-title" class="serif-head">A log sheet, not medical advice.</h2>
+            <p class="body-copy">This page is a free personal log. It does not recommend what to write in the routine column, and it does not interpret what you write. Cycle-day numbers and phase labels are for organizing a journal. They are not for contraception, fertility, or medical use.</p>
+            <p class="body-copy">Revé on the App Store is a separate way to keep a log on iPhone. It requires iOS 17.0 or later. Every dose, check-in, and measurement you log is tagged with your cycle phase. You can compare those logs phase by phase and cycle to cycle. Revé does not tell you what to take.</p>
+            <nav class="about-links" aria-label="Related pages and policies">
+              <a href="/">Home</a>
+              <a href="/peptide-tracker-for-women/">Peptide Tracker for Women</a>
+              <a href="/peptide-menstrual-cycle-tracker/">Peptide &amp; Menstrual Cycle Tracker</a>
+              <a href="/faq/">FAQ</a>
+              <a href="https://apps.apple.com/us/app/reve-peptide-cycle-tracker/id6810085933">Revé on the App Store</a>
+              <a href="https://legal.usereve.com/privacy">Privacy Policy</a>
+              <a href="https://legal.usereve.com/terms">Terms of Service</a>
+            </nav>
+          </section>
+        </div>
+      </div>
+
+      <section class="cta" aria-labelledby="download-title">
+        <div class="wrap narrow">
+          <span class="eyebrow">On the App Store</span>
+          <h2 id="download-title" class="serif-head">The same kind of log, kept on your phone.</h2>
+          <p class="lede">Revé is an iPhone app for logging peptides and supplements with check-ins such as mood, energy, sleep, appetite, and any changes you notice. Each dose, check-in, and measurement is tagged with your cycle phase.</p>
+          <div class="app-store-cta">
+            <a href="https://apps.apple.com/us/app/reve-peptide-cycle-tracker/id6810085933"><img src="/assets/app-store-badge.svg" alt="Download Reve: Peptide &amp; Cycle Tracker on the App Store" width="120" height="40"></a>
+            <span class="search-note">Search Reve: Peptide &amp; Cycle Tracker on the App Store.</span>
+          </div>
+          <p class="disclaimer">Revé helps you see your own logged patterns. It doesn't tell you what to take, and it doesn't predict how you'll respond. It isn't medical advice. Talk to a qualified professional about your own health decisions.</p>
+        </div>
+      </section>
+    </article>
+  </main>
+
+  <footer>
+    <div class="wrap footer-layout">
+      <div class="footer-brand">
+        <a href="/" aria-label="Revé home"><img src="/assets/reve-wordmark.png" alt="Revé" class="wordmark-img" width="640" height="191"></a>
+        <p class="foot-legal">© 2026 Trendset LLC · New York, USA</p>
+      </div>
+      <nav class="footer-groups" aria-label="Footer navigation">
+        <div class="footer-group" role="group" aria-labelledby="footer-explore">
+          <span id="footer-explore" class="eyebrow">Explore</span>
+          <a href="/peptide-tracker-for-women/">Peptide Tracker for Women</a>
+          <a href="/glp-1-tracker-for-women/">GLP-1 Tracker for Women</a>
+          <a href="/peptide-menstrual-cycle-tracker/">Peptide &amp; Menstrual Cycle Tracker</a>
+          <a href="/womens-peptide-app/">Women's Peptide App</a>
+          <a href="/peptide-and-cycle-log-template/" aria-current="page">Peptide &amp; Cycle Log Template</a>
+          <a href="/faq/">FAQ</a>
+        </div>
+        <div class="footer-group" role="group" aria-labelledby="footer-company">
+          <span id="footer-company" class="eyebrow">Company</span>
+          <a href="mailto:zareef@usereve.com">Contact</a>
+        </div>
+        <div class="footer-group" role="group" aria-labelledby="footer-legal">
+          <span id="footer-legal" class="eyebrow">Legal</span>
+          <a href="https://legal.usereve.com/privacy">Privacy Policy</a>
+          <a href="https://legal.usereve.com/terms">Terms of Service</a>
+        </div>
+      </nav>
+    </div>
+  </footer>
+
+  <template id="log-row">
+    <tr>
+      <td><input type="date" data-field="date" autocomplete="off"><span class="print-value"></span></td>
+      <td><input type="text" inputmode="numeric" data-field="cycleDay" maxlength="3" autocomplete="off"><span class="print-value"></span></td>
+      <td>
+        <select data-field="phase" autocomplete="off">
+          <option value=""></option>
+          <option>Menstrual</option>
+          <option>Follicular</option>
+          <option>Ovulatory</option>
+          <option>Luteal</option>
+        </select>
+        <span class="print-value"></span>
+      </td>
+      <td><input type="text" data-field="routine" maxlength="240" autocomplete="off"><span class="print-value"></span></td>
+      <td><input type="text" data-field="mood" maxlength="80" autocomplete="off"><span class="print-value"></span></td>
+      <td><input type="text" data-field="energy" maxlength="80" autocomplete="off"><span class="print-value"></span></td>
+      <td><input type="text" data-field="sleep" maxlength="80" autocomplete="off"><span class="print-value"></span></td>
+      <td><input type="text" data-field="appetite" maxlength="80" autocomplete="off"><span class="print-value"></span></td>
+      <td><input type="text" data-field="notes" maxlength="240" autocomplete="off"><span class="print-value"></span></td>
+    </tr>
+  </template>
+  <script>
+    (function () {
+      var FIELDS = ["date", "cycleDay", "phase", "routine", "mood", "energy", "sleep", "appetite", "notes"];
+      var LABELS = {
+        date: "Date",
+        cycleDay: "Cycle day",
+        phase: "Cycle phase",
+        routine: "Routine or supplement entry, in your own words",
+        mood: "Mood",
+        energy: "Energy",
+        sleep: "Sleep",
+        appetite: "Appetite",
+        notes: "Notes"
+      };
+      var COLUMNS = [
+        ["date", "Date"],
+        ["cycleDay", "Cycle day"],
+        ["phase", "Cycle phase"],
+        ["routine", "Routine / supplement entry (in your own words)"],
+        ["mood", "Mood"],
+        ["energy", "Energy"],
+        ["sleep", "Sleep"],
+        ["appetite", "Appetite"],
+        ["notes", "Notes"]
+      ];
+      var form = document.getElementById("log-setup");
+      var tbody = document.getElementById("log-rows");
+      var template = document.getElementById("log-row");
+      var statusEl = document.getElementById("sheet-status");
+      var rowCountEl = document.getElementById("row-count");
+      var startEl = document.getElementById("start-date");
+      var lengthEl = document.getElementById("cycle-length");
+      var applyEl = document.getElementById("apply-phases");
+      var labelEl = document.getElementById("sheet-label");
+      var clearBtn = document.getElementById("clear-sheet");
+      var clearArmed = false;
+      var clearTimer = 0;
+
+      function parseISODate(value) {
+        var match = /^(\d{4})-(\d{2})-(\d{2})$/.exec(value);
+        if (!match) return null;
+        var year = Number(match[1]);
+        var month = Number(match[2]);
+        var day = Number(match[3]);
+        var date = new Date(year, month - 1, day);
+        if (date.getFullYear() !== year || date.getMonth() !== month - 1 || date.getDate() !== day) return null;
+        return date;
+      }
+
+      function formatISODate(date) {
+        var month = String(date.getMonth() + 1);
+        var day = String(date.getDate());
+        if (month.length < 2) month = "0" + month;
+        if (day.length < 2) day = "0" + day;
+        return date.getFullYear() + "-" + month + "-" + day;
+      }
+
+      function addDays(date, days) {
+        return new Date(date.getFullYear(), date.getMonth(), date.getDate() + days);
+      }
+
+      function blankRow() {
+        return { date: "", cycleDay: "", phase: "", routine: "", mood: "", energy: "", sleep: "", appetite: "", notes: "" };
+      }
+
+      function readRows() {
+        return Array.prototype.map.call(tbody.rows, function (tr) {
+          var data = blankRow();
+          FIELDS.forEach(function (field) {
+            var el = tr.querySelector('[data-field="' + field + '"]');
+            data[field] = el ? el.value : "";
+          });
+          return data;
+        });
+      }
+
+      function paintPhase(tr) {
+        var select = tr.querySelector('[data-field="phase"]');
+        tr.setAttribute("data-phase", select ? select.value : "");
+      }
+
+      function render(count, mapper) {
+        var previous = readRows();
+        var nextRows = document.createDocumentFragment();
+        var i;
+        for (i = 0; i < count; i += 1) {
+          var node = template.content.firstElementChild.cloneNode(true);
+          var data = mapper(previous[i] || blankRow(), i);
+          FIELDS.forEach(function (field) {
+            var el = node.querySelector('[data-field="' + field + '"]');
+            el.value = data[field] || "";
+            el.setAttribute("aria-label", LABELS[field] + ", row " + (i + 1));
+          });
+          paintPhase(node);
+          nextRows.appendChild(node);
+        }
+        tbody.replaceChildren(nextRows);
+      }
+
+      function readCutoff(id) {
+        var raw = document.getElementById(id).value.trim();
+        if (raw === "") return { ok: true, value: null };
+        if (!/^\d+$/.test(raw)) return { ok: false, value: null };
+        var value = Number(raw);
+        if (value < 1 || value > 90) return { ok: false, value: null };
+        return { ok: true, value: value };
+      }
+
+      function phasePlanFromInputs() {
+        var parts = [
+          ["Menstrual", readCutoff("phase-menstrual")],
+          ["Follicular", readCutoff("phase-follicular")],
+          ["Ovulatory", readCutoff("phase-ovulatory")]
+        ];
+        if (parts.some(function (part) { return !part[1].ok; })) {
+          return { error: "Phase days need to be whole numbers from 1 to 90, or blank." };
+        }
+        var cuts = parts.filter(function (part) { return part[1].value !== null; })
+          .map(function (part) { return [part[0], part[1].value]; });
+        if (!cuts.length) {
+          return { error: "Enter at least one phase day, or leave phase labels off." };
+        }
+        var i;
+        for (i = 1; i < cuts.length; i += 1) {
+          if (cuts[i][1] <= cuts[i - 1][1]) {
+            return { error: "Enter phase days in order: menstrual, then follicular, then ovulatory. Leave a box blank to skip that label." };
+          }
+        }
+        return {
+          plan: function (day) {
+            var n;
+            for (n = 0; n < cuts.length; n += 1) {
+              if (day <= cuts[n][1]) return cuts[n][0];
+            }
+            return "Luteal";
+          }
+        };
+      }
+
+      function setStatus(message, isError) {
+        statusEl.textContent = message;
+        statusEl.setAttribute("data-state", isError ? "error" : "ok");
+      }
+
+      function disarmClear() {
+        clearArmed = false;
+        clearBtn.textContent = "Clear sheet";
+        window.clearTimeout(clearTimer);
+      }
+
+      function fillSheet() {
+        disarmClear();
+        var count = Number(rowCountEl.value);
+        var start = null;
+        var length = null;
+        var errors = [];
+        if (startEl.value) {
+          start = parseISODate(startEl.value);
+          if (!start) errors.push("That start date could not be read. Use the date field.");
+        }
+        var lengthRaw = lengthEl.value.trim();
+        lengthEl.removeAttribute("aria-invalid");
+        if (lengthRaw !== "") {
+          if (!/^\d+$/.test(lengthRaw) || Number(lengthRaw) < 1 || Number(lengthRaw) > 90) {
+            lengthEl.setAttribute("aria-invalid", "true");
+            errors.push("Cycle length needs to be a whole number from 1 to 90. It only numbers the rows.");
+          } else {
+            length = Number(lengthRaw);
+          }
+        }
+        var phasePlan = null;
+        ["phase-menstrual", "phase-follicular", "phase-ovulatory"].forEach(function (id) {
+          document.getElementById(id).removeAttribute("aria-invalid");
+        });
+        if (applyEl.checked) {
+          var parsed = phasePlanFromInputs();
+          if (parsed.error) {
+            errors.push(parsed.error);
+            ["phase-menstrual", "phase-follicular", "phase-ovulatory"].forEach(function (id) {
+              document.getElementById(id).setAttribute("aria-invalid", "true");
+            });
+          } else {
+            phasePlan = parsed.plan;
+          }
+        }
+        var labeled = 0;
+        var dropped = readRows().slice(count);
+        var droppedText = dropped.some(function (row) {
+          return FIELDS.some(function (field) { return row[field]; });
+        });
+        render(count, function (prev, index) {
+          var next = {
+            date: prev.date || "",
+            cycleDay: prev.cycleDay || "",
+            phase: prev.phase || "",
+            routine: prev.routine || "",
+            mood: prev.mood || "",
+            energy: prev.energy || "",
+            sleep: prev.sleep || "",
+            appetite: prev.appetite || "",
+            notes: prev.notes || ""
+          };
+          if (start) next.date = formatISODate(addDays(start, index));
+          if (length) next.cycleDay = String((index % length) + 1);
+          var dayNum = Number(next.cycleDay);
+          if (phasePlan && Number.isInteger(dayNum) && dayNum >= 1) {
+            next.phase = phasePlan(dayNum);
+            labeled += 1;
+          }
+          return next;
+        });
+        if (errors.length) {
+          if (droppedText) errors.push("Rows past the new length were removed.");
+          setStatus(errors.join(" "), true);
+          return;
+        }
+        var summary = "Updated the number of rows.";
+        if (start && length) summary = "Filled dates and cycle days. Cycle day starts again at 1 after day " + length + ".";
+        else if (start) summary = "Filled dates. Add a cycle length if you want cycle days numbered.";
+        else if (length) summary = "Numbered cycle days from the top row. Add a start date if you want dates filled.";
+        if (phasePlan) {
+          summary += labeled
+            ? " Phase labels use the day ranges you entered, for journaling only."
+            : " Add a cycle day before phase labels can be applied.";
+        } else {
+          summary += " Phase cells were left as they are.";
+        }
+        summary += " Notes you already typed were kept.";
+        if (droppedText) summary += " Rows past the new length were removed.";
+        setStatus(summary, false);
+      }
+
+      function csvEscape(value) {
+        var text = String(value == null ? "" : value);
+        if (/^[=+\-@\t\r]/.test(text)) text = "'" + text;
+        if (/[",\n\r]/.test(text)) return '"' + text.replace(/"/g, '""') + '"';
+        return text;
+      }
+
+      function downloadCsv() {
+        disarmClear();
+        var lines = [COLUMNS.map(function (column) { return csvEscape(column[1]); }).join(",")];
+        readRows().forEach(function (row) {
+          lines.push(COLUMNS.map(function (column) { return csvEscape(row[column[0]]); }).join(","));
+        });
+        var blob = new Blob(["\uFEFF" + lines.join("\r\n")], { type: "text/csv;charset=utf-8" });
+        var url = URL.createObjectURL(blob);
+        var link = document.createElement("a");
+        link.href = url;
+        link.download = "peptide-and-cycle-log.csv";
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+        URL.revokeObjectURL(url);
+        setStatus("Downloaded peptide-and-cycle-log.csv on this device. The file was not uploaded.", false);
+      }
+
+      function syncPrintValues() {
+        var label = labelEl.value.trim();
+        document.getElementById("print-label").textContent = label;
+        Array.prototype.forEach.call(tbody.rows, function (tr) {
+          FIELDS.forEach(function (field) {
+            var input = tr.querySelector('[data-field="' + field + '"]');
+            var output = input.parentElement.querySelector(".print-value");
+            if (output) output.textContent = input.value;
+          });
+        });
+      }
+
+      function clearSheet() {
+        if (!clearArmed) {
+          clearArmed = true;
+          clearBtn.textContent = "Clear everything? Click again";
+          setStatus("Click clear again to erase this sheet. It stays in this browser either way.", false);
+          clearTimer = window.setTimeout(disarmClear, 4000);
+          return;
+        }
+        disarmClear();
+        form.reset();
+        rowCountEl.value = "14";
+        render(14, function () { return blankRow(); });
+        setStatus("Cleared. Nothing was uploaded, because this page does not send what you type.", false);
+      }
+
+      tbody.addEventListener("input", function (event) {
+        var tr = event.target.closest("tr");
+        if (tr) paintPhase(tr);
+      });
+      tbody.addEventListener("change", function (event) {
+        var tr = event.target.closest("tr");
+        if (tr) paintPhase(tr);
+      });
+      form.addEventListener("submit", function (event) {
+        event.preventDefault();
+        fillSheet();
+      });
+      rowCountEl.addEventListener("change", fillSheet);
+      document.getElementById("print-sheet").addEventListener("click", function () {
+        disarmClear();
+        syncPrintValues();
+        window.print();
+      });
+      document.getElementById("download-csv").addEventListener("click", downloadCsv);
+      clearBtn.addEventListener("click", clearSheet);
+      window.addEventListener("beforeprint", syncPrintValues);
+      render(14, function () { return blankRow(); });
+    }());
+  </script>
+</body>
+</html>
