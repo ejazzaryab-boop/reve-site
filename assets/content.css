@@ -196,3 +196,26 @@ footer .footer-group a:hover { color: var(--ink); text-decoration: none; }
   footer .footer-groups { column-gap: 28px; }
   footer .footer-group:first-child { margin-right: 12px; }
 }
+
+/* Sample supplement entry on the supplement tracker page. */
+.log-example { margin: 0; }
+.log-example .visual-caption { display: block; margin-top: 10px; }
+.log-rows {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 36px;
+  margin: 8px 0 0;
+}
+.log-rows div { border-top: 1px solid var(--border); padding: 14px 0; }
+.log-rows dt {
+  font-family: var(--mono); font-size: 10.5px; font-weight: 500;
+  letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted);
+}
+.log-rows dd {
+  margin: 6px 0 0; font-family: var(--serif); font-weight: 500;
+  font-size: 22px; line-height: 1.25; color: var(--ink);
+}
+.log-rows dd.phase-luteal { color: var(--luteal); }
+@media (max-width: 760px) {
+  .log-rows { grid-template-columns: 1fr; }
+}
