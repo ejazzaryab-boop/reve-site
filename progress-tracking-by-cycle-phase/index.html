@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Track Measurements &amp; Progress Photos by Cycle Phase | Revé</title>
+  <meta name="description" content="Measurements can shift across the menstrual cycle. Log them the same way each time and compare phase by phase and cycle to cycle. Free printable grid included.">
+  <link rel="canonical" href="https://usereve.com/progress-tracking-by-cycle-phase/">
+  <meta property="og:title" content="Track Measurements &amp; Progress Photos by Cycle Phase | Revé">
+  <meta property="og:description" content="Measurements can shift across the menstrual cycle. Log them the same way each time and compare phase by phase and cycle to cycle. Free printable grid included.">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Revé">
+  <meta property="og:url" content="https://usereve.com/progress-tracking-by-cycle-phase/">
+  <meta property="og:image" content="https://usereve.com/assets/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Revé wordmark on a cream background">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Track Measurements &amp; Progress Photos by Cycle Phase | Revé">
+  <meta name="twitter:description" content="Measurements can shift across the menstrual cycle. Log them the same way each time and compare phase by phase and cycle to cycle. Free printable grid included.">
+  <meta name="twitter:image" content="https://usereve.com/assets/og-image.png">
+  <meta name="twitter:image:alt" content="Revé wordmark on a cream background">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
+  <meta name="apple-itunes-app" content="app-id=6810085933">
+  <meta name="theme-color" content="#FBF9F4">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&amp;family=IBM+Plex+Mono:wght@400;500&amp;family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400;1,6..72,500&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/content.css?v=progress-phase-1">
+  <style>
+    .grid-section .head-block { max-width: 40em; }
+    .cycle-panel figcaption { display: flex; flex-direction: column; align-items: flex-start; gap: 8px; }
+    .grid-card { padding: 22px 18px 18px; }
+    .grid-controls { display: flex; flex-wrap: wrap; gap: 14px 16px; align-items: flex-end; }
+    .sheet-field { flex: 1 1 240px; min-width: 0; display: flex; flex-direction: column; gap: 6px; font-size: 14px; font-weight: 600; color: var(--ink); }
+    .field-hint, .sheet-field .field-hint {
+      font-weight: 400; color: var(--muted); font-size: 13px; line-height: 1.45;
+      letter-spacing: 0; text-transform: none; font-family: var(--sans);
+    }
+    .sheet-field input {
+      font: 16px/1.3 var(--sans); color: var(--ink); background: var(--paper);
+      border: 1px solid var(--border); border-radius: 10px; padding: 10px 12px; width: 100%; min-width: 0;
+    }
+    .grid-actions { display: flex; flex-wrap: wrap; gap: 10px; flex: 1 1 100%; }
+    .grid-actions button {
+      font: 600 15px/1.3 var(--sans); background: var(--accent); color: var(--paper);
+      border: 1px solid var(--accent); border-radius: 999px; padding: 12px 16px; cursor: pointer;
+    }
+    .grid-actions button.secondary { background: transparent; color: var(--accent); }
+    .grid-actions button:hover { background: #023d27; color: var(--paper); }
+    .grid-actions button.secondary:hover { background: var(--accent-soft); color: var(--accent); }
+    .grid-status { min-height: 1.45em; margin: 12px 0 0; font-size: 14.5px; color: var(--ink-soft); }
+    .grid-status[data-state="error"] { color: var(--menstrual); }
+    .phase-legend {
+      display: flex; flex-wrap: wrap; gap: 8px 16px; list-style: none; margin: 18px 0 0; padding: 0;
+      font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.12em; text-transform: uppercase;
+    }
+    .phase-legend li::before {
+      content: ""; display: inline-block; width: 7px; height: 7px; border-radius: 50%;
+      margin-right: 6px; background: currentColor;
+    }
+    .phase-legend .m { color: var(--menstrual); }
+    .phase-legend .f { color: var(--follicular); }
+    .phase-legend .o { color: var(--ovulatory); }
+    .phase-legend .l { color: var(--luteal); }
+    .cycle-block + .cycle-block { margin-top: 22px; padding-top: 18px; border-top: 1px solid var(--divider); }
+    .cycle-label {
+      font-family: var(--serif); font-weight: 500; font-size: 28px; line-height: 1.15;
+      margin: 0 0 12px; color: var(--ink);
+    }
+    .phase-cells { display: grid; grid-template-columns: 1fr; gap: 10px; min-width: 0; }
+    .phase-cell {
+      margin: 0; min-width: 0; border: 1px solid var(--border); border-radius: 14px;
+      padding: 12px 12px 14px; background: var(--paper);
+    }
+    .phase-cell legend {
+      font-family: var(--mono); font-size: 10.5px; font-weight: 500; letter-spacing: 0.12em;
+      text-transform: uppercase; padding: 0 4px;
+    }
+    .phase-cell[data-phase="Menstrual"] { border-top: 3px solid var(--menstrual); }
+    .phase-cell[data-phase="Follicular"] { border-top: 3px solid var(--follicular); }
+    .phase-cell[data-phase="Ovulatory"] { border-top: 3px solid var(--ovulatory); }
+    .phase-cell[data-phase="Luteal"] { border-top: 3px solid var(--luteal); }
+    .phase-cell[data-phase="Menstrual"] legend { color: var(--menstrual); }
+    .phase-cell[data-phase="Follicular"] legend { color: var(--follicular); }
+    .phase-cell[data-phase="Ovulatory"] legend { color: var(--ovulatory); }
+    .phase-cell[data-phase="Luteal"] legend { color: var(--luteal); }
+    .phase-cell label { display: flex; flex-direction: column; gap: 4px; margin-top: 8px; min-width: 0; }
+    .field-name {
+      font-family: var(--mono); font-size: 10px; font-weight: 500; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--muted);
+    }
+    .phase-cell input, .phase-cell select {
+      font: 16px/1.3 var(--sans); color: var(--ink); background: var(--card);
+      border: 1px solid var(--border); border-radius: 8px; padding: 8px 10px;
+      width: 100%; max-width: 100%; min-width: 0;
+    }
+    .grid-note { margin: 14px 0 0; }
+    .print-only, .print-value { display: none; }
+    @media (min-width: 640px) {
+      .phase-cells { grid-template-columns: 1fr 1fr; }
+    }
+    @media (min-width: 980px) {
+      .phase-cells { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    }
+    @media (max-width: 560px) {
+      .grid-card { padding: 18px 14px 14px; }
+      .grid-actions { flex-direction: column; }
+      .grid-actions button { width: 100%; }
+    }
+    @page { size: letter landscape; margin: 0.45in; }
+    @media print {
+      header, footer, .no-print, .skip-link,
+      main > article > *:not(#comparison-grid),
+      #comparison-grid .head-block,
+      #comparison-grid .grid-note { display: none !important; }
+      body { background: #fff; color: #211D17; }
+      main { padding: 0; }
+      .grid-section { padding: 0 !important; background: #fff; border: 0; }
+      .grid-section .wrap { max-width: none; padding: 0; }
+      .grid-card { box-shadow: none; border: 0; padding: 0; background: #fff; }
+      .print-only { display: block; }
+      .print-kicker {
+        font-family: "IBM Plex Mono", ui-monospace, monospace;
+        font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; margin: 0 0 4px;
+      }
+      .print-title {
+        font-family: Newsreader, Georgia, serif; font-weight: 500; font-size: 22px;
+        line-height: 1.15; margin: 0 0 4px;
+      }
+      .print-label { margin: 0 0 4px; font-size: 12px; }
+      .print-disclaimer { margin: 0 0 10px; font-size: 9px; line-height: 1.35; max-width: none; }
+      .cycle-label { font-size: 14px; margin: 0 0 4px; }
+      .cycle-block + .cycle-block { margin-top: 8px; padding-top: 6px; break-before: auto; }
+      .cycle-block { break-inside: avoid; }
+      .phase-cells { display: grid !important; grid-template-columns: repeat(4, minmax(0, 1fr)) !important; gap: 6px; }
+      .phase-cell { padding: 4px 5px 6px; border-radius: 0; background: #fff; }
+      .phase-cell legend { font-size: 8px; letter-spacing: 0.06em; }
+      .phase-cell .field-hint { display: none !important; }
+      .phase-cell label { margin-top: 3px; gap: 1px; }
+      .field-name { font-size: 7px; letter-spacing: 0.04em; }
+      .phase-cell input, .phase-cell select { display: none !important; }
+      .print-value {
+        display: block; min-height: 12px; border-bottom: 0.6pt solid #cfc6b8;
+        font: 9px/1.3 "Hanken Grotesk", system-ui, sans-serif;
+        overflow-wrap: anywhere; white-space: pre-wrap;
+      }
+      .phase-cell, .phase-cell legend { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    }
+  </style>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://usereve.com/#organization",
+      "name": "Trendset LLC",
+      "url": "https://usereve.com/"
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://usereve.com/progress-tracking-by-cycle-phase/#webpage",
+      "url": "https://usereve.com/progress-tracking-by-cycle-phase/",
+      "name": "Track Measurements & Progress Photos by Cycle Phase | Revé",
+      "description": "Measurements can shift across the menstrual cycle. Log them the same way each time and compare phase by phase and cycle to cycle. Free printable grid included.",
+      "inLanguage": "en",
+      "isAccessibleForFree": true,
+      "publisher": {
+        "@id": "https://usereve.com/#organization"
+      },
+      "breadcrumb": {
+        "@id": "https://usereve.com/progress-tracking-by-cycle-phase/#breadcrumb"
+      },
+      "mainEntity": {
+        "@id": "https://usereve.com/#app"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://usereve.com/progress-tracking-by-cycle-phase/#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://usereve.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Progress by Cycle Phase",
+          "item": "https://usereve.com/progress-tracking-by-cycle-phase/"
+        }
+      ]
+    },
+    {
+      "@type": "SoftwareApplication",
+      "@id": "https://usereve.com/#app",
+      "name": "Reve: Peptide & Cycle Tracker",
+      "alternateName": "Revé",
+      "url": "https://usereve.com/",
+      "description": "Track measurements and progress photos over time. Every dose, check-in, and measurement you log is tagged with your cycle phase. Compare your logs phase by phase and cycle to cycle. Record how you feel: mood, energy, sleep, appetite, and any changes you notice. Revé is a personal logging tool. It does not provide medical advice, diagnosis, or treatment.",
+      "operatingSystem": "iOS",
+      "applicationCategory": "HealthApplication",
+      "installUrl": "https://apps.apple.com/us/app/reve-peptide-cycle-tracker/id6810085933",
+      "publisher": {
+        "@id": "https://usereve.com/#organization"
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://usereve.com/progress-tracking-by-cycle-phase/#faqs",
+      "url": "https://usereve.com/progress-tracking-by-cycle-phase/",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Why compare the same phase instead of week to week?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Measurements can shift from one week of a cycle to another. Comparing those weeks can place different phases side by side. Lining up the same phase, cycle to cycle, and measuring the same way each time, makes the comparison fairer. Look at more than one cycle before you read a pattern."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does Revé tag measurements with cycle phase?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Every dose, check-in, and measurement you log is tagged with your cycle phase."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Are progress photos tagged with cycle phase?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. Progress photos are tracked over time. Revé does not tag progress photos with cycle phase."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does Revé tell me what my measurements mean?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. Revé does not interpret what a change means, and it does not say a routine caused a change. It is a personal logging tool. It does not provide medical advice, diagnosis, or treatment."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I use the printable without the app?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. The grid works in this browser, and what you type is not uploaded. You can print it or save it as a PDF without the app."
+          }
+        }
+      ]
+    }
+  ]
+}
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header>
+    <div class="wrap nav">
+      <a href="/" aria-label="Revé home"><img src="/assets/reve-wordmark.png" alt="Revé" class="wordmark-img" width="640" height="191"></a>
+      <nav class="nav-links" aria-label="Main navigation">
+        <a href="#comparison-grid">The grid</a>
+        <a href="/faq/">FAQ</a>
+        <a href="/#company">Company</a>
+        <a href="mailto:zareef@usereve.com">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <article aria-labelledby="page-title">
+      <div class="content-hero wrap">
+        <nav class="breadcrumbs" aria-label="Breadcrumb">
+          <a href="/">Home</a><span aria-hidden="true">/</span><span aria-current="page">Progress by Cycle Phase</span>
+        </nav>
+        <div class="hero-grid">
+          <div>
+            <span class="eyebrow"><span class="dot" aria-hidden="true"></span> Measurements and progress photos</span>
+            <h1 id="page-title">Track your progress <em>by cycle phase</em></h1>
+            <p class="lede">Compare the same phase to the same phase, cycle to cycle, and measure the same way every time. The free grid further down holds that comparison on paper, whether or not you use the app.</p>
+            <div class="app-store-cta">
+              <a href="https://apps.apple.com/us/app/reve-peptide-cycle-tracker/id6810085933"><img src="/assets/app-store-badge.svg" alt="Download Reve: Peptide &amp; Cycle Tracker on the App Store" width="120" height="40"></a>
+              <span class="search-note">Search Reve: Peptide &amp; Cycle Tracker on the App Store.</span>
+            </div>
+          </div>
+          <figure class="ring-card card">
+            <div class="ring-viz">
+              <svg class="ring" viewBox="0 0 240 240" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Illustrative cycle ring with four colored phases">
+                <g transform="rotate(-90 120 120)">
+                  <circle class="ring-arc" cx="120" cy="120" r="94" pathLength="1" stroke="#A8503A" stroke-dasharray="0.18 1" stroke-dashoffset="0" />
+                  <circle class="ring-arc" cx="120" cy="120" r="94" pathLength="1" stroke="#6E7B53" stroke-dasharray="0.24 1" stroke-dashoffset="-0.22" />
+                  <circle class="ring-arc" cx="120" cy="120" r="94" pathLength="1" stroke="#A36A1E" stroke-dasharray="0.08 1" stroke-dashoffset="-0.50" />
+                  <circle class="ring-arc" cx="120" cy="120" r="94" pathLength="1" stroke="#034F32" stroke-dasharray="0.34 1" stroke-dashoffset="-0.62" />
+                </g>
+              </svg>
+              <div class="ring-center" aria-hidden="true"><span class="ring-day">Day 9</span><span class="ring-phase">Follicular</span></div>
+            </div>
+            <figcaption class="legend"><span class="m">Menstrual</span><span class="f">Follicular</span><span class="o">Ovulatory</span><span class="l">Luteal</span></figcaption>
+          </figure>
+        </div>
+      </div>
+
+      <div class="wrap">
+        <section class="card answer-block" aria-labelledby="overview-title">
+          <div><h2 id="overview-title" class="serif-head">Same phase against the same phase.</h2></div>
+          <p class="lede">Put a measurement next to the same phase in another cycle, taken the same way. A number from a different week can belong to a different phase, so it does not sit in the same column of a fair comparison.</p>
+        </section>
+      </div>
+
+      <section id="why-the-week" class="content-section wrap narrow" aria-labelledby="why-title">
+        <div class="head-block">
+          <span class="eyebrow">01 / Why the week can matter</span>
+          <h2 id="why-title" class="serif-head">Why the week of the cycle can matter for a measurement.</h2>
+          <p class="lede">Measurements can shift across the menstrual cycle. Two numbers from different weeks are not always the same kind of comparison.</p>
+        </div>
+        <p class="body-copy">Some research has reported that self-reported fluid retention peaked on the first day of flow and was lowest in the mid-follicular period. That report is a prospective study of 765 cycles in 62 women (<a href="https://pubmed.ncbi.nlm.nih.gov/21845193/">White et al., Obstetrics and Gynecology International, 2011, PMID 21845193</a>).</p>
+        <p class="body-copy">Some research has reported that body mass, and in some groups waist and hip girths, differed between the follicular and luteal phases. That report is a study of 40 female athletes (<a href="https://pubmed.ncbi.nlm.nih.gov/29139284/">Stachoń, Collegium Antropologicum, 2016, PMID 29139284</a>).</p>
+        <p class="body-copy">Patterns vary between people, which is why your own records matter. A group finding is not a reading of your log. These papers do not say what a change means for you, and they do not name a day you should measure.</p>
+      </section>
+
+      <section id="measuring-routine" class="band" aria-labelledby="routine-title">
+        <div class="wrap content-section">
+          <div class="head-block">
+            <span class="eyebrow">02 / A routine you choose</span>
+            <h2 id="routine-title" class="serif-head">Use the same setup each time you measure.</h2>
+            <p class="lede">The points below are choices for a consistent log. They are not health instructions, and they are not a schedule anyone is told to follow.</p>
+          </div>
+          <div class="steps">
+            <div class="card step">
+              <span class="num" aria-hidden="true">01</span>
+              <h3>Same time of day, similar conditions</h3>
+              <p class="body-copy">Choose a time of day you can repeat, and similar conditions when you can. Matching the setup makes later numbers easier to line up. The choice is yours.</p>
+            </div>
+            <div class="card step">
+              <span class="num" aria-hidden="true">02</span>
+              <h3>The same measurements each time</h3>
+              <p class="body-copy">Repeat the measurements you choose, and keep that list stable from one cycle to the next. This page does not tell you which measurements to take.</p>
+            </div>
+            <div class="card step">
+              <span class="num" aria-hidden="true">03</span>
+              <h3>The same photo setup</h3>
+              <p class="body-copy">If you take progress photos, repeat the light, the distance, the pose, and the clothing. Take them in the phase you want to line up later. This page does not name a best day for a photo.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="compare-fairly" class="content-section wrap" aria-labelledby="compare-title">
+        <div class="cycle-section">
+          <div class="head-block">
+            <span class="eyebrow">03 / How to compare</span>
+            <h2 id="compare-title" class="serif-head">Read one phase across cycles.</h2>
+            <p class="lede">Line up the same phase, give it more than one cycle, and write down anything unusual in your own words.</p>
+          </div>
+          <figure class="card cycle-panel">
+            <figcaption>
+              <span class="eyebrow">Same phase, next cycle</span>
+              <span class="visual-caption">A layout for your own notes. Not a log of numbers.</span>
+            </figcaption>
+            <div class="cycles" aria-hidden="true">
+              <div class="cyc"><span class="lab">Cycle 1</span><div class="bars"><span></span><span></span><span></span><span></span></div></div>
+              <div class="cyc"><span class="lab">Cycle 2</span><div class="bars"><span></span><span></span><span></span><span></span></div></div>
+              <div class="cyc"><span class="lab">Cycle 3</span><div class="bars"><span></span><span></span><span></span><span></span></div></div>
+            </div>
+            <p class="visual-note">Illustrative only. Each bar is a phase label. The drawing is not a measurement, and it is not a schedule.</p>
+          </figure>
+        </div>
+        <div class="feature-grid">
+          <div class="card feature-card">
+            <h3>Line up the same phase</h3>
+            <p>Put menstrual next to menstrual, follicular next to follicular, ovulatory next to ovulatory, and luteal next to luteal.</p>
+          </div>
+          <div class="card feature-card">
+            <h3>Look past a single cycle</h3>
+            <p>Look at more than one cycle before you treat a difference as a pattern. One cycle is a single pass through the phases.</p>
+          </div>
+          <div class="card feature-card">
+            <h3>Note what was unusual</h3>
+            <p>If travel, illness, or a missed day is part of the story, write that in your own words. The note is there so you remember the context. It does not explain the number for you.</p>
+          </div>
+          <div class="card feature-card">
+            <h3>Keep the method steady</h3>
+            <p>A fair column uses the same time of day, similar conditions, the same measurements, and the same photo setup you chose the last time.</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="optional-notes" class="content-section wrap narrow" aria-labelledby="notes-title">
+        <div class="head-block">
+          <span class="eyebrow">04 / Optional notes</span>
+          <h2 id="notes-title" class="serif-head">Other things you may choose to log.</h2>
+        </div>
+        <p class="lede">Mood, energy, sleep, appetite, and changes you notice can sit beside a measurement if you want them in the same record. They are optional. They are observations you choose to write down. This page does not treat them as effects of a routine.</p>
+        <p class="body-copy">The grid below stays with measurements and photos. For a daily place to write those notes, use the <a href="/peptide-and-cycle-log-template/">peptide and cycle log template</a>.</p>
+      </section>
+
+      <section id="comparison-grid" class="content-section wrap grid-section" aria-labelledby="grid-title">
+        <div class="head-block">
+          <span class="eyebrow">05 / Free printable</span>
+          <h2 id="grid-title" class="serif-head">A same phase comparison grid.</h2>
+          <p class="lede">Each row is a cycle. Each column is a phase: menstrual, follicular, ovulatory, or luteal. Inside a cell, write a date, a cycle day, the measurements you choose, whether you took a photo, and a note. Print the page, or choose Save as PDF in the print dialog.</p>
+        </div>
+        <div class="card grid-card">
+          <div class="grid-controls no-print">
+            <label class="sheet-field" for="sheet-label">Sheet label
+              <span class="field-hint">Optional. It prints at the top of the page.</span>
+              <input id="sheet-label" type="text" maxlength="80" autocomplete="off">
+            </label>
+            <div class="grid-actions">
+              <button type="button" id="print-grid">Print or save as PDF</button>
+              <button type="button" id="add-cycle" class="secondary">Add a cycle</button>
+              <button type="button" id="remove-cycle" class="secondary">Remove last cycle</button>
+              <button type="button" id="clear-grid" class="secondary">Clear grid</button>
+            </div>
+          </div>
+          <p id="grid-status" class="grid-status no-print" role="status" aria-live="polite"></p>
+          <ul class="phase-legend no-print" aria-hidden="true">
+            <li class="m">Menstrual</li>
+            <li class="f">Follicular</li>
+            <li class="o">Ovulatory</li>
+            <li class="l">Luteal</li>
+          </ul>
+          <p class="grid-note no-print">Three rows are a start. Add or remove a cycle when you need to. Phase names organize the cells. They do not predict when a phase occurs, and they are not for contraception, fertility, or medical use. What you type stays in this browser and is not uploaded. Printing uses a landscape page.</p>
+          <div class="print-only print-head">
+            <p class="print-kicker">Revé · personal log · usereve.com/progress-tracking-by-cycle-phase/</p>
+            <h2 class="print-title">Same phase comparison grid</h2>
+            <p id="print-label" class="print-label"></p>
+            <p class="print-disclaimer">Personal measurement log. Write the measurements you choose. Phase labels organize notes. They are not for contraception, fertility, or medical use. This sheet does not interpret a change, and it does not say a routine caused one. Not medical advice. Nothing you type is uploaded.</p>
+          </div>
+          <div id="cycle-list"></div>
+          <noscript><p class="body-copy">JavaScript is off, so the grid cannot be filled in here. Turn it on to use the sheet in this browser. Nothing you type is sent to a server.</p></noscript>
+        </div>
+        <p class="body-copy grid-note">This grid is for measurements and photos only. For a daily log, use the <a href="/peptide-and-cycle-log-template/">peptide and cycle log template</a>.</p>
+      </section>
+
+      <section id="how-reve-works" class="content-section wrap" aria-labelledby="reve-title">
+        <div class="head-block">
+          <span class="eyebrow">06 / On iPhone</span>
+          <h2 id="reve-title" class="serif-head">How Revé keeps measurements and photos.</h2>
+          <p class="lede">The same comparison can live on your phone. Revé is a personal logging tool. It does not provide medical advice, diagnosis, or treatment.</p>
+        </div>
+        <div class="feature-grid">
+          <div class="card feature-card">
+            <h3>Measurements you choose</h3>
+            <p>Every dose, check-in, and measurement you log is tagged with your cycle phase. The measurement is whichever one you choose to log.</p>
+          </div>
+          <div class="card feature-card">
+            <h3>Progress photos</h3>
+            <p>Track progress photos over time, along with the measurements you choose to log.</p>
+          </div>
+          <div class="card feature-card">
+            <h3>Phase by phase</h3>
+            <p>Compare your logs phase by phase and cycle to cycle.</p>
+          </div>
+          <div class="card feature-card">
+            <h3>Notes on how you feel</h3>
+            <p>Record how you feel: mood, energy, sleep, appetite, and any changes you notice.</p>
+          </div>
+        </div>
+        <p class="body-copy">The <a href="/peptide-tracker-for-women/">peptide tracker for women</a> page describes that iPhone log. Keeping a routine next to cycle context is on the <a href="/peptide-menstrual-cycle-tracker/">peptide and menstrual cycle tracker</a> page. Supplement logging has its own page, the <a href="/supplement-tracker-for-women/">supplement tracker for women</a>. More answers are in the <a href="/faq/">FAQ</a>. A short introduction is on the <a href="/">home page</a>.</p>
+      </section>
+
+      <div class="editorial-band">
+        <div class="wrap narrow">
+          <section id="what-this-is-not" class="content-section" aria-labelledby="boundary-title">
+            <span class="eyebrow">A clear boundary</span>
+            <h2 id="boundary-title" class="serif-head">What this page is not.</h2>
+            <p class="body-copy">This page is a way to organize measurements and progress photos you choose to keep. It is not medical advice. It does not interpret what a change means. It does not say any routine caused a change.</p>
+            <p class="body-copy">If your cycles are irregular or absent, or if they are affected by hormonal contraception, pregnancy, or perimenopause, phases may not line up. A clinician is the right person for questions about unexpected changes. This page does not offer treatment advice, and it does not tell you to change a dose, a schedule, or a treatment.</p>
+            <p class="body-copy">Revé is a personal logging tool. It does not provide medical advice, diagnosis, or treatment.</p>
+            <nav class="about-links" aria-label="Related pages and policies">
+              <a href="/">Home</a>
+              <a href="/peptide-tracker-for-women/">Peptide Tracker for Women</a>
+              <a href="/peptide-and-cycle-log-template/">Peptide &amp; Cycle Log Template</a>
+              <a href="/peptide-menstrual-cycle-tracker/">Peptide &amp; Menstrual Cycle Tracker</a>
+              <a href="/supplement-tracker-for-women/">Supplement Tracker for Women</a>
+              <a href="/faq/">FAQ</a>
+              <a href="https://apps.apple.com/us/app/reve-peptide-cycle-tracker/id6810085933">Revé on the App Store</a>
+              <a href="https://legal.usereve.com/privacy">Privacy Policy</a>
+              <a href="https://legal.usereve.com/terms">Terms of Service</a>
+            </nav>
+          </section>
+        </div>
+      </div>
+
+      <section id="faqs" class="wrap content-section" aria-labelledby="faq-title">
+        <div class="head-block">
+          <span class="eyebrow">A few answers</span>
+          <h2 id="faq-title" class="serif-head">Questions about tracking by cycle phase.</h2>
+        </div>
+        <div class="feature-grid">
+          <div class="card feature-card">
+            <h3>Why compare the same phase instead of week to week?</h3>
+            <p>Measurements can shift from one week of a cycle to another. Comparing those weeks can place different phases side by side. Lining up the same phase, cycle to cycle, and measuring the same way each time, makes the comparison fairer. Look at more than one cycle before you read a pattern.</p>
+          </div>
+          <div class="card feature-card">
+            <h3>Does Revé tag measurements with cycle phase?</h3>
+            <p>Yes. Every dose, check-in, and measurement you log is tagged with your cycle phase.</p>
+          </div>
+          <div class="card feature-card">
+            <h3>Are progress photos tagged with cycle phase?</h3>
+            <p>No. Progress photos are tracked over time. Revé does not tag progress photos with cycle phase.</p>
+          </div>
+          <div class="card feature-card">
+            <h3>Does Revé tell me what my measurements mean?</h3>
+            <p>No. Revé does not interpret what a change means, and it does not say a routine caused a change. It is a personal logging tool. It does not provide medical advice, diagnosis, or treatment.</p>
+          </div>
+          <div class="card feature-card">
+            <h3>Can I use the printable without the app?</h3>
+            <p>Yes. The grid works in this browser, and what you type is not uploaded. You can print it or save it as a PDF without the app.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="cta" aria-labelledby="download-title">
+        <div class="wrap narrow">
+          <span class="eyebrow">On the App Store</span>
+          <h2 id="download-title" class="serif-head">Keep the measurements you choose with your cycle phase.</h2>
+          <p class="lede">On iPhone, every dose, check-in, and measurement you log is tagged with your cycle phase. Compare your logs phase by phase and cycle to cycle. Progress photos are tracked over time.</p>
+          <div class="app-store-cta">
+            <a href="https://apps.apple.com/us/app/reve-peptide-cycle-tracker/id6810085933"><img src="/assets/app-store-badge.svg" alt="Download Reve: Peptide &amp; Cycle Tracker on the App Store" width="120" height="40"></a>
+            <span class="search-note">Search Reve: Peptide &amp; Cycle Tracker on the App Store.</span>
+          </div>
+          <p class="disclaimer">Revé helps you see your own logged patterns. It doesn't tell you what to take, and it doesn't predict how you'll respond. It isn't medical advice. Talk to a qualified professional about your own health decisions.</p>
+        </div>
+      </section>
+    </article>
+  </main>
+
+  <footer>
+    <div class="wrap footer-layout">
+      <div class="footer-brand">
+        <a href="/" aria-label="Revé home"><img src="/assets/reve-wordmark.png" alt="Revé" class="wordmark-img" width="640" height="191"></a>
+        <p class="foot-legal">© 2026 Trendset LLC · New York, USA</p>
+      </div>
+      <nav class="footer-groups" aria-label="Footer navigation">
+        <div class="footer-group" role="group" aria-labelledby="footer-explore">
+          <span id="footer-explore" class="eyebrow">Explore</span>
+          <a href="/peptide-tracker-for-women/">Peptide Tracker for Women</a>
+          <a href="/supplement-tracker-for-women/">Supplement Tracker for Women</a>
+          <a href="/glp-1-tracker-for-women/">GLP-1 Tracker for Women</a>
+          <a href="/peptide-menstrual-cycle-tracker/">Peptide &amp; Menstrual Cycle Tracker</a>
+          <a href="/womens-peptide-app/">Women's Peptide App</a>
+          <a href="/peptide-and-cycle-log-template/">Peptide &amp; Cycle Log Template</a>
+          <a href="/progress-tracking-by-cycle-phase/" aria-current="page">Progress by Cycle Phase</a>
+          <a href="/faq/">FAQ</a>
+        </div>
+        <div class="footer-group" role="group" aria-labelledby="footer-company">
+          <span id="footer-company" class="eyebrow">Company</span>
+          <a href="mailto:zareef@usereve.com">Contact</a>
+        </div>
+        <div class="footer-group" role="group" aria-labelledby="footer-legal">
+          <span id="footer-legal" class="eyebrow">Legal</span>
+          <a href="https://legal.usereve.com/privacy">Privacy Policy</a>
+          <a href="https://legal.usereve.com/terms">Terms of Service</a>
+        </div>
+      </nav>
+    </div>
+  </footer>
+
+  <template id="cycle-template">
+    <article class="cycle-block">
+      <h3 class="cycle-label"></h3>
+      <div class="phase-cells">
+        <fieldset class="phase-cell" data-phase="Menstrual">
+          <legend>Menstrual</legend>
+          <label><span class="field-name">Date</span><input type="date" data-field="date" data-label="Date" autocomplete="off"><span class="print-value" aria-hidden="true"></span></label>
+          <label><span class="field-name">Cycle day</span><input type="text" data-field="day" data-label="Cycle day" inputmode="numeric" maxlength="4" autocomplete="off"><span class="print-value" aria-hidden="true"></span></label>
+          <label><span class="field-name">Measurements <span class="field-hint">you choose</span></span><input type="text" data-field="measurements" data-label="Measurements" maxlength="120" autocomplete="off"><span class="print-value" aria-hidden="true"></span></label>
+          <label><span class="field-name">Photo taken</span><select data-field="photo" data-label="Photo taken" autocomplete="off"><option value=""></option><option>Yes</option><option>No</option></select><span class="print-value" aria-hidden="true"></span></label>
+          <label><span class="field-name">Note</span><input type="text" data-field="note" data-label="Note" maxlength="160" autocomplete="off"><span class="print-value" aria-hidden="true"></span></label>
+        </fieldset>
+        <fieldset class="phase-cell" data-phase="Follicular">
+          <legend>Follicular</legend>
+          <label><span class="field-name">Date</span><input type="date" data-field="date" data-label="Date" autocomplete="off"><span class="print-value" aria-hidden="true"></span></label>
+          <label><span class="field-name">Cycle day</span><input type="text" data-field="day" data-label="Cycle day" inputmode="numeric" maxlength="4" autocomplete="off"><span class="print-value" aria-hidden="true"></span></label>
+          <label><span class="field-name">Measurements <span class="field-hint">you choose</span></span><input type="text" data-field="measurements" data-label="Measurements" maxlength="120" autocomplete="off"><span class="print-value" aria-hidden="true"></span></label>
+          <label><span class="field-name">Photo taken</span><select data-field="photo" data-label="Photo taken" autocomplete="off"><option value=""></option><option>Yes</option><option>No</option></select><span class="print-value" aria-hidden="true"></span></label>
+          <label><span class="field-name">Note</span><input type="text" data-field="note" data-label="Note" maxlength="160" autocomplete="off"><span class="print-value" aria-hidden="true"></span></label>
+        </fieldset>
+        <fieldset class="phase-cell" data-phase="Ovulatory">
+          <legend>Ovulatory</legend>
+          <label><span class="field-name">Date</span><input type="date" data-field="date" data-label="Date" autocomplete="off"><span class="print-value" aria-hidden="true"></span></label>
+          <label><span class="field-name">Cycle day</span><input type="text" data-field="day" data-label="Cycle day" inputmode="numeric" maxlength="4" autocomplete="off"><span class="print-value" aria-hidden="true"></span></label>
+          <label><span class="field-name">Measurements <span class="field-hint">you choose</span></span><input type="text" data-field="measurements" data-label="Measurements" maxlength="120" autocomplete="off"><span class="print-value" aria-hidden="true"></span></label>
+          <label><span class="field-name">Photo taken</span><select data-field="photo" data-label="Photo taken" autocomplete="off"><option value=""></option><option>Yes</option><option>No</option></select><span class="print-value" aria-hidden="true"></span></label>
+          <label><span class="field-name">Note</span><input type="text" data-field="note" data-label="Note" maxlength="160" autocomplete="off"><span class="print-value" aria-hidden="true"></span></label>
+        </fieldset>
+        <fieldset class="phase-cell" data-phase="Luteal">
+          <legend>Luteal</legend>
+          <label><span class="field-name">Date</span><input type="date" data-field="date" data-label="Date" autocomplete="off"><span class="print-value" aria-hidden="true"></span></label>
+          <label><span class="field-name">Cycle day</span><input type="text" data-field="day" data-label="Cycle day" inputmode="numeric" maxlength="4" autocomplete="off"><span class="print-value" aria-hidden="true"></span></label>
+          <label><span class="field-name">Measurements <span class="field-hint">you choose</span></span><input type="text" data-field="measurements" data-label="Measurements" maxlength="120" autocomplete="off"><span class="print-value" aria-hidden="true"></span></label>
+          <label><span class="field-name">Photo taken</span><select data-field="photo" data-label="Photo taken" autocomplete="off"><option value=""></option><option>Yes</option><option>No</option></select><span class="print-value" aria-hidden="true"></span></label>
+          <label><span class="field-name">Note</span><input type="text" data-field="note" data-label="Note" maxlength="160" autocomplete="off"><span class="print-value" aria-hidden="true"></span></label>
+        </fieldset>
+      </div>
+    </article>
+  </template>
+  <script>
+    (function () {
+      var PHASES = ["Menstrual", "Follicular", "Ovulatory", "Luteal"];
+      var FIELDS = ["date", "day", "measurements", "photo", "note"];
+      var START = 3;
+      var MAX = 8;
+      var MIN = 1;
+      var list = document.getElementById("cycle-list");
+      var template = document.getElementById("cycle-template");
+      var statusEl = document.getElementById("grid-status");
+      var labelEl = document.getElementById("sheet-label");
+      var clearBtn = document.getElementById("clear-grid");
+      var removeBtn = document.getElementById("remove-cycle");
+      var clearArmed = false;
+      var removeArmed = false;
+      var clearTimer = 0;
+      var removeTimer = 0;
+
+      function setStatus(message, isError) {
+        statusEl.textContent = message;
+        statusEl.setAttribute("data-state", isError ? "error" : "ok");
+      }
+
+      function disarmClear() {
+        clearArmed = false;
+        clearBtn.textContent = "Clear grid";
+        window.clearTimeout(clearTimer);
+      }
+
+      function disarmRemove() {
+        removeArmed = false;
+        removeBtn.textContent = "Remove last cycle";
+        window.clearTimeout(removeTimer);
+      }
+
+      function blocks() {
+        return Array.prototype.slice.call(list.querySelectorAll(".cycle-block"));
+      }
+
+      function renumber() {
+        blocks().forEach(function (block, index) {
+          var n = index + 1;
+          block.querySelector(".cycle-label").textContent = "Cycle " + n;
+          PHASES.forEach(function (phase) {
+            var cell = block.querySelector('[data-phase="' + phase + '"]');
+            FIELDS.forEach(function (field) {
+              var input = cell.querySelector('[data-field="' + field + '"]');
+              input.setAttribute("aria-label", input.getAttribute("data-label") + ", " + phase + ", cycle " + n);
+            });
+          });
+        });
+      }
+
+      function addCycle(focus, quiet) {
+        disarmClear();
+        disarmRemove();
+        if (blocks().length >= MAX) {
+          setStatus("This sheet holds " + MAX + " cycles. Print it, then start another sheet if you need more room.", true);
+          return;
+        }
+        var node = template.content.firstElementChild.cloneNode(true);
+        list.appendChild(node);
+        renumber();
+        if (!quiet) setStatus("Added a cycle. What you type stays in this browser and is not uploaded.", false);
+        if (focus) {
+          var first = node.querySelector("input, select");
+          if (first) first.focus();
+        }
+      }
+
+      function cycleHasText(block) {
+        return Array.prototype.some.call(block.querySelectorAll("input, select"), function (el) {
+          return el.value.trim() !== "";
+        });
+      }
+
+      function removeCycle() {
+        disarmClear();
+        var all = blocks();
+        if (all.length <= MIN) {
+          disarmRemove();
+          setStatus("Keep at least one cycle on the sheet.", true);
+          return;
+        }
+        var last = all[all.length - 1];
+        if (cycleHasText(last) && !removeArmed) {
+          removeArmed = true;
+          removeBtn.textContent = "Remove last cycle? Click again";
+          setStatus("Click remove again to delete the last cycle. Nothing is uploaded either way.", false);
+          removeTimer = window.setTimeout(disarmRemove, 4000);
+          return;
+        }
+        disarmRemove();
+        last.remove();
+        renumber();
+        setStatus("Removed the last cycle. Nothing was uploaded.", false);
+      }
+
+      function clearGrid() {
+        disarmRemove();
+        if (!clearArmed) {
+          clearArmed = true;
+          clearBtn.textContent = "Clear everything? Click again";
+          setStatus("Click clear again to erase this grid. It stays in this browser either way.", false);
+          clearTimer = window.setTimeout(disarmClear, 4000);
+          return;
+        }
+        disarmClear();
+        labelEl.value = "";
+        list.replaceChildren();
+        var i;
+        for (i = 0; i < START; i += 1) addCycle(false, true);
+        setStatus("Cleared. Nothing was uploaded, because this page does not send what you type.", false);
+      }
+
+      function formatDate(value) {
+        var match = /^(\d{4})-(\d{2})-(\d{2})$/.exec(value);
+        if (!match) return value;
+        var year = Number(match[1]);
+        var month = Number(match[2]);
+        var day = Number(match[3]);
+        var date = new Date(year, month - 1, day);
+        if (date.getFullYear() !== year || date.getMonth() !== month - 1 || date.getDate() !== day) return value;
+        var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+        return months[month - 1] + " " + day + ", " + year;
+      }
+
+      function syncPrintValues() {
+        document.getElementById("print-label").textContent = labelEl.value.trim();
+        blocks().forEach(function (block) {
+          Array.prototype.forEach.call(block.querySelectorAll("[data-field]"), function (input) {
+            var output = input.parentElement.querySelector(".print-value");
+            if (!output) return;
+            var value = input.value.trim();
+            if (input.getAttribute("data-field") === "date" && value) value = formatDate(value);
+            output.textContent = value;
+          });
+        });
+      }
+
+      document.getElementById("add-cycle").addEventListener("click", function () { addCycle(true, false); });
+      removeBtn.addEventListener("click", removeCycle);
+      clearBtn.addEventListener("click", clearGrid);
+      document.getElementById("print-grid").addEventListener("click", function () {
+        disarmClear();
+        disarmRemove();
+        syncPrintValues();
+        window.print();
+      });
+      window.addEventListener("beforeprint", syncPrintValues);
+
+      var n;
+      for (n = 0; n < START; n += 1) addCycle(false, true);
+    }());
+  </script>
+</body>
+</html>
