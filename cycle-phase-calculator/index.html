@@ -1,0 +1,979 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cycle Phase Calculator: What Phase Am I In? | Revé</title>
+  <meta name="description" content="Estimate today's cycle day and phase from your last period and usual lengths. Free calendar labels for a personal log. Not medical advice or contraception.">
+  <link rel="canonical" href="https://usereve.com/cycle-phase-calculator/">
+  <meta property="og:title" content="Cycle Phase Calculator: What Phase Am I In? | Revé">
+  <meta property="og:description" content="Estimate today's cycle day and phase from your last period and usual lengths. Free calendar labels for a personal log. Not medical advice or contraception.">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Revé">
+  <meta property="og:url" content="https://usereve.com/cycle-phase-calculator/">
+  <meta property="og:image" content="https://usereve.com/assets/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Revé wordmark on a cream background">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Cycle Phase Calculator: What Phase Am I In? | Revé">
+  <meta name="twitter:description" content="Estimate today's cycle day and phase from your last period and usual lengths. Free calendar labels for a personal log. Not medical advice or contraception.">
+  <meta name="twitter:image" content="https://usereve.com/assets/og-image.png">
+  <meta name="twitter:image:alt" content="Revé wordmark on a cream background">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
+  <meta name="apple-itunes-app" content="app-id=6810085933">
+  <meta name="theme-color" content="#FBF9F4">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&amp;family=IBM+Plex+Mono:wght@400;500&amp;family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400;1,6..72,500&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/content.css?v=footer-groups-2">
+  <style>
+    .content-hero .hero-grid { align-items: start; }
+    .safety-note {
+      margin: 22px 0 0; padding: 16px 18px; background: var(--accent-soft);
+      border: 1px solid var(--border); border-radius: 14px; color: var(--ink);
+    }
+    .safety-note .eyebrow { margin-bottom: 8px; }
+    .safety-note p { margin: 0; font-size: 16.5px; line-height: 1.55; color: var(--ink); }
+    .calc-fields { display: flex; flex-direction: column; gap: 14px; margin-top: 18px; }
+    .calc-field {
+      display: flex; flex-direction: column; gap: 6px;
+      font-size: 14px; font-weight: 600; color: var(--ink);
+    }
+    .calc-field input {
+      font: 16px/1.3 var(--sans); color: var(--ink); background: var(--card);
+      border: 1px solid var(--border); border-radius: 10px; padding: 10px 12px;
+      width: 100%; max-width: 320px;
+    }
+    .calc-field input[aria-invalid="true"] { border-color: var(--menstrual); }
+    .field-hint { font-weight: 400; color: var(--muted); font-size: 13px; line-height: 1.45; }
+    .privacy-line { margin: 12px 0 0; color: var(--ink-soft); font-size: 14.5px; }
+    .calc-status { min-height: 1.45em; margin: 14px 0 0; font-size: 16px; color: var(--ink); }
+    .calc-status[data-state="error"] { color: var(--menstrual); }
+    .calc-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 16px; }
+    .calc-actions button {
+      font: 600 15px/1.3 var(--sans); background: var(--accent); color: var(--paper);
+      border: 1px solid var(--accent); border-radius: 999px; padding: 12px 16px; cursor: pointer;
+    }
+    .calc-actions button.secondary { background: transparent; color: var(--accent); }
+    .calc-actions button:hover { background: #023d27; color: var(--paper); }
+    .calc-actions button.secondary:hover { background: var(--accent-soft); color: var(--accent); }
+    .ring-phase.is-menstrual { color: var(--menstrual); }
+    .ring-phase.is-follicular { color: var(--follicular); }
+    .ring-phase.is-ovulatory { color: var(--ovulatory); }
+    .ring-phase.is-luteal { color: var(--luteal); }
+    .ring-phase.is-waiting, .ring-phase.is-overdue { color: var(--muted); letter-spacing: 0.08em; }
+    .ring-card figcaption { width: 100%; }
+    .ring-card .visual-note { text-align: center; }
+    #label-output { margin-top: 34px; }
+    #label-output .serif-head { font-size: clamp(28px, 3vw, 36px); }
+    .basis-line { margin-top: 0; }
+    .range-bar { display: flex; gap: 4px; height: 16px; margin: 8px 0 16px; }
+    .range-bar span { display: block; border-radius: 4px; min-width: 8px; }
+    .range-bar .m, .phase-swatch.m { background: var(--menstrual); }
+    .range-bar .f, .phase-swatch.f { background: var(--follicular); }
+    .range-bar .o, .phase-swatch.o { background: var(--ovulatory); }
+    .range-bar .l, .phase-swatch.l { background: var(--luteal); }
+    .phase-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+    .phase-item {
+      display: grid; grid-template-columns: minmax(150px, 190px) minmax(150px, 0.8fr) minmax(200px, 1.3fr);
+      gap: 6px 16px; align-items: baseline;
+      border: 1px solid var(--border); border-left-width: 6px; border-radius: 12px;
+      padding: 12px 14px; background: var(--card);
+    }
+    .phase-item.m { border-left-color: var(--menstrual); }
+    .phase-item.f { border-left-color: var(--follicular); }
+    .phase-item.o { border-left-color: var(--ovulatory); }
+    .phase-item.l { border-left-color: var(--luteal); }
+    .phase-item.is-current { background: var(--accent-soft); }
+    .phase-name { font-weight: 600; }
+    .phase-days, .phase-dates { color: var(--ink-soft); font-size: 16px; }
+    .next-cycle { margin-top: 26px; }
+    .plain-details { margin-top: 18px; }
+    .plain-details summary { cursor: pointer; font-weight: 600; color: var(--ink); }
+    .plain-labels {
+      white-space: pre-wrap; font: 13px/1.55 var(--mono); background: var(--card);
+      border: 1px solid var(--border); border-radius: 12px; padding: 14px; margin: 10px 0 0;
+      color: var(--ink); overflow-wrap: anywhere;
+    }
+    .copy-status { min-height: 1.3em; margin: 8px 0 0; }
+    .print-only { display: none; }
+    @media (max-width: 720px) {
+      .phase-item { grid-template-columns: 1fr; gap: 2px; }
+      .calc-field input { max-width: none; }
+    }
+    @media (max-width: 560px) {
+      .calc-actions { flex-direction: column; }
+      .calc-actions button { width: 100%; }
+      .safety-note { padding: 14px; }
+    }
+    @page { margin: 0.6in; }
+    @media print {
+      header, footer, .no-print, .skip-link, .calc-fields, .calc-actions,
+      .ring-card, .contents, .plain-details, .privacy-line { display: none !important; }
+      .print-only { display: block; }
+      body { background: #fff; color: #211D17; }
+      .content-hero { padding: 0; }
+      .safety-note { background: #fff; }
+      .phase-item, .range-bar span { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      a { color: #211D17; }
+    }
+  </style>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://usereve.com/#organization",
+      "name": "Trendset LLC",
+      "url": "https://usereve.com/"
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://usereve.com/cycle-phase-calculator/#webpage",
+      "url": "https://usereve.com/cycle-phase-calculator/",
+      "name": "Cycle Phase Calculator: What Phase Am I In? | Revé",
+      "description": "Estimate today's cycle day and phase from your last period and usual lengths. Free calendar labels for a personal log. Not medical advice or contraception.",
+      "inLanguage": "en",
+      "isAccessibleForFree": true,
+      "publisher": {
+        "@id": "https://usereve.com/#organization"
+      },
+      "breadcrumb": {
+        "@id": "https://usereve.com/cycle-phase-calculator/#breadcrumb"
+      },
+      "mainEntity": {
+        "@id": "https://usereve.com/cycle-phase-calculator/#tool"
+      }
+    },
+    {
+      "@type": "WebApplication",
+      "@id": "https://usereve.com/cycle-phase-calculator/#tool",
+      "name": "Cycle Phase Calculator",
+      "url": "https://usereve.com/cycle-phase-calculator/",
+      "description": "Estimate today's cycle day and phase from your last period and usual lengths. Free calendar labels for a personal log. Not medical advice or contraception.",
+      "applicationCategory": "HealthApplication",
+      "operatingSystem": "Web browser",
+      "browserRequirements": "Requires JavaScript. No account.",
+      "isAccessibleForFree": true,
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "publisher": {
+        "@id": "https://usereve.com/#organization"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://usereve.com/cycle-phase-calculator/#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://usereve.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Cycle Phase Calculator",
+          "item": "https://usereve.com/cycle-phase-calculator/"
+        }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://usereve.com/cycle-phase-calculator/#faqs",
+      "url": "https://usereve.com/cycle-phase-calculator/",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How does this cycle phase calculator estimate today's phase?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "It counts cycle day 1 as the first day you enter. Menstrual covers the period length you enter. Luteal covers about the last 14 days of the cycle length you enter. Ovulatory is a window of up to 3 days just before that. Follicular is any days left between bleeding and that window. Today's phase is whichever label contains today's cycle day. The count runs in this browser."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What are the menstrual cycle phases in order on this page?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The labels in order are Menstrual, Follicular, Ovulatory, and Luteal. A physiology reference describes the ovarian cycle as a follicular phase from day 1 until ovulation, then a luteal phase until the next bleeding starts, with bleeding in the early follicular days. This page splits the days into four log labels. Those labels are not a hormone test."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I use this as birth control or to plan a pregnancy?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. This is a calendar estimate for labeling personal notes. It is not a contraceptive and it is not a fertility tool. It does not confirm ovulation. Talk to a clinician about contraception, fertility, or any health concern."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What if today is past the cycle length I entered?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The page says the estimate may be off and asks you to update the start date if a new period has begun. It does not guess that a new cycle started."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do I put these labels on a personal log?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Copy or print the phase dates, then write the phase next to the matching day in a notebook, a spreadsheet, or the peptide and cycle log template. The label is for reading your notes later. It is not a reason to change what you take or what you do."
+          }
+        }
+      ]
+    }
+  ]
+}
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header>
+    <div class="wrap nav">
+      <a href="/" aria-label="Revé home"><img src="/assets/reve-wordmark.png" alt="Revé" class="wordmark-img" width="640" height="191"></a>
+      <nav class="nav-links" aria-label="Main navigation">
+        <a href="#calculator">Estimate</a>
+        <a href="#how-it-works">How it works</a>
+        <a href="/faq/">FAQ</a>
+        <a href="/#company">Company</a>
+        <a href="mailto:zareef@usereve.com">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <article aria-labelledby="page-title">
+      <div class="content-hero wrap" id="calculator">
+        <nav class="breadcrumbs" aria-label="Breadcrumb">
+          <a href="/">Home</a><span aria-hidden="true">/</span><span aria-current="page">Cycle Phase Calculator</span>
+        </nav>
+        <div class="hero-grid">
+          <div>
+            <span class="eyebrow"><span class="dot" aria-hidden="true"></span> Free calendar estimate</span>
+            <h1 id="page-title">What phase of my cycle <em>am I in?</em></h1>
+            <p class="lede">A free cycle phase calculator for a personal log. Enter the first day of your last period, a typical cycle length, and a typical period length. The result is a label you can write next to a note.</p>
+            <div class="safety-note">
+              <span class="eyebrow">Read this first</span>
+              <p>These are estimates only. They use a calendar count from the dates and lengths you enter. This is not medical advice. It is not a contraceptive and it is not a fertility tool. It does not confirm ovulation. Irregular cycles, postpartum, perimenopause, hormonal contraception, or medications can change timing. Talk to a clinician about concerns.</p>
+            </div>
+            <div class="calc-fields" role="group" aria-labelledby="page-title">
+              <label class="calc-field">First day of your last period
+                <input id="start-date" type="date" autocomplete="off" required>
+                <span class="field-hint" id="start-hint">This day is cycle day 1. Use the first day of bleeding.</span>
+              </label>
+              <label class="calc-field">Typical cycle length
+                <input id="cycle-length" type="number" inputmode="numeric" min="21" max="45" step="1" value="28" autocomplete="off" required>
+                <span class="field-hint" id="cycle-hint">A whole number from 21 to 45 days. 28 is filled in as a starting point.</span>
+              </label>
+              <label class="calc-field">Typical period length
+                <input id="period-length" type="number" inputmode="numeric" min="2" max="10" step="1" value="5" autocomplete="off" required>
+                <span class="field-hint" id="period-hint">A whole number from 2 to 10 days. 5 is filled in as a starting point.</span>
+              </label>
+            </div>
+            <div class="calc-actions no-print">
+              <button type="button" id="show-estimate">Show today's phase</button>
+            </div>
+            <p id="calc-status" class="calc-status" role="status" aria-live="polite" aria-atomic="true"></p>
+            <p class="privacy-line">Nothing you enter is saved or sent. Once this page has loaded, the count runs in this browser without a connection.</p>
+            <noscript><p class="body-copy">JavaScript is off, so the estimate cannot run. Nothing you type is sent either way. You can still write a phase by hand on the <a href="/peptide-and-cycle-log-template/">peptide and cycle log template</a>.</p></noscript>
+          </div>
+          <figure class="ring-card card">
+            <div class="ring-viz">
+              <svg id="cycle-ring" class="ring" viewBox="0 0 240 240" aria-hidden="true"></svg>
+              <div class="ring-center" aria-hidden="true">
+                <span class="ring-day" id="ring-day">Day</span>
+                <span class="ring-phase is-waiting" id="ring-phase">Waiting</span>
+              </div>
+            </div>
+            <figcaption>
+              <div class="legend"><span class="m">Menstrual</span><span class="f">Follicular</span><span class="o">Ovulatory</span><span class="l">Luteal</span></div>
+              <p class="visual-note" id="ring-note">Enter the first day of your last period. The ring fills in from that date.</p>
+            </figcaption>
+          </figure>
+        </div>
+
+        <div id="label-output" hidden>
+          <p class="print-only print-kicker">Revé · cycle phase labels · usereve.com/cycle-phase-calculator/</p>
+          <h2 class="serif-head" id="ranges-title">Phase dates for this cycle</h2>
+          <p class="lede basis-line" id="basis-line"></p>
+          <p class="body-copy" id="today-line"></p>
+          <p class="body-copy" id="next-line"></p>
+          <p class="body-copy" id="adjust-note" hidden></p>
+          <div class="range-bar" id="range-bar" aria-hidden="true"></div>
+          <ol id="phase-list" class="phase-list" aria-label="Estimated phase dates for this cycle"></ol>
+          <div class="next-cycle" id="next-cycle" hidden>
+            <h3 id="next-cycle-title">Labels if the next period starts on the estimated date</h3>
+            <p class="body-copy" id="next-cycle-note"></p>
+            <ol id="next-list" class="phase-list" aria-labelledby="next-cycle-title"></ol>
+          </div>
+          <div class="calc-actions no-print">
+            <button type="button" id="copy-labels">Copy phase labels</button>
+            <button type="button" id="print-labels" class="secondary">Print this list</button>
+          </div>
+          <p id="copy-status" class="field-hint copy-status" role="status"></p>
+          <details class="plain-details no-print">
+            <summary>Plain text to copy</summary>
+            <pre id="plain-labels" class="plain-labels" tabindex="0"></pre>
+          </details>
+          <p class="body-copy">Write a phase next to a row on the <a href="/peptide-and-cycle-log-template/">peptide and cycle log template</a>, or in a notebook or spreadsheet. The label is only for reading your notes later.</p>
+        </div>
+
+        <nav class="contents no-print" aria-label="On this page">
+          <span class="eyebrow">On this page</span>
+          <ul>
+            <li><a href="#how-it-works"><span>01</span>How the estimate works</a></li>
+            <li><a href="#phases"><span>02</span>The four phases in order</a></li>
+            <li><a href="#use-the-labels"><span>03</span>Labels in a personal log</a></li>
+            <li><a href="#limits"><span>04</span>Limits of a calendar count</a></li>
+            <li><a href="#faqs"><span>05</span>Questions</a></li>
+          </ul>
+        </nav>
+      </div>
+
+      <section id="how-it-works" class="band no-print" aria-labelledby="how-title">
+        <div class="wrap content-section">
+          <div class="head-block">
+            <span class="eyebrow">01 / How the count works</span>
+            <h2 id="how-title" class="serif-head">How the estimate works</h2>
+            <p class="lede">The count is simple on purpose. It does not read hormones, temperature, or tests. It only uses the three numbers you enter.</p>
+          </div>
+          <div class="steps">
+            <div class="card step">
+              <span class="num" aria-hidden="true">01</span>
+              <h3>Day 1 is the date you enter</h3>
+              <p class="body-copy">Cycle day 1 is the first day of your last period. Today's cycle day counts forward from that date, and the start date itself is day 1.</p>
+            </div>
+            <div class="card step">
+              <span class="num" aria-hidden="true">02</span>
+              <h3>Four labels share that length</h3>
+              <p class="body-copy">Menstrual is the period length you enter. Luteal is about the last 14 days of the cycle length. Ovulatory is a window of up to 3 days just before those luteal days. Follicular is whatever days remain after bleeding and before that window.</p>
+            </div>
+            <div class="card step">
+              <span class="num" aria-hidden="true">03</span>
+              <h3>Today picks up one label</h3>
+              <p class="body-copy">If today falls inside the length you entered, the phase is the label that contains that cycle day. The next period date is the start date plus that same length. If today is past the length, the page does not invent a new cycle.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="phases" class="content-section wrap no-print" aria-labelledby="phases-title">
+        <div class="head-block">
+          <span class="eyebrow">02 / Phases in order</span>
+          <h2 id="phases-title" class="serif-head">The four phases in order</h2>
+          <p class="lede">The names are Menstrual, Follicular, Ovulatory, and Luteal. They match the labels used elsewhere on this site. They are one name per day for a log. A physiology reference splits the cycle differently, and this page says so.</p>
+        </div>
+        <div class="feature-grid">
+          <div class="card feature-card">
+            <h3>Menstrual</h3>
+            <p>The first label. It covers the bleeding days you enter, from cycle day 1. A standard reference describes that bleeding as the shedding of the uterine lining, and it places the bleeding in the early days of the ovarian follicular phase.</p>
+          </div>
+          <div class="card feature-card">
+            <h3>Follicular</h3>
+            <p>On this page, the days after the bleeding label and before the short ovulatory label. In the reference, the ovarian follicular phase starts on day 1 and runs until ovulation, so it is longer than this log label. That earlier part of the cycle is also the part that usually changes length when a cycle is longer or shorter.</p>
+          </div>
+          <div class="card feature-card">
+            <h3>Ovulatory</h3>
+            <p>A short calendar label, up to 3 days, placed just before the luteal days. The reference describes ovulation as a brief event, often about 14 days before the next bleeding in a typical cycle. This label does not confirm that ovulation happened, and it is not for timing or avoiding pregnancy.</p>
+          </div>
+          <div class="card feature-card">
+            <h3>Luteal</h3>
+            <p>The last label. It covers about the last 14 days of the cycle length you enter. The reference describes the luteal phase as the steadier part of the cycle, from ovulation until the next bleeding starts, often about 14 days. If those days would cover the bleeding you entered, this page shortens the later labels instead.</p>
+          </div>
+        </div>
+        <p class="body-copy">This summary follows <a href="https://www.ncbi.nlm.nih.gov/books/NBK500020/">Physiology, Menstrual Cycle</a> by Dhanalakshmi K. Thiyagarajan, Hajira Basit, and Rebecca Jeanmonod, in StatPearls, National Library of Medicine, updated September 27, 2024.</p>
+      </section>
+
+      <section id="use-the-labels" class="content-section wrap narrow no-print" aria-labelledby="use-title">
+        <div class="head-block">
+          <span class="eyebrow">03 / A personal log</span>
+          <h2 id="use-title" class="serif-head">How to use phase labels in a log</h2>
+        </div>
+        <p class="lede">A phase label sits on a date so you can read that date next to the same part of a later cycle. It is for your own notes. It is not a reason to change what you take, what you eat, or how you spend the day.</p>
+        <p class="body-copy">Copy or print the dates, then write the phase beside the matching day. A notebook, a spreadsheet, or the <a href="/peptide-and-cycle-log-template/">peptide and cycle log template</a> all work. The template has a column for cycle phase. <a href="/what-to-track-in-a-peptide-journal/">What to track in a peptide journal</a> lists fields you may choose to write down, such as mood, energy, sleep, appetite, or another change you notice. Those are observations you choose to log. This page does not describe them as effects of a phase, or of anything you take.</p>
+        <p class="body-copy">For measurements you choose to record, <a href="/progress-tracking-by-cycle-phase/">progress tracking by cycle phase</a> is a printable grid lined up by the same four names.</p>
+        <p class="body-copy">On iPhone, the app is Reve: Peptide &amp; Cycle Tracker. You can log peptides and supplements with doses, timing, schedules, and reminders. Check-ins can record mood, energy, sleep, appetite, and changes you notice. Measurements and progress photos are tracked over time. Every dose, check-in, and measurement you log is tagged with your cycle phase, and you can compare those logs phase by phase and cycle to cycle. Progress photos are not given a phase tag. This page does not say supplement entries are given a phase tag. The app includes reference material in plain language. It does not tell you what to take, and it does not suggest a change based on cycle phase. This calculator does not connect to the app. The <a href="/peptide-menstrual-cycle-tracker/">peptide and menstrual cycle tracker</a> page describes that log.</p>
+      </section>
+
+      <div class="editorial-band no-print">
+        <div class="wrap narrow">
+          <section id="limits" class="content-section" aria-labelledby="limits-title">
+            <span class="eyebrow">04 / Limits</span>
+            <h2 id="limits-title" class="serif-head">Limits of a calendar count</h2>
+            <p class="body-copy">One typical length cannot describe a cycle that changes from month to month. The luteal label is an approximation of about 14 days, and the ovulatory label is a short block of days in front of it. Neither one is a test. The page does not confirm ovulation.</p>
+            <p class="body-copy">If today is past the length you entered, the estimate may be off. Update the start date if a new period has begun. The page will not decide that a new cycle started for you.</p>
+            <p class="body-copy">Irregular cycles, postpartum, perimenopause, hormonal contraception, or medications can change timing. This page is not medical advice, not a contraceptive, and not a fertility tool. Talk to a clinician about concerns. Nothing here is a reason to change a routine, a dose, or what you do on a given day.</p>
+            <nav class="about-links" aria-label="Related pages and policies">
+              <a href="/peptide-and-cycle-log-template/">Peptide and cycle log template</a>
+              <a href="/progress-tracking-by-cycle-phase/">Progress tracking by cycle phase</a>
+              <a href="/what-to-track-in-a-peptide-journal/">What to track in a peptide journal</a>
+              <a href="/peptide-menstrual-cycle-tracker/">Peptide and menstrual cycle tracker</a>
+              <a href="/faq/">FAQ</a>
+              <a href="/">Home</a>
+              <a href="https://apps.apple.com/us/app/reve-peptide-cycle-tracker/id6810085933">Reve: Peptide &amp; Cycle Tracker on the App Store</a>
+              <a href="https://legal.usereve.com/privacy">Privacy Policy</a>
+              <a href="https://legal.usereve.com/terms">Terms of Service</a>
+            </nav>
+          </section>
+          <section id="faqs" aria-labelledby="faq-title">
+            <h2 id="faq-title" class="serif-head">Questions</h2>
+            <div class="faq-slot">
+              <h3>How does this cycle phase calculator estimate today's phase?</h3>
+              <p>It counts cycle day 1 as the first day you enter. Menstrual covers the period length you enter. Luteal covers about the last 14 days of the cycle length you enter. Ovulatory is a window of up to 3 days just before that. Follicular is any days left between bleeding and that window. Today's phase is whichever label contains today's cycle day. The count runs in this browser.</p>
+            </div>
+            <div class="faq-slot">
+              <h3>What are the menstrual cycle phases in order on this page?</h3>
+              <p>The labels in order are Menstrual, Follicular, Ovulatory, and Luteal. A physiology reference describes the ovarian cycle as a follicular phase from day 1 until ovulation, then a luteal phase until the next bleeding starts, with bleeding in the early follicular days. This page splits the days into four log labels. Those labels are not a hormone test.</p>
+            </div>
+            <div class="faq-slot">
+              <h3>Can I use this as birth control or to plan a pregnancy?</h3>
+              <p>No. This is a calendar estimate for labeling personal notes. It is not a contraceptive and it is not a fertility tool. It does not confirm ovulation. Talk to a clinician about contraception, fertility, or any health concern.</p>
+            </div>
+            <div class="faq-slot">
+              <h3>What if today is past the cycle length I entered?</h3>
+              <p>The page says the estimate may be off and asks you to update the start date if a new period has begun. It does not guess that a new cycle started.</p>
+            </div>
+            <div class="faq-slot">
+              <h3>How do I put these labels on a personal log?</h3>
+              <p>Copy or print the phase dates, then write the phase next to the matching day in a notebook, a spreadsheet, or the peptide and cycle log template. The label is for reading your notes later. It is not a reason to change what you take or what you do.</p>
+            </div>
+          </section>
+        </div>
+      </div>
+
+      <section class="cta no-print" aria-labelledby="download-title">
+        <div class="wrap narrow">
+          <span class="eyebrow">On the App Store</span>
+          <h2 id="download-title" class="serif-head">Revé tags the phase for you.</h2>
+          <p class="lede">Revé tags each dose, check-in, and measurement with your phase for you. Compare your logs phase by phase and cycle to cycle.</p>
+          <div class="app-store-cta">
+            <a href="https://apps.apple.com/us/app/reve-peptide-cycle-tracker/id6810085933"><img src="/assets/app-store-badge.svg" alt="Download Reve: Peptide &amp; Cycle Tracker on the App Store" width="120" height="40"></a>
+            <span class="search-note">Search Reve: Peptide &amp; Cycle Tracker on the App Store.</span>
+          </div>
+          <p class="disclaimer">Revé helps you see your own logged patterns. It doesn't tell you what to take, and it doesn't predict how you'll respond. It isn't medical advice. Talk to a qualified professional about your own health decisions.</p>
+        </div>
+      </section>
+    </article>
+  </main>
+
+  <footer>
+    <div class="wrap footer-layout">
+      <div class="footer-brand">
+        <a href="/" aria-label="Revé home"><img src="/assets/reve-wordmark.png" alt="Revé" class="wordmark-img" width="640" height="191"></a>
+        <p class="foot-legal">© 2026 Trendset LLC · New York, USA</p>
+      </div>
+      <nav class="footer-groups" aria-label="Footer navigation">
+        <div class="footer-group" role="group" aria-labelledby="footer-explore">
+          <span id="footer-explore" class="eyebrow">Explore</span>
+          <a href="/peptide-tracker-for-women/">Peptide Tracker for Women</a>
+          <a href="/supplement-tracker-for-women/">Supplement Tracker for Women</a>
+          <a href="/glp-1-tracker-for-women/">GLP-1 Tracker for Women</a>
+          <a href="/peptide-menstrual-cycle-tracker/">Peptide &amp; Menstrual Cycle Tracker</a>
+          <a href="/womens-peptide-app/">Women's Peptide App</a>
+          <a href="/peptide-and-cycle-log-template/">Peptide &amp; Cycle Log Template</a>
+          <a href="/progress-tracking-by-cycle-phase/">Progress by Cycle Phase</a>
+          <a href="/cycle-phase-calculator/" aria-current="page">Cycle Phase Calculator</a>
+          <a href="/faq/">FAQ</a>
+        </div>
+        <div class="footer-group" role="group" aria-labelledby="footer-company">
+          <span id="footer-company" class="eyebrow">Company</span>
+          <a href="mailto:zareef@usereve.com">Contact</a>
+        </div>
+        <div class="footer-group" role="group" aria-labelledby="footer-legal">
+          <span id="footer-legal" class="eyebrow">Legal</span>
+          <a href="https://legal.usereve.com/privacy">Privacy Policy</a>
+          <a href="https://legal.usereve.com/terms">Terms of Service</a>
+        </div>
+      </nav>
+    </div>
+  </footer>
+
+  <script>
+    (function (root) {
+      "use strict";
+
+      var MONTHS = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+      var PHASE_KEY = { Menstrual: "m", Follicular: "f", Ovulatory: "o", Luteal: "l" };
+      var PHASE_CLASS = { Menstrual: "is-menstrual", Follicular: "is-follicular", Ovulatory: "is-ovulatory", Luteal: "is-luteal" };
+      var SVG_NS = "http://www.w3.org/2000/svg";
+      var COLORS = { Menstrual: "#A8503A", Follicular: "#6E7B53", Ovulatory: "#A36A1E", Luteal: "#034F32" };
+
+      function parseISODate(value) {
+        var match = /^(\d{4})-(\d{2})-(\d{2})$/.exec(value);
+        if (!match) return null;
+        var year = Number(match[1]);
+        var month = Number(match[2]);
+        var day = Number(match[3]);
+        var date = new Date(year, month - 1, day);
+        if (date.getFullYear() !== year || date.getMonth() !== month - 1 || date.getDate() !== day) return null;
+        return date;
+      }
+
+      function toISO(date) {
+        var month = String(date.getMonth() + 1);
+        var day = String(date.getDate());
+        if (month.length < 2) month = "0" + month;
+        if (day.length < 2) day = "0" + day;
+        return date.getFullYear() + "-" + month + "-" + day;
+      }
+
+      function todayLocal() {
+        var now = new Date();
+        return new Date(now.getFullYear(), now.getMonth(), now.getDate());
+      }
+
+      function addDays(date, days) {
+        return new Date(date.getFullYear(), date.getMonth(), date.getDate() + days);
+      }
+
+      function diffDays(a, b) {
+        var utcA = Date.UTC(a.getFullYear(), a.getMonth(), a.getDate());
+        var utcB = Date.UTC(b.getFullYear(), b.getMonth(), b.getDate());
+        return Math.round((utcB - utcA) / 86400000);
+      }
+
+      function formatLongDate(date) {
+        return MONTHS[date.getMonth()] + " " + date.getDate() + ", " + date.getFullYear();
+      }
+
+      function formatDaySpan(start, end) {
+        if (start === end) return "Cycle day " + start;
+        return "Cycle days " + start + " to " + end;
+      }
+
+      function formatDateSpan(a, b) {
+        var left = formatLongDate(a);
+        var right = formatLongDate(b);
+        if (left === right) return left;
+        return left + " to " + right;
+      }
+
+      function phaseModel(cycleLength, periodLength) {
+        var lutealTarget = 14;
+        var ovulatoryTarget = 3;
+        var after = cycleLength - periodLength;
+        var ovulatoryLen = ovulatoryTarget;
+        var lutealLen = lutealTarget;
+        if (ovulatoryLen + lutealLen > after) {
+          if (after <= lutealTarget) {
+            ovulatoryLen = after >= 2 ? 1 : 0;
+            lutealLen = after - ovulatoryLen;
+          } else {
+            lutealLen = lutealTarget;
+            ovulatoryLen = after - lutealLen;
+          }
+        }
+        var lutealStart = cycleLength - lutealLen + 1;
+        var phases = [{ name: "Menstrual", start: 1, end: periodLength }];
+        var follicularStart = periodLength + 1;
+        var follicularEnd = lutealStart - ovulatoryLen - 1;
+        var hasFollicular = follicularEnd >= follicularStart;
+        if (hasFollicular) phases.push({ name: "Follicular", start: follicularStart, end: follicularEnd });
+        if (ovulatoryLen > 0) phases.push({ name: "Ovulatory", start: lutealStart - ovulatoryLen, end: lutealStart - 1 });
+        phases.push({ name: "Luteal", start: lutealStart, end: cycleLength });
+        return {
+          cycleLength: cycleLength,
+          periodLength: periodLength,
+          phases: phases,
+          lutealLen: lutealLen,
+          ovulatoryLen: ovulatoryLen,
+          hasFollicular: hasFollicular,
+          shortened: lutealLen < lutealTarget || ovulatoryLen < ovulatoryTarget
+        };
+      }
+
+      function rangesFrom(origin, phases) {
+        return phases.map(function (phase) {
+          return {
+            name: phase.name,
+            startDay: phase.start,
+            endDay: phase.end,
+            startDate: addDays(origin, phase.start - 1),
+            endDate: addDays(origin, phase.end - 1)
+          };
+        });
+      }
+
+      function buildEstimate(startDate, cycleLength, periodLength, today) {
+        var dayOffset = diffDays(startDate, today);
+        if (dayOffset < 0) return { error: "future" };
+        var cycleDay = dayOffset + 1;
+        var model = phaseModel(cycleLength, periodLength);
+        var phase = null;
+        var i;
+        if (cycleDay <= cycleLength) {
+          for (i = 0; i < model.phases.length; i += 1) {
+            if (cycleDay >= model.phases[i].start && cycleDay <= model.phases[i].end) {
+              phase = model.phases[i].name;
+              break;
+            }
+          }
+        }
+        var nextStart = addDays(startDate, cycleLength);
+        return {
+          cycleDay: cycleDay,
+          phase: phase,
+          overdue: cycleDay > cycleLength,
+          daysPast: cycleDay > cycleLength ? cycleDay - cycleLength : 0,
+          nextStart: nextStart,
+          nextStartPassed: diffDays(nextStart, today) > 0,
+          ranges: rangesFrom(startDate, model.phases),
+          nextRanges: rangesFrom(nextStart, model.phases),
+          model: model
+        };
+      }
+
+      function adjustNote(model) {
+        var parts = [];
+        if (model.shortened) {
+          parts.push("There is not enough room after the bleeding days for both a 14 day luteal label and a 3 day ovulatory label. Bleeding days keep the Menstrual label. The ovulatory label, the luteal label, or both are shortened so they do not cover those bleeding days.");
+        }
+        if (!model.hasFollicular) {
+          if (model.ovulatoryLen > 0) {
+            parts.push("No days are left for a Follicular label between the bleeding days and the ovulatory window.");
+          } else {
+            parts.push("No days are left for a Follicular label after the bleeding days.");
+          }
+        }
+        return parts.join(" ");
+      }
+
+      function buildCopyText(estimate, startDate, cycleLength, periodLength, today) {
+        var lines = [
+          "Cycle phase labels for a personal log",
+          "Calendar estimate only. Not medical advice. Not a contraceptive or fertility tool. Does not confirm ovulation.",
+          "",
+          "First day entered: " + formatLongDate(startDate),
+          "Typical cycle length: " + cycleLength + " days",
+          "Typical period length: " + periodLength + " days",
+          "",
+          "This cycle"
+        ];
+        estimate.ranges.forEach(function (range) {
+          lines.push(range.name + ": " + formatDaySpan(range.startDay, range.endDay) + ", " + formatDateSpan(range.startDate, range.endDate));
+        });
+        lines.push("Estimated next period start: " + formatLongDate(estimate.nextStart));
+        var note = adjustNote(estimate.model);
+        if (note) lines.push(note);
+        lines.push("");
+        if (estimate.overdue) {
+          lines.push("Today, " + formatLongDate(today) + ": estimated cycle day " + estimate.cycleDay + ", which is " + estimate.daysPast + " days past the " + cycleLength + " day length you entered. The estimate may be off. Update the start date if a new period has begun. This page does not assume a new cycle started.");
+        } else {
+          lines.push("Today, " + formatLongDate(today) + ": estimated cycle day " + estimate.cycleDay + ", estimated phase " + estimate.phase + ".");
+        }
+        if (!estimate.nextStartPassed) {
+          lines.push("");
+          lines.push("If bleeding starts on " + formatLongDate(estimate.nextStart) + ", the same labels for that following cycle are:");
+          estimate.nextRanges.forEach(function (range) {
+            lines.push(range.name + ": " + formatDaySpan(range.startDay, range.endDay) + ", " + formatDateSpan(range.startDate, range.endDate));
+          });
+          lines.push("That following list repeats the same calendar count. It does not mean bleeding will start on that date.");
+        }
+        return lines.join("\n");
+      }
+
+      root.ReveCycleEstimate = {
+        parseISODate: parseISODate,
+        toISO: toISO,
+        todayLocal: todayLocal,
+        addDays: addDays,
+        diffDays: diffDays,
+        formatLongDate: formatLongDate,
+        formatDaySpan: formatDaySpan,
+        formatDateSpan: formatDateSpan,
+        phaseModel: phaseModel,
+        buildEstimate: buildEstimate,
+        adjustNote: adjustNote,
+        buildCopyText: buildCopyText
+      };
+
+      var doc = root.document;
+      if (!doc || !doc.getElementById || !doc.getElementById("start-date")) return;
+
+      var startInput = doc.getElementById("start-date");
+      var cycleInput = doc.getElementById("cycle-length");
+      var periodInput = doc.getElementById("period-length");
+      var showBtn = doc.getElementById("show-estimate");
+      var statusEl = doc.getElementById("calc-status");
+      var outputEl = doc.getElementById("label-output");
+      var basisEl = doc.getElementById("basis-line");
+      var todayEl = doc.getElementById("today-line");
+      var nextEl = doc.getElementById("next-line");
+      var adjustEl = doc.getElementById("adjust-note");
+      var barEl = doc.getElementById("range-bar");
+      var listEl = doc.getElementById("phase-list");
+      var nextCycleEl = doc.getElementById("next-cycle");
+      var nextNoteEl = doc.getElementById("next-cycle-note");
+      var nextListEl = doc.getElementById("next-list");
+      var copyBtn = doc.getElementById("copy-labels");
+      var printBtn = doc.getElementById("print-labels");
+      var copyStatus = doc.getElementById("copy-status");
+      var plainEl = doc.getElementById("plain-labels");
+      var plainDetails = doc.querySelector(".plain-details");
+      var ringSvg = doc.getElementById("cycle-ring");
+      var ringDay = doc.getElementById("ring-day");
+      var ringPhase = doc.getElementById("ring-phase");
+      var ringNote = doc.getElementById("ring-note");
+
+      function classifyNumber(raw, kind) {
+        if (raw === "") return { state: "empty" };
+        if (!/^\d+$/.test(raw)) return { state: "invalid" };
+        var n = Number(raw);
+        if (kind === "cycle") {
+          if (raw.length < 2) return { state: "partial" };
+          if (n >= 21 && n <= 45) return { state: "ok", value: n };
+          return { state: "invalid" };
+        }
+        if (raw === "1") return { state: "partial" };
+        if (n >= 2 && n <= 10) return { state: "ok", value: n };
+        return { state: "invalid" };
+      }
+
+      function setRingPhaseClass(className) {
+        ringPhase.className = "ring-phase " + className;
+      }
+
+      function drawEmptyRing() {
+        while (ringSvg.firstChild) ringSvg.removeChild(ringSvg.firstChild);
+        var circle = doc.createElementNS(SVG_NS, "circle");
+        circle.setAttribute("cx", "120");
+        circle.setAttribute("cy", "120");
+        circle.setAttribute("r", "94");
+        circle.setAttribute("fill", "none");
+        circle.setAttribute("stroke", "#E7E1D5");
+        circle.setAttribute("stroke-width", "18");
+        ringSvg.appendChild(circle);
+        ringDay.textContent = "Day";
+        ringPhase.textContent = "Waiting";
+        setRingPhaseClass("is-waiting");
+        ringNote.textContent = "Enter the first day of your last period. The ring fills in from that date.";
+      }
+
+      function drawRing(model, cycleDay, overdue) {
+        while (ringSvg.firstChild) ringSvg.removeChild(ringSvg.firstChild);
+        var group = doc.createElementNS(SVG_NS, "g");
+        group.setAttribute("transform", "rotate(-90 120 120)");
+        model.phases.forEach(function (phase) {
+          var arc = doc.createElementNS(SVG_NS, "circle");
+          var len = phase.end - phase.start + 1;
+          arc.setAttribute("cx", "120");
+          arc.setAttribute("cy", "120");
+          arc.setAttribute("r", "94");
+          arc.setAttribute("fill", "none");
+          arc.setAttribute("stroke", COLORS[phase.name]);
+          arc.setAttribute("stroke-width", "18");
+          arc.setAttribute("stroke-linecap", "butt");
+          arc.setAttribute("pathLength", String(model.cycleLength));
+          arc.setAttribute("stroke-dasharray", len + " " + model.cycleLength);
+          arc.setAttribute("stroke-dashoffset", String(-(phase.start - 1)));
+          group.appendChild(arc);
+        });
+        ringSvg.appendChild(group);
+        if (!overdue && cycleDay >= 1 && cycleDay <= model.cycleLength) {
+          var angle = ((cycleDay - 0.5) / model.cycleLength) * Math.PI * 2 - Math.PI / 2;
+          var dot = doc.createElementNS(SVG_NS, "circle");
+          dot.setAttribute("cx", String(120 + Math.cos(angle) * 94));
+          dot.setAttribute("cy", String(120 + Math.sin(angle) * 94));
+          dot.setAttribute("r", "6");
+          dot.setAttribute("fill", "#FBF9F4");
+          dot.setAttribute("stroke", "#211D17");
+          dot.setAttribute("stroke-width", "2");
+          ringSvg.appendChild(dot);
+        }
+      }
+
+      function fillList(list, ranges, currentPhase) {
+        list.replaceChildren();
+        ranges.forEach(function (range) {
+          var item = doc.createElement("li");
+          item.className = "phase-item " + PHASE_KEY[range.name];
+          if (range.name === currentPhase) item.classList.add("is-current");
+          var name = doc.createElement("span");
+          name.className = "phase-name";
+          name.textContent = range.name === currentPhase ? range.name + " (today)" : range.name;
+          var days = doc.createElement("span");
+          days.className = "phase-days";
+          days.textContent = formatDaySpan(range.startDay, range.endDay);
+          var dates = doc.createElement("span");
+          dates.className = "phase-dates";
+          dates.textContent = formatDateSpan(range.startDate, range.endDate);
+          item.appendChild(name);
+          item.appendChild(days);
+          item.appendChild(dates);
+          list.appendChild(item);
+        });
+      }
+
+      function fillBar(ranges) {
+        barEl.replaceChildren();
+        ranges.forEach(function (range) {
+          var span = doc.createElement("span");
+          span.className = PHASE_KEY[range.name];
+          span.style.flexGrow = String(range.endDay - range.startDay + 1);
+          span.style.flexBasis = "0";
+          barEl.appendChild(span);
+        });
+      }
+
+      function clearResult() {
+        outputEl.hidden = true;
+        copyStatus.textContent = "";
+        drawEmptyRing();
+      }
+
+      function fail(message, field) {
+        startInput.removeAttribute("aria-invalid");
+        cycleInput.removeAttribute("aria-invalid");
+        periodInput.removeAttribute("aria-invalid");
+        if (field) field.setAttribute("aria-invalid", "true");
+        statusEl.dataset.state = "error";
+        statusEl.textContent = message;
+        clearResult();
+      }
+
+      function renderResult(estimate, startDate, cycleLength, periodLength, today) {
+        startInput.removeAttribute("aria-invalid");
+        cycleInput.removeAttribute("aria-invalid");
+        periodInput.removeAttribute("aria-invalid");
+        statusEl.dataset.state = "";
+        outputEl.hidden = false;
+        copyStatus.textContent = "";
+        basisEl.textContent = "Based on a start date of " + formatLongDate(startDate) + ", a cycle length of " + cycleLength + " days, and a period length of " + periodLength + " days.";
+        if (estimate.overdue) {
+          statusEl.textContent = "Estimated cycle day " + estimate.cycleDay + ", past the " + cycleLength + " day length you entered. The estimate may be off.";
+          todayEl.textContent = "Today is " + formatLongDate(today) + ". Counted from the start date, this is day " + estimate.cycleDay + ", which is " + estimate.daysPast + " days past the " + cycleLength + " day length you entered. The estimate may be off. If a new period has started, update the first day above. This page does not assume a new cycle began.";
+          ringDay.textContent = "Day " + estimate.cycleDay;
+          ringPhase.textContent = "Past length";
+          setRingPhaseClass("is-overdue");
+          ringNote.textContent = "The ring shows the cycle length you entered. Today falls past it, so there is no day marker.";
+        } else {
+          statusEl.textContent = "Estimated cycle day " + estimate.cycleDay + ". Estimated phase: " + estimate.phase + ".";
+          todayEl.textContent = "Today, " + formatLongDate(today) + ", is estimated cycle day " + estimate.cycleDay + " of " + cycleLength + ". Estimated phase: " + estimate.phase + ".";
+          ringDay.textContent = "Day " + estimate.cycleDay;
+          ringPhase.textContent = estimate.phase;
+          setRingPhaseClass(PHASE_CLASS[estimate.phase]);
+          ringNote.textContent = "The marker sits on estimated cycle day " + estimate.cycleDay + ", in the " + estimate.phase + " label.";
+        }
+        if (estimate.nextStartPassed) {
+          nextEl.textContent = "The estimated next period start was " + formatLongDate(estimate.nextStart) + ", and that date has passed. Update the first day if a new period has begun.";
+        } else {
+          nextEl.textContent = "Estimated next period start: " + formatLongDate(estimate.nextStart) + ". That date is the start date plus the " + cycleLength + " days you entered.";
+        }
+        var note = adjustNote(estimate.model);
+        if (note) {
+          adjustEl.hidden = false;
+          adjustEl.textContent = note;
+        } else {
+          adjustEl.hidden = true;
+          adjustEl.textContent = "";
+        }
+        drawRing(estimate.model, estimate.cycleDay, estimate.overdue);
+        fillBar(estimate.ranges);
+        fillList(listEl, estimate.ranges, estimate.phase);
+        if (!estimate.nextStartPassed) {
+          nextCycleEl.hidden = false;
+          nextNoteEl.textContent = "These dates repeat the same count, starting on " + formatLongDate(estimate.nextStart) + ". They do not mean bleeding will start that day. Use them only if you want labels ready for a following cycle.";
+          fillList(nextListEl, estimate.nextRanges, null);
+        } else {
+          nextCycleEl.hidden = true;
+          nextListEl.replaceChildren();
+        }
+        plainEl.textContent = buildCopyText(estimate, startDate, cycleLength, periodLength, today);
+      }
+
+      function update(strict) {
+        var today = todayLocal();
+        startInput.max = toISO(today);
+        var rawDate = startInput.value.trim();
+        var dateValue = rawDate ? parseISODate(rawDate) : null;
+        var cycleInfo = classifyNumber(cycleInput.value.trim(), "cycle");
+        var periodInfo = classifyNumber(periodInput.value.trim(), "period");
+
+        if (!rawDate) {
+          if (strict) fail("Enter the first day of your last period.", startInput);
+          else {
+            statusEl.dataset.state = "";
+            statusEl.textContent = "Enter the first day of your last period.";
+            clearResult();
+          }
+          return;
+        }
+        if (!dateValue) {
+          fail("That date is not a real calendar day.", startInput);
+          return;
+        }
+        if (diffDays(today, dateValue) > 0) {
+          fail("That date is after today. Enter the first day of your last period.", startInput);
+          return;
+        }
+        if (cycleInfo.state === "partial" && !strict) return;
+        if (cycleInfo.state !== "ok") {
+          fail("Cycle length needs to be a whole number from 21 to 45.", cycleInput);
+          return;
+        }
+        if (periodInfo.state === "partial" && !strict) return;
+        if (periodInfo.state !== "ok") {
+          fail("Period length needs to be a whole number from 2 to 10.", periodInput);
+          return;
+        }
+        renderResult(buildEstimate(dateValue, cycleInfo.value, periodInfo.value, today), dateValue, cycleInfo.value, periodInfo.value, today);
+      }
+
+      function fallbackCopy(text) {
+        var area = doc.createElement("textarea");
+        area.value = text;
+        area.setAttribute("readonly", "");
+        area.style.position = "fixed";
+        area.style.left = "-9999px";
+        doc.body.appendChild(area);
+        area.select();
+        var ok = false;
+        try { ok = doc.execCommand("copy"); } catch (err) { ok = false; }
+        doc.body.removeChild(area);
+        return ok;
+      }
+
+      startInput.addEventListener("input", function () { update(false); });
+      startInput.addEventListener("change", function () { update(false); });
+      cycleInput.addEventListener("input", function () { update(false); });
+      cycleInput.addEventListener("change", function () { update(true); });
+      periodInput.addEventListener("input", function () { update(false); });
+      periodInput.addEventListener("change", function () { update(true); });
+      showBtn.addEventListener("click", function () { update(true); });
+      copyBtn.addEventListener("click", function () {
+        var text = plainEl.textContent;
+        var done = function () { copyStatus.textContent = "Copied the phase labels."; };
+        var giveUp = function () {
+          plainDetails.open = true;
+          copyStatus.textContent = "Copy did not run. Select the plain text below and copy it from there.";
+        };
+        if (root.navigator && root.navigator.clipboard && root.navigator.clipboard.writeText) {
+          root.navigator.clipboard.writeText(text).then(done, function () {
+            if (fallbackCopy(text)) done();
+            else giveUp();
+          });
+          return;
+        }
+        if (fallbackCopy(text)) done();
+        else giveUp();
+      });
+      printBtn.addEventListener("click", function () { root.print(); });
+
+      drawEmptyRing();
+      startInput.max = toISO(todayLocal());
+      statusEl.textContent = "Enter the first day of your last period.";
+    })(typeof window !== "undefined" ? window : globalThis);
+  </script>
+</body>
+</html>
