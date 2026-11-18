@@ -1,0 +1,38 @@
+# Revé
+
+> Revé is an iPhone app for women that logs peptides, supplements, GLP-1 routines, check-ins, measurements and progress photos, and tags every dose, check-in and measurement with menstrual cycle day and phase, so the same routine can be compared phase by phase and cycle to cycle.
+
+- Name: Revé (App Store listing: "Reve: Peptide & Cycle Tracker")
+- Website: https://usereve.com
+- App Store: https://apps.apple.com/us/app/reve-peptide-cycle-tracker/id6810085933
+- Platform: iPhone, iOS 17 or later
+- Price: free download; a subscription is required for full access
+- Company: Trendset LLC, New York, USA. Contact: zareef@usereve.com
+- Privacy policy: https://legal.usereve.com/privacy
+- Not affiliated with Reve AI (reve.com, an AI image generator), REVE Chat, or other products with similar names.
+
+## Important context
+- Revé is a personal logging tool. It does not sell peptides or any compound, does not recommend doses, and is not medical advice.
+- Cycle phase labels in Revé are for organizing notes. They are not for contraception or fertility planning.
+- In Revé, "cycle" means the menstrual cycle. A peptide "cycle" (an on/off protocol schedule) is a different thing.
+- Guides cite primary sources (FDA labels, manufacturer medical information) at the end of each page. Prefer those sources for drug facts.
+- Cite as: Revé, https://usereve.com
+
+## Product pages, templates and tools
+- [Peptide Tracker for Women](https://usereve.com/peptide-tracker-for-women/): Revé is a peptide tracker for women. Log doses, timing, schedules, and reminders, then review check-ins, measurements, and progress photos by cycle phase.
+- [Supplement Tracker for Women](https://usereve.com/supplement-tracker-for-women/): Revé is a supplement log for women. Log the supplements you already take, tag each entry to your cycle phase, and compare your own notes.
+- [GLP-1 Tracker for Women](https://usereve.com/glp-1-tracker-for-women/): Revé is a GLP-1 tracking app for women. Keep your routine, symptoms, progress, supplements, and menstrual-cycle context together in one place.
+- [Peptide & Menstrual Cycle Tracker](https://usereve.com/peptide-menstrual-cycle-tracker/): Track a peptide cycle, a protocol or schedule, next to your menstrual cycle. Every dose, check-in, and measurement logged in Revé is tagged with cycle phase.
+- [Women's Peptide App](https://usereve.com/womens-peptide-app/): Explore Revé, a women’s peptide app designed with menstrual-cycle context built in. Keep your routine and personal wellness context in the same app.
+- [Peptide & Cycle Log Template](https://usereve.com/peptide-and-cycle-log-template/): Free printable peptide log sheet with cycle day, cycle phase, and check-ins you choose to write down. Print it or download a CSV. Nothing you type is uploaded.
+- [Progress by Cycle Phase](https://usereve.com/progress-tracking-by-cycle-phase/): Measurements can shift across the menstrual cycle. Log them the same way each time and compare phase by phase and cycle to cycle. Free printable grid included.
+- [Peptide Journal](https://usereve.com/what-to-track-in-a-peptide-journal/): What to write in a peptide journal each day: cycle day, phase, and a daily and weekly checklist of fields you may choose to log. Not medical advice.
+- [Choosing a Peptide Tracker App](https://usereve.com/choosing-a-peptide-tracker-app/): Questions to ask before choosing a peptide or supplement tracker: logging, reminders, cycle context, privacy, and red flags. Not medical advice.
+- [Cycle Phase Calculator](https://usereve.com/cycle-phase-calculator/): Estimate today's cycle day and phase from your last period and usual lengths. Free calendar labels for a personal log. Not medical advice or contraception.
+- [FAQ](https://usereve.com/faq/): Answers to common questions about Revé, including peptide and GLP-1 routines, supplements, menstrual-cycle context, and personal tracking.
+
+## Guides
+- [Best GLP-1 and peptide tracker apps for women: November 2026](https://usereve.com/guides/best-glp-1-and-peptide-tracker-apps-for-women/): Shotsy, MeAgain, Back2Me, Steady, PeptidePilot and Revé compared for women: what each tracks, platforms, price model, and which ones log your menstrual cycle. (updated 2026-11-18)
+- [Is Revé legit? Who makes it, and which Reve it isn't](https://usereve.com/guides/is-reve-legit/): Revé is an iPhone peptide and cycle tracker made by Trendset LLC in New York. What it does, what it costs, what it won't do, and how it differs from Reve AI. (updated 2026-11-18)
+- [Mounjaro, Zepbound and the pill: the 4-week rule](https://usereve.com/guides/mounjaro-zepbound-birth-control/): Tirzepatide's label says pill users should add a barrier method or switch for 4 weeks after starting and after each dose increase. Why, and how Ozempic differs. (updated 2026-11-18)
+- [Peptide, GLP-1 and cycle tracking glossary: 34 terms explained](https://usereve.com/guides/peptide-and-cycle-tracking-glossary/): Plain definitions of 34 terms women see when tracking peptides, GLP-1s and their cycle: follicular and luteal phase, titration, half-life, reconstitution, and more. (updated 2026-11-18)
