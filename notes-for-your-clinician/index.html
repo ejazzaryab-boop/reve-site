@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Notes for Your Clinician: Free Printable Sheet | Revé</title>
+  <meta name="description" content="Free printable peptide notes for a clinician visit: what you logged, by cycle phase, and questions for your prescriber. Not medical advice.">
+  <link rel="canonical" href="https://usereve.com/notes-for-your-clinician/">
+  <meta property="og:title" content="Notes for Your Clinician: Free Printable Sheet | Revé">
+  <meta property="og:description" content="Free printable peptide notes for a clinician visit: what you logged, by cycle phase, and questions for your prescriber. Not medical advice.">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Revé">
+  <meta property="og:url" content="https://usereve.com/notes-for-your-clinician/">
+  <meta property="og:image" content="https://usereve.com/assets/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Revé wordmark on a cream background">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Notes for Your Clinician: Free Printable Sheet | Revé">
+  <meta name="twitter:description" content="Free printable peptide notes for a clinician visit: what you logged, by cycle phase, and questions for your prescriber. Not medical advice.">
+  <meta name="twitter:image" content="https://usereve.com/assets/og-image.png">
+  <meta name="twitter:image:alt" content="Revé wordmark on a cream background">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
+  <meta name="apple-itunes-app" content="app-id=6810085933">
+  <meta name="theme-color" content="#FBF9F4">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&amp;family=IBM+Plex+Mono:wght@400;500&amp;family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400;1,6..72,500&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/content.css?v=footer-groups-2">
+  <style>
+    .sheet-actions { margin: 18px 0 0; }
+    .sheet-actions button {
+      font: 600 15px/1.3 var(--sans);
+      background: var(--accent);
+      color: var(--paper);
+      border: 1px solid var(--accent);
+      border-radius: 999px;
+      padding: 12px 18px;
+      cursor: pointer;
+    }
+    .sheet-actions button:hover { background: #023d27; }
+    .sheet { padding: 28px 26px 24px; }
+    .sheet-brand {
+      font-family: var(--serif);
+      font-weight: 500;
+      font-size: 22px;
+      line-height: 1;
+      color: var(--accent);
+      margin: 0 0 10px;
+    }
+    .sheet-title {
+      font-family: var(--serif);
+      font-weight: 500;
+      font-size: clamp(28px, 4vw, 40px);
+      line-height: 1.12;
+      letter-spacing: -0.005em;
+      margin: 6px 0 0;
+    }
+    .sheet-lead, .sheet-note, .sheet-foot {
+      color: var(--ink-soft);
+      font-size: 15px;
+      line-height: 1.5;
+      margin: 10px 0 0;
+    }
+    .sheet-foot { margin-top: 16px; font-size: 13px; }
+    .sheet-block + .sheet-block {
+      margin-top: 18px;
+      padding-top: 16px;
+      border-top: 1px solid var(--divider);
+    }
+    .sheet h4 {
+      font-family: var(--sans);
+      font-size: 16px;
+      font-weight: 600;
+      line-height: 1.35;
+      margin: 0 0 6px;
+    }
+    .pair, .measure-row, .phase-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: 12px;
+      min-width: 0;
+    }
+    .phase-grid { margin-top: 14px; }
+    .measure-row { margin-top: 12px; }
+    .line-field, .phase-box, .mini-field { min-width: 0; }
+    .line-label, .mini-label, .phase-name {
+      display: block;
+      font-family: var(--mono);
+      font-size: 10.5px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .line-label, .mini-label { color: var(--muted); }
+    .phase-name { margin: 0 0 8px; }
+    .phase-box {
+      margin: 0;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 12px 12px 14px;
+      background: var(--paper);
+    }
+    .phase-box[data-phase="Menstrual"] { border-top: 3px solid var(--menstrual); }
+    .phase-box[data-phase="Follicular"] { border-top: 3px solid var(--follicular); }
+    .phase-box[data-phase="Ovulatory"] { border-top: 3px solid var(--ovulatory); }
+    .phase-box[data-phase="Luteal"] { border-top: 3px solid var(--luteal); }
+    .phase-box[data-phase="Menstrual"] .phase-name { color: var(--menstrual); }
+    .phase-box[data-phase="Follicular"] .phase-name { color: var(--follicular); }
+    .phase-box[data-phase="Ovulatory"] .phase-name { color: var(--ovulatory); }
+    .phase-box[data-phase="Luteal"] .phase-name { color: var(--luteal); }
+    .mini-field + .mini-field { margin-top: 8px; }
+    .field-follow { margin-top: 12px; }
+    .write-line {
+      display: block;
+      height: 1.7em;
+      border-bottom: 1px solid #cfc6b8;
+      margin-top: 3px;
+    }
+    .question-lines { margin: 8px 0 0; padding-left: 1.4em; }
+    .question-lines li { margin: 0; padding: 0; }
+    .question-lines li::marker { font-weight: 600; color: var(--ink); }
+    @media (min-width: 720px) {
+      .pair { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px 18px; }
+      .measure-row { grid-template-columns: 0.8fr 1.1fr 1.4fr; gap: 12px 16px; align-items: end; }
+    }
+    @media (min-width: 640px) {
+      .phase-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (min-width: 980px) {
+      .phase-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    }
+    @media (max-width: 560px) {
+      .sheet { padding: 18px 14px 16px; }
+      .sheet-actions button { width: 100%; }
+      .phase-box { padding: 10px 10px 12px; }
+    }
+    /* Paper size stays with the browser so US Letter and A4 both fit. */
+    @page { margin: 0.5in; }
+    @media print {
+      header, footer, .skip-link, .no-print,
+      main > article > *:not(#notes-sheet) { display: none !important; }
+      html, body { background: #fff !important; color: #211D17; }
+      main { padding: 0; }
+      #notes-sheet {
+        padding: 0 !important;
+        max-width: none;
+        background: #fff;
+      }
+      #clinician-sheet.card {
+        box-shadow: none;
+        border: 0;
+        border-radius: 0;
+        padding: 0;
+        background: #fff;
+      }
+      .sheet-brand { font-size: 13px; margin: 0 0 2px; }
+      .sheet-title { font-size: 18px; margin: 0; }
+      .sheet-lead, .sheet-note { font-size: 9px; line-height: 1.35; margin: 3px 0 6px; }
+      .sheet-foot { font-size: 8px; line-height: 1.35; margin: 8px 0 0; }
+      .sheet-block { break-inside: avoid; page-break-inside: avoid; }
+      .sheet-block + .sheet-block { margin-top: 7px; padding-top: 5px; border-top: 0.6pt solid #e4ddd0; }
+      .sheet h4 { font-size: 11px; margin: 0 0 2px; }
+      .line-label, .mini-label, .phase-name { font-size: 7.5px; letter-spacing: 0.04em; }
+      .phase-name { margin: 0 0 3px; }
+      .write-line { height: 0.26in; border-bottom: 0.6pt solid #b7ad9e; margin-top: 1px; }
+      .mini-field + .mini-field { margin-top: 3px; }
+      .field-follow { margin-top: 5px; }
+      .pair { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px 12px; }
+      .measure-row { grid-template-columns: 0.8fr 1.1fr 1.4fr; gap: 4px 8px; margin-top: 5px; }
+      .phase-grid { grid-template-columns: repeat(4, minmax(0, 1fr)) !important; gap: 6px; margin-top: 2px; }
+      .phase-box { border-radius: 0; padding: 4px 4px 5px; background: #fff; }
+      .question-lines { margin-top: 2px; }
+      .sheet-block, .phase-box, .phase-name {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+    }
+  </style>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://usereve.com/#organization",
+      "name": "Trendset LLC",
+      "url": "https://usereve.com/"
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://usereve.com/notes-for-your-clinician/#webpage",
+      "url": "https://usereve.com/notes-for-your-clinician/",
+      "name": "Notes for Your Clinician: Free Printable Sheet | Revé",
+      "description": "Free printable peptide notes for a clinician visit: what you logged, by cycle phase, and questions for your prescriber. Not medical advice.",
+      "inLanguage": "en",
+      "isAccessibleForFree": true,
+      "publisher": {
+        "@id": "https://usereve.com/#organization"
+      },
+      "breadcrumb": {
+        "@id": "https://usereve.com/notes-for-your-clinician/#breadcrumb"
+      },
+      "mainEntity": {
+        "@id": "https://usereve.com/notes-for-your-clinician/#article"
+      }
+    },
+    {
+      "@type": "Article",
+      "@id": "https://usereve.com/notes-for-your-clinician/#article",
+      "headline": "Notes for Your Clinician",
+      "description": "Free printable peptide notes for a clinician visit: what you logged, by cycle phase, and questions for your prescriber. Not medical advice.",
+      "url": "https://usereve.com/notes-for-your-clinician/",
+      "inLanguage": "en",
+      "isAccessibleForFree": true,
+      "image": "https://usereve.com/assets/og-image.png",
+      "author": {
+        "@id": "https://usereve.com/#organization"
+      },
+      "publisher": {
+        "@id": "https://usereve.com/#organization"
+      },
+      "mainEntityOfPage": {
+        "@id": "https://usereve.com/notes-for-your-clinician/#webpage"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://usereve.com/notes-for-your-clinician/#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://usereve.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Notes for Your Clinician",
+          "item": "https://usereve.com/notes-for-your-clinician/"
+        }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://usereve.com/notes-for-your-clinician/#faqs",
+      "url": "https://usereve.com/notes-for-your-clinician/",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is this notes sheet for?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "It is a free page you can print and fill in by hand before you see a prescriber, pharmacist, or clinician. It keeps the facts you logged apart from the questions you want to ask. It does not interpret those notes. Nothing you write on the paper is stored by this page."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What should I bring to a peptide or prescriber appointment?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Bring the date range that matters for this visit, the names as written on your own labels, and any changes, measurements, or photo dates you may want to mention. Put your questions on the numbered lines. If you do not know a detail, write unknown. Your clinician interprets what you bring."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do I line the notes up with my cycle?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Group what you logged by cycle day or by phase: menstrual, follicular, ovulatory, or luteal. The same phase beside the same phase is easier to talk through than a list sorted only by calendar date. A phase name labels the note. It is not a reason to change what you logged. A change you write down is something you may choose to mention. This sheet does not treat it as an effect of a peptide."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can Revé fill this sheet in for me?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. Revé is a personal logging tool. You can glance at your history and copy what you want onto the sheet. Every dose, check-in, and measurement you log is tagged with your cycle phase, so you can compare those logs phase by phase and cycle to cycle. Progress photos are tracked over time and are not tagged with cycle phase. This page does not say supplement entries are tagged with cycle phase. Revé does not make a report for a clinician, and this page does not store or send what you write."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is this sheet medical advice?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. Revé is a personal logging tool. This sheet is for organizing a conversation. It is not medical advice, a diagnosis, or a treatment plan. If you need urgent help, do not wait for an appointment."
+          }
+        }
+      ]
+    }
+  ]
+}
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header>
+    <div class="wrap nav">
+      <a href="/" aria-label="Revé home"><img src="/assets/reve-wordmark.png" alt="Revé" class="wordmark-img" width="640" height="191"></a>
+      <nav class="nav-links" aria-label="Main navigation">
+        <a href="#notes-sheet">The sheet</a>
+        <a href="/faq/">FAQ</a>
+        <a href="/#company">Company</a>
+        <a href="mailto:zareef@usereve.com">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <article aria-labelledby="page-title">
+      <div class="content-hero wrap">
+        <nav class="breadcrumbs" aria-label="Breadcrumb">
+          <a href="/">Home</a><span aria-hidden="true">/</span><span aria-current="page">Notes for Your Clinician</span>
+        </nav>
+        <div class="hero-grid">
+          <div>
+            <span class="eyebrow"><span class="dot" aria-hidden="true"></span> Before the visit</span>
+            <h1 id="page-title">Notes for your <em>clinician</em></h1>
+            <p class="lede">Writing a few lines before a visit helps you remember what you wanted to say. Keep the facts you logged separate from the questions you still have, and leave the interpretation to your clinician. You can print the sheet blank and fill it in by hand.</p>
+            <div class="app-store-cta">
+              <a href="https://apps.apple.com/us/app/reve-peptide-cycle-tracker/id6810085933"><img src="/assets/app-store-badge.svg" alt="Download Reve: Peptide &amp; Cycle Tracker on the App Store" width="120" height="40"></a>
+              <span class="search-note">Search Reve: Peptide &amp; Cycle Tracker on the App Store.</span>
+            </div>
+          </div>
+          <figure class="ring-card card">
+            <div class="ring-viz">
+              <svg class="ring" viewBox="0 0 240 240" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Illustrative cycle ring with four colored phases">
+                <g transform="rotate(-90 120 120)">
+                  <circle class="ring-arc" cx="120" cy="120" r="94" pathLength="1" stroke="#A8503A" stroke-dasharray="0.18 1" stroke-dashoffset="0" />
+                  <circle class="ring-arc" cx="120" cy="120" r="94" pathLength="1" stroke="#6E7B53" stroke-dasharray="0.24 1" stroke-dashoffset="-0.22" />
+                  <circle class="ring-arc" cx="120" cy="120" r="94" pathLength="1" stroke="#A36A1E" stroke-dasharray="0.08 1" stroke-dashoffset="-0.50" />
+                  <circle class="ring-arc" cx="120" cy="120" r="94" pathLength="1" stroke="#034F32" stroke-dasharray="0.34 1" stroke-dashoffset="-0.62" />
+                </g>
+              </svg>
+              <div class="ring-center" aria-hidden="true"><span class="ring-day">Day 9</span><span class="ring-phase">Follicular</span></div>
+            </div>
+            <figcaption class="legend"><span class="m">Menstrual</span><span class="f">Follicular</span><span class="o">Ovulatory</span><span class="l">Luteal</span></figcaption>
+          </figure>
+        </div>
+        <nav class="contents" aria-label="On this page">
+          <p class="eyebrow">On this page</p>
+          <ul>
+            <li><a href="#notes-sheet"><span>01</span>The sheet</a></li>
+            <li><a href="#how-to-fill"><span>02</span>How to fill it in</a></li>
+            <li><a href="#how-reve-helps"><span>03</span>How Revé can help</a></li>
+          </ul>
+        </nav>
+      </div>
+
+      <div class="wrap">
+        <section class="card answer-block" aria-labelledby="overview-title">
+          <div><h2 id="overview-title" class="serif-head">Facts in one place. Questions in another.</h2></div>
+          <p class="lede">Put the visit date and the date range at the top, then the names as they are written on your own labels. Under that, changes you may want to mention, with the cycle phase or cycle day they fell in. Mood, energy, sleep, appetite, measurements, and photo dates each have a place. Questions are numbered, so they stay out of the facts. The last lines are for what was agreed, and who you contact next.</p>
+        </section>
+      </div>
+
+      <section id="notes-sheet" class="content-section wrap sheet-section" aria-labelledby="sheet-title">
+        <div class="head-block no-print">
+          <span class="eyebrow">01 / The sheet</span>
+          <h2 id="sheet-title" class="serif-head">Print the sheet, then write on the paper.</h2>
+          <p class="lede">The lines below are blank on purpose. There is nothing to type, and nothing on this page is saved or sent. Print it for a prescriber, pharmacist, or clinician visit, on US Letter or A4, and fill it in by hand.</p>
+          <div class="sheet-actions">
+            <button type="button" id="print-notes">Print the sheet</button>
+          </div>
+          <p class="body-copy">The button opens your browser print dialog. If it does not run, choose Print from the browser menu. Either way, the printed pages are the sheet alone.</p>
+        </div>
+
+        <div class="card sheet" id="clinician-sheet">
+          <p class="sheet-brand">Revé</p>
+          <p class="eyebrow">For your visit</p>
+          <h3 class="sheet-title" id="sheet-print-title">Notes for your clinician</h3>
+          <p class="sheet-lead">Facts I logged, kept apart from questions I want to ask. Names as written on my own labels. Notes grouped by cycle day or phase, for the date range of this visit. Where I do not know, I will write unknown. This sheet organizes a conversation. It is not medical advice, a diagnosis, or a treatment plan. If I need urgent help, I will not wait for this visit.</p>
+
+          <div class="sheet-block">
+            <h4>Visit</h4>
+            <div class="pair">
+              <div class="line-field">
+                <span class="line-label">Visit date</span>
+                <span class="write-line" aria-hidden="true"></span>
+              </div>
+              <div class="line-field">
+                <span class="line-label">Who I am seeing</span>
+                <span class="write-line" aria-hidden="true"></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="sheet-block">
+            <h4>What I am currently logging</h4>
+            <p class="sheet-note">Names as written on my own label or prescription. This sheet does not supply names.</p>
+            <div class="line-stack" aria-hidden="true">
+              <span class="write-line"></span>
+              <span class="write-line"></span>
+              <span class="write-line"></span>
+              <span class="write-line"></span>
+              <span class="write-line"></span>
+            </div>
+          </div>
+
+          <div class="sheet-block">
+            <h4>What I actually logged</h4>
+            <p class="sheet-note">The date range I am bringing to this visit, and the facts from that range. Questions go on the numbered lines below.</p>
+            <div class="pair">
+              <div class="line-field">
+                <span class="line-label">From</span>
+                <span class="write-line" aria-hidden="true"></span>
+              </div>
+              <div class="line-field">
+                <span class="line-label">To</span>
+                <span class="write-line" aria-hidden="true"></span>
+              </div>
+            </div>
+            <div class="line-field field-follow">
+              <span class="line-label">Cycle days or phases in this range</span>
+              <span class="write-line" aria-hidden="true"></span>
+            </div>
+            <div class="line-field field-follow">
+              <span class="line-label">Facts from my log</span>
+              <div aria-hidden="true">
+                <span class="write-line"></span>
+                <span class="write-line"></span>
+                <span class="write-line"></span>
+                <span class="write-line"></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="sheet-block">
+            <h4>Changes I may choose to mention</h4>
+            <p class="sheet-note">When each one started, and the cycle phase or cycle day it fell in, if I know. A note here is something I noticed. It is not a claim about a cause. If it covered more than one phase, I will say so in the box where it started.</p>
+            <div class="phase-grid" role="group" aria-label="Changes by cycle phase">
+              <div class="phase-box" data-phase="Menstrual">
+                <p class="phase-name">Menstrual</p>
+                <div class="mini-field">
+                  <span class="mini-label">Cycle day</span>
+                  <span class="write-line" aria-hidden="true"></span>
+                </div>
+                <div class="mini-field">
+                  <span class="mini-label">When it started</span>
+                  <span class="write-line" aria-hidden="true"></span>
+                </div>
+                <div class="mini-field">
+                  <span class="mini-label">What I may mention</span>
+                  <span class="write-line" aria-hidden="true"></span>
+                  <span class="write-line" aria-hidden="true"></span>
+                </div>
+              </div>
+              <div class="phase-box" data-phase="Follicular">
+                <p class="phase-name">Follicular</p>
+                <div class="mini-field">
+                  <span class="mini-label">Cycle day</span>
+                  <span class="write-line" aria-hidden="true"></span>
+                </div>
+                <div class="mini-field">
+                  <span class="mini-label">When it started</span>
+                  <span class="write-line" aria-hidden="true"></span>
+                </div>
+                <div class="mini-field">
+                  <span class="mini-label">What I may mention</span>
+                  <span class="write-line" aria-hidden="true"></span>
+                  <span class="write-line" aria-hidden="true"></span>
+                </div>
+              </div>
+              <div class="phase-box" data-phase="Ovulatory">
+                <p class="phase-name">Ovulatory</p>
+                <div class="mini-field">
+                  <span class="mini-label">Cycle day</span>
+                  <span class="write-line" aria-hidden="true"></span>
+                </div>
+                <div class="mini-field">
+                  <span class="mini-label">When it started</span>
+                  <span class="write-line" aria-hidden="true"></span>
+                </div>
+                <div class="mini-field">
+                  <span class="mini-label">What I may mention</span>
+                  <span class="write-line" aria-hidden="true"></span>
+                  <span class="write-line" aria-hidden="true"></span>
+                </div>
+              </div>
+              <div class="phase-box" data-phase="Luteal">
+                <p class="phase-name">Luteal</p>
+                <div class="mini-field">
+                  <span class="mini-label">Cycle day</span>
+                  <span class="write-line" aria-hidden="true"></span>
+                </div>
+                <div class="mini-field">
+                  <span class="mini-label">When it started</span>
+                  <span class="write-line" aria-hidden="true"></span>
+                </div>
+                <div class="mini-field">
+                  <span class="mini-label">What I may mention</span>
+                  <span class="write-line" aria-hidden="true"></span>
+                  <span class="write-line" aria-hidden="true"></span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="sheet-block">
+            <h4>Mood, energy, sleep, and appetite</h4>
+            <p class="sheet-note">Notes I may choose to add, by phase. A blank box is fine.</p>
+            <div class="phase-grid" role="group" aria-label="Mood, energy, sleep, and appetite by cycle phase">
+              <div class="phase-box" data-phase="Menstrual">
+                <p class="phase-name">Menstrual</p>
+                <div class="mini-field"><span class="mini-label">Mood</span><span class="write-line" aria-hidden="true"></span></div>
+                <div class="mini-field"><span class="mini-label">Energy</span><span class="write-line" aria-hidden="true"></span></div>
+                <div class="mini-field"><span class="mini-label">Sleep</span><span class="write-line" aria-hidden="true"></span></div>
+                <div class="mini-field"><span class="mini-label">Appetite</span><span class="write-line" aria-hidden="true"></span></div>
+              </div>
+              <div class="phase-box" data-phase="Follicular">
+                <p class="phase-name">Follicular</p>
+                <div class="mini-field"><span class="mini-label">Mood</span><span class="write-line" aria-hidden="true"></span></div>
+                <div class="mini-field"><span class="mini-label">Energy</span><span class="write-line" aria-hidden="true"></span></div>
+                <div class="mini-field"><span class="mini-label">Sleep</span><span class="write-line" aria-hidden="true"></span></div>
+                <div class="mini-field"><span class="mini-label">Appetite</span><span class="write-line" aria-hidden="true"></span></div>
+              </div>
+              <div class="phase-box" data-phase="Ovulatory">
+                <p class="phase-name">Ovulatory</p>
+                <div class="mini-field"><span class="mini-label">Mood</span><span class="write-line" aria-hidden="true"></span></div>
+                <div class="mini-field"><span class="mini-label">Energy</span><span class="write-line" aria-hidden="true"></span></div>
+                <div class="mini-field"><span class="mini-label">Sleep</span><span class="write-line" aria-hidden="true"></span></div>
+                <div class="mini-field"><span class="mini-label">Appetite</span><span class="write-line" aria-hidden="true"></span></div>
+              </div>
+              <div class="phase-box" data-phase="Luteal">
+                <p class="phase-name">Luteal</p>
+                <div class="mini-field"><span class="mini-label">Mood</span><span class="write-line" aria-hidden="true"></span></div>
+                <div class="mini-field"><span class="mini-label">Energy</span><span class="write-line" aria-hidden="true"></span></div>
+                <div class="mini-field"><span class="mini-label">Sleep</span><span class="write-line" aria-hidden="true"></span></div>
+                <div class="mini-field"><span class="mini-label">Appetite</span><span class="write-line" aria-hidden="true"></span></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="sheet-block">
+            <h4>Measurements or progress photo dates</h4>
+            <p class="sheet-note">Dates I may want to mention. A photo is a record from the day I took it. I do not need to assign it a phase.</p>
+            <div class="measure-row">
+              <div class="mini-field"><span class="mini-label">Date</span><span class="write-line" aria-hidden="true"></span></div>
+              <div class="mini-field"><span class="mini-label">Measurement or photo</span><span class="write-line" aria-hidden="true"></span></div>
+              <div class="mini-field"><span class="mini-label">What I may mention</span><span class="write-line" aria-hidden="true"></span></div>
+            </div>
+            <div class="measure-row">
+              <div class="mini-field"><span class="mini-label">Date</span><span class="write-line" aria-hidden="true"></span></div>
+              <div class="mini-field"><span class="mini-label">Measurement or photo</span><span class="write-line" aria-hidden="true"></span></div>
+              <div class="mini-field"><span class="mini-label">What I may mention</span><span class="write-line" aria-hidden="true"></span></div>
+            </div>
+            <div class="measure-row">
+              <div class="mini-field"><span class="mini-label">Date</span><span class="write-line" aria-hidden="true"></span></div>
+              <div class="mini-field"><span class="mini-label">Measurement or photo</span><span class="write-line" aria-hidden="true"></span></div>
+              <div class="mini-field"><span class="mini-label">What I may mention</span><span class="write-line" aria-hidden="true"></span></div>
+            </div>
+          </div>
+
+          <div class="sheet-block">
+            <h4>My questions</h4>
+            <p class="sheet-note">Numbered blanks for what I want to ask. A fact from my log does not belong on these lines.</p>
+            <ol class="question-lines">
+              <li><span class="write-line" aria-hidden="true"></span></li>
+              <li><span class="write-line" aria-hidden="true"></span></li>
+              <li><span class="write-line" aria-hidden="true"></span></li>
+              <li><span class="write-line" aria-hidden="true"></span></li>
+              <li><span class="write-line" aria-hidden="true"></span></li>
+              <li><span class="write-line" aria-hidden="true"></span></li>
+            </ol>
+          </div>
+
+          <div class="sheet-block">
+            <h4>What we agreed, and who I contact next</h4>
+            <p class="sheet-note">Lines to fill in at the visit, in my own words.</p>
+            <div class="line-field">
+              <span class="line-label">What we agreed</span>
+              <div aria-hidden="true">
+                <span class="write-line"></span>
+                <span class="write-line"></span>
+                <span class="write-line"></span>
+              </div>
+            </div>
+            <div class="pair field-follow">
+              <div class="line-field">
+                <span class="line-label">Who I contact next</span>
+                <span class="write-line" aria-hidden="true"></span>
+              </div>
+              <div class="line-field">
+                <span class="line-label">How I will reach them</span>
+                <span class="write-line" aria-hidden="true"></span>
+              </div>
+            </div>
+          </div>
+
+          <p class="sheet-foot">Personal notes for a conversation. Revé is a personal logging tool. This sheet is not medical advice, a diagnosis, or a treatment plan. usereve.com/notes-for-your-clinician/</p>
+        </div>
+      </section>
+
+      <section id="how-to-fill" class="band" aria-labelledby="fill-title">
+        <div class="wrap content-section">
+          <div class="head-block">
+            <span class="eyebrow">02 / From the log you already have</span>
+            <h2 id="fill-title" class="serif-head">How to fill it in from your log.</h2>
+            <p class="lede">You are copying a slice of a record you already kept. You are not building a new plan on the sheet, and you are not guessing at blanks to make it look finished.</p>
+          </div>
+          <div class="steps">
+            <div class="card step">
+              <span class="num" aria-hidden="true">01</span>
+              <h3>Line entries up by cycle day or phase</h3>
+              <p class="body-copy">Put the same phase beside the same phase: menstrual with menstrual, follicular with follicular, ovulatory with ovulatory, luteal with luteal. A calendar week can split a phase, or mix two of them. The boxes on the sheet keep that mix out of the visit notes. Use the cycle day you already use. If you do not use one, leave it unknown.</p>
+            </div>
+            <div class="card step">
+              <span class="num" aria-hidden="true">02</span>
+              <h3>Bring only the date range for this visit</h3>
+              <p class="body-copy">Write the first and last date you actually want to discuss. Older notes can stay in your log. If you want one earlier cycle for comparison, name it on its own line. Do not copy every week you have ever written down. A shorter range is easier to talk through.</p>
+            </div>
+            <div class="card step">
+              <span class="num" aria-hidden="true">03</span>
+              <h3>Mark unknown as unknown</h3>
+              <p class="body-copy">If you do not know the day, the phase, or what you logged, write unknown. A guessed phase will not match the rest of the sheet. An empty question line is fine. You do not have to fill every box.</p>
+            </div>
+          </div>
+          <p class="body-copy">Read a sentence before you place it. If it states what you logged, it belongs with the facts. If it asks what something means, it belongs on the numbered lines. The sheet will not answer the question. Your clinician will.</p>
+          <p class="body-copy">Copy names the way they appear on your own label or prescription. If your log uses a shorter name, write the label name beside it so you are both looking at the same words. This page does not list names, and it does not suggest what belongs in the log.</p>
+          <p class="body-copy">A change goes in the phase box for when you noticed it, with the day it started if you know the day. Write it as something you noticed. The sheet does not treat that note as an effect of a peptide, and it is not a reason to change what you logged.</p>
+          <p class="body-copy">The daily paper log, with a date, a cycle day, and a phase on each row, is the <a href="/peptide-and-cycle-log-template/">peptide and cycle log template</a>. This visit sheet does not replace it. The fields you may choose to keep on an ordinary day are listed in <a href="/what-to-track-in-a-peptide-journal/">what to track in a peptide journal</a>. If you want a phase name for a date before you copy it here, the <a href="/cycle-phase-calculator/">cycle phase calculator</a> counts from a start date and a typical length. It is an estimate for labeling notes, not a fertility or contraceptive tool. Dates for measurements and progress photos can come from <a href="/progress-tracking-by-cycle-phase/">progress tracking by cycle phase</a>.</p>
+        </div>
+      </section>
+
+      <section id="how-reve-helps" class="content-section wrap" aria-labelledby="reve-title">
+        <div class="head-block">
+          <span class="eyebrow">03 / On iPhone</span>
+          <h2 id="reve-title" class="serif-head">How Revé can help you fill the sheet.</h2>
+          <p class="lede">Revé is a personal logging tool. It keeps what you enter. You can glance at your Revé history and copy what you want onto the sheet. Revé does not make a report for a clinician, and this page does not send the sheet anywhere.</p>
+        </div>
+        <div class="feature-grid">
+          <div class="card feature-card">
+            <h3>Peptides and supplements</h3>
+            <p>Log peptides and supplements with doses, timing, schedules, and reminders. On the sheet, write the name as it appears on your own label.</p>
+          </div>
+          <div class="card feature-card">
+            <h3>Check-ins you choose</h3>
+            <p>Check-ins cover mood, energy, sleep, appetite, and changes you notice. Copy the ones you want to talk about. A change is something you noticed. Revé does not describe it as an effect of a peptide.</p>
+          </div>
+          <div class="card feature-card">
+            <h3>Measurements and photos</h3>
+            <p>Measurements and progress photos are kept over time. Write down the dates you may want to mention. Progress photos are not tagged with cycle phase.</p>
+          </div>
+          <div class="card feature-card">
+            <h3>Phase on the record</h3>
+            <p>Every dose, check-in, and measurement you log is tagged with your cycle phase. Compare those logs phase by phase and cycle to cycle. The tag is context. Revé does not tell you to change anything because of the phase. This page does not say supplement entries are tagged with cycle phase.</p>
+          </div>
+        </div>
+        <p class="body-copy">Open the dates you named at the top of the sheet, look at them, and copy by hand. Leave the rest in the app. More answers about Revé are in the <a href="/faq/">FAQ</a>.</p>
+      </section>
+
+      <div class="editorial-band">
+        <div class="wrap narrow">
+          <section id="what-this-is-not" class="content-section" aria-labelledby="boundary-title">
+            <span class="eyebrow">A clear boundary</span>
+            <h2 id="boundary-title" class="serif-head">What this sheet is not.</h2>
+            <p class="body-copy">Revé is a personal logging tool. This sheet is for organizing a conversation. It is not medical advice, a diagnosis, or a treatment plan. If you need urgent help, do not wait for an appointment.</p>
+            <p class="body-copy">The lines do not tell you what to take, what to change, or what a phase means. A change you write down is something you may choose to mention. It is not described here as an effect of a peptide. A phase name is a label for your notes. It is not a reason to change what you logged.</p>
+            <p class="body-copy">If your cycles are irregular or absent, a phase label may not line up from one cycle to the next. A clinician is the right person for questions about that. This page does not offer treatment advice.</p>
+            <nav class="about-links" aria-label="Related pages and policies">
+              <a href="/">Home</a>
+              <a href="/peptide-tracker-for-women/">Peptide Tracker for Women</a>
+              <a href="/peptide-and-cycle-log-template/">Peptide &amp; Cycle Log Template</a>
+              <a href="/what-to-track-in-a-peptide-journal/">Peptide Journal</a>
+              <a href="/progress-tracking-by-cycle-phase/">Progress by Cycle Phase</a>
+              <a href="/cycle-phase-calculator/">Cycle Phase Calculator</a>
+              <a href="/peptide-menstrual-cycle-tracker/">Peptide &amp; Menstrual Cycle Tracker</a>
+              <a href="/supplement-tracker-for-women/">Supplement Tracker for Women</a>
+              <a href="/faq/">FAQ</a>
+              <a href="https://apps.apple.com/us/app/reve-peptide-cycle-tracker/id6810085933">Revé on the App Store</a>
+              <a href="https://legal.usereve.com/privacy">Privacy Policy</a>
+              <a href="https://legal.usereve.com/terms">Terms of Service</a>
+            </nav>
+          </section>
+        </div>
+      </div>
+
+      <section id="faqs" class="wrap content-section" aria-labelledby="faq-title">
+        <div class="head-block">
+          <span class="eyebrow">A few answers</span>
+          <h2 id="faq-title" class="serif-head">Questions about this sheet.</h2>
+        </div>
+        <div class="feature-grid">
+          <div class="card feature-card">
+            <h3>What is this notes sheet for?</h3>
+            <p>It is a free page you can print and fill in by hand before you see a prescriber, pharmacist, or clinician. It keeps the facts you logged apart from the questions you want to ask. It does not interpret those notes. Nothing you write on the paper is stored by this page.</p>
+          </div>
+          <div class="card feature-card">
+            <h3>What should I bring to a peptide or prescriber appointment?</h3>
+            <p>Bring the date range that matters for this visit, the names as written on your own labels, and any changes, measurements, or photo dates you may want to mention. Put your questions on the numbered lines. If you do not know a detail, write unknown. Your clinician interprets what you bring.</p>
+          </div>
+          <div class="card feature-card">
+            <h3>How do I line the notes up with my cycle?</h3>
+            <p>Group what you logged by cycle day or by phase: menstrual, follicular, ovulatory, or luteal. The same phase beside the same phase is easier to talk through than a list sorted only by calendar date. A phase name labels the note. It is not a reason to change what you logged. A change you write down is something you may choose to mention. This sheet does not treat it as an effect of a peptide.</p>
+          </div>
+          <div class="card feature-card">
+            <h3>Can Revé fill this sheet in for me?</h3>
+            <p>No. Revé is a personal logging tool. You can glance at your history and copy what you want onto the sheet. Every dose, check-in, and measurement you log is tagged with your cycle phase, so you can compare those logs phase by phase and cycle to cycle. Progress photos are tracked over time and are not tagged with cycle phase. This page does not say supplement entries are tagged with cycle phase. Revé does not make a report for a clinician, and this page does not store or send what you write.</p>
+          </div>
+          <div class="card feature-card">
+            <h3>Is this sheet medical advice?</h3>
+            <p>No. Revé is a personal logging tool. This sheet is for organizing a conversation. It is not medical advice, a diagnosis, or a treatment plan. If you need urgent help, do not wait for an appointment.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="cta" aria-labelledby="download-title">
+        <div class="wrap narrow">
+          <span class="eyebrow">On the App Store</span>
+          <h2 id="download-title" class="serif-head">Keep the log on your phone, then copy what you need.</h2>
+          <p class="lede">On iPhone, every dose, check-in, and measurement you log is tagged with your cycle phase. Compare your logs phase by phase and cycle to cycle. Glance at that history and copy what you want onto the sheet.</p>
+          <div class="app-store-cta">
+            <a href="https://apps.apple.com/us/app/reve-peptide-cycle-tracker/id6810085933"><img src="/assets/app-store-badge.svg" alt="Download Reve: Peptide &amp; Cycle Tracker on the App Store" width="120" height="40"></a>
+            <span class="search-note">Search Reve: Peptide &amp; Cycle Tracker on the App Store.</span>
+          </div>
+          <p class="disclaimer">Revé helps you see your own logged patterns. It doesn't tell you what to take, and it doesn't predict how you'll respond. It isn't medical advice. Talk to a qualified professional about your own health decisions.</p>
+        </div>
+      </section>
+    </article>
+  </main>
+
+  <footer>
+    <div class="wrap footer-layout">
+      <div class="footer-brand">
+        <a href="/" aria-label="Revé home"><img src="/assets/reve-wordmark.png" alt="Revé" class="wordmark-img" width="640" height="191"></a>
+        <p class="foot-legal">© 2026 Trendset LLC · New York, USA</p>
+      </div>
+      <nav class="footer-groups" aria-label="Footer navigation">
+        <div class="footer-group" role="group" aria-labelledby="footer-explore">
+          <span id="footer-explore" class="eyebrow">Explore</span>
+          <a href="/peptide-tracker-for-women/">Peptide Tracker for Women</a>
+          <a href="/supplement-tracker-for-women/">Supplement Tracker for Women</a>
+          <a href="/peptide-menstrual-cycle-tracker/">Peptide &amp; Menstrual Cycle Tracker</a>
+          <a href="/womens-peptide-app/">Women's Peptide App</a>
+          <a href="/peptide-and-cycle-log-template/">Peptide &amp; Cycle Log Template</a>
+          <a href="/progress-tracking-by-cycle-phase/">Progress by Cycle Phase</a>
+          <a href="/what-to-track-in-a-peptide-journal/">Peptide Journal</a>
+          <a href="/cycle-phase-calculator/">Cycle Phase Calculator</a>
+          <a href="/notes-for-your-clinician/" aria-current="page">Notes for Your Clinician</a>
+          <a href="/faq/">FAQ</a>
+        </div>
+        <div class="footer-group" role="group" aria-labelledby="footer-company">
+          <span id="footer-company" class="eyebrow">Company</span>
+          <a href="mailto:zareef@usereve.com">Contact</a>
+        </div>
+        <div class="footer-group" role="group" aria-labelledby="footer-legal">
+          <span id="footer-legal" class="eyebrow">Legal</span>
+          <a href="https://legal.usereve.com/privacy">Privacy Policy</a>
+          <a href="https://legal.usereve.com/terms">Terms of Service</a>
+        </div>
+      </nav>
+    </div>
+  </footer>
+  <script>
+    (function () {
+      var button = document.getElementById("print-notes");
+      if (!button) return;
+      button.addEventListener("click", function () {
+        window.print();
+      });
+    }());
+  </script>
+</body>
+</html>
