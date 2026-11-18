@@ -1,0 +1,8 @@
+# GitHub Pages (Jekyll) settings.
+# Keep the guide generator's source files and internal docs off the public site.
+# Pages under /guides/ are built from content/guides/*.md by tools/geo/build.py
+# and committed as plain HTML, so Jekyll only needs to copy them.
+exclude:
+  - content
+  - tools
+  - docs
