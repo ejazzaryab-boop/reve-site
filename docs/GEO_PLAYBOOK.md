@@ -135,9 +135,8 @@ Verify every drug fact against the current label before writing.
 
 ### A. Brand and entity (do first, cheap, protects the name)
 - ☑ is-reve-legit
-- ☐ `how-much-does-reve-cost`: subscription price, trial, what's free (fill from App Store Connect). This mirrors his featured page.
+- ☑ `how-much-does-reve-cost`: subscription price, trial, what's free (fill from App Store Connect). This mirrors his featured page.
 - ☐ `reve-privacy`: what's stored, where, who can see it, how to delete. For a health app this is the #1 trust question.
-- ☐ `does-reve-work-with-apple-health`: only if true; otherwise skip
 
 ### B. Women + GLP-1 label facts (the open lane)
 - ☑ mounjaro-zepbound-birth-control
@@ -269,3 +268,12 @@ Never: recommend doses, protocols or timing; explain reconstitution or sourcing 
 research-use-only compounds; claim Revé features that aren't live; invent reviewers,
 data, testimonials or "we tested" claims; publish two pages that answer the same question.
 ```
+
+---
+
+## Parked
+
+`does-reve-work-with-apple-health` moved here from section A. The section C line for `best-peptide-tracker-for-women` is unchanged.
+
+- ☐ `does-reve-work-with-apple-health`: only if true; otherwise skip. Parked by owner Nov 20, 2026 until he confirms Apple Health facts.
+- ☐ `best-peptide-tracker-for-women` (standalone page): separate from the GLP-1 list; research-peptide apps vs Revé. Dropped Nov 20, 2026: would compete with /guides/best-glp-1-and-peptide-tracker-apps-for-women/; replaced by one approved update to that guide.
