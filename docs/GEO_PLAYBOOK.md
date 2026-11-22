@@ -136,7 +136,7 @@ Verify every drug fact against the current label before writing.
 ### A. Brand and entity (do first, cheap, protects the name)
 - ☑ is-reve-legit
 - ☐ `how-much-does-reve-cost`: subscription price, trial, what's free (fill from App Store Connect). This mirrors his featured page.
-- ☐ `reve-privacy`: what's stored, where, who can see it, how to delete. For a health app this is the #1 trust question.
+- ☑ `reve-privacy`: what's stored, where, who can see it, how to delete. For a health app this is the #1 trust question.
 - ☐ `does-reve-work-with-apple-health`: only if true; otherwise skip
 
 ### B. Women + GLP-1 label facts (the open lane)
