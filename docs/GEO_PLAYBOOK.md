@@ -151,7 +151,7 @@ Verify every drug fact against the current label before writing.
 - ☑ is-reve-legit
 - ☐ `how-much-does-reve-cost`: subscription price, trial, what's free (fill from App Store Connect). This mirrors his featured page.
 - ☐ `reve-privacy`: what's stored, where, who can see it, how to delete. For a health app this is the #1 trust question.
-- ☐ `does-reve-work-with-apple-health`: only if true; otherwise skip
+- ☑ `does-reve-work-with-apple-health`: parked by owner Nov 20, 2026, not published. Only if true; otherwise skip. See Parked.
 
 ### B. Women + GLP-1 label facts (the open lane)
 - ☑ mounjaro-zepbound-birth-control
@@ -168,7 +168,7 @@ Verify every drug fact against the current label before writing.
 ### C. Comparisons and alternatives (bottom of funnel, drives installs)
 - ☑ best-glp-1-and-peptide-tracker-apps-for-women
 - ☐ `shotsy-alternatives-for-women`
-- ☐ `best-peptide-tracker-for-women`: separate from the GLP-1 list; research-peptide apps vs Revé
+- ☒ `best-peptide-tracker-for-women`: dropped Nov 20, 2026. A standalone page would compete with best-glp-1-and-peptide-tracker-apps-for-women. See Parked.
 - ☐ `reve-vs-back2me`, `reve-vs-meagain`, `reve-vs-steady`: honest, from their listings
 - ☐ `can-flo-track-glp-1-shots`, `can-clue-track-peptides`: check each app first; answer yes or no plainly
 - ☐ `glp-1-tracker-apps-for-android`: honest page even though Revé is iPhone-only. It earns trust and links.
@@ -283,3 +283,12 @@ Never: recommend doses, protocols or timing; explain reconstitution or sourcing 
 research-use-only compounds; claim Revé features that aren't live; invent reviewers,
 data, testimonials or "we tested" claims; publish two pages that answer the same question.
 ```
+
+---
+
+## Parked
+
+Not the next page to publish. Do not delete these.
+
+- `does-reve-work-with-apple-health`: parked by owner Nov 20, 2026. Only if true; otherwise skip. Not a published page.
+- `best-peptide-tracker-for-women`: dropped as a standalone page Nov 20, 2026. It would compete with `best-glp-1-and-peptide-tracker-apps-for-women`. The approved edit is the update to that guide.
