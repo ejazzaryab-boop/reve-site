@@ -100,6 +100,20 @@ primary-source answers yet.
 - `_config.yml` excluding content/, tools/ and docs/ from GitHub Pages
 - `.github/workflows/guides-check.yml`: CI fails if the generated HTML is stale
 
+### Related cards
+
+Guides already set `category` in front matter. The generator prints that string
+as the eyebrow and on the hub, and uses it when `related_guides` names fewer
+than three guides.
+
+Cards named in `related_guides` are always shown. Open slots are filled from
+other guides, same `category` first, then guides in other categories, newest
+first. A guide outside About Revé does not receive an About Revé card this way.
+About Revé is the category used by `is-reve-legit`, `how-much-does-reve-cost`,
+and `reve-privacy`. Those three slugs are matched even if the category string
+differs, so pricing and privacy stay off health guides after they merge. Put
+the slug in `related_guides` when that card should still appear.
+
 ---
 
 ## 4. Do this week (needs a human with logins)

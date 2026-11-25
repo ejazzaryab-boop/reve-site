@@ -55,6 +55,18 @@ ORGANIZATION = {
     "sameAs": [APP_URL],
 }
 
+# Filled when related_guides names fewer than this many other guides.
+RELATED_GUIDE_SLOTS = 3
+
+# Brand pages. The slug list covers pricing and privacy, which may land after
+# this change. The category covers any later page filed under the same eyebrow.
+ABOUT_REVE_SLUGS = frozenset({
+    "how-much-does-reve-cost",
+    "is-reve-legit",
+    "reve-privacy",
+})
+ABOUT_REVE_CATEGORY = "About Revé"
+
 # Pages that exist outside the generator. Order = order in footer and hub.
 PRODUCT_PAGES = [
     ("/peptide-tracker-for-women/", "Peptide Tracker for Women"),
@@ -359,6 +371,33 @@ APP_CTA = f"""<div class="app-store-cta">
 # Guide page
 # --------------------------------------------------------------------------- #
 
+def is_about_reve(guide: dict) -> bool:
+    category = str(guide.get("category", "")).strip()
+    return guide.get("slug") in ABOUT_REVE_SLUGS or category.casefold() == ABOUT_REVE_CATEGORY.casefold()
+
+
+def related_guides_for(guide: dict, all_guides: list[dict]) -> list[dict]:
+    """Manual related_guides, then same category, then other guides, up to 3.
+
+    About Revé pages are not added automatically to guides outside that set.
+    A slug named in related_guides is kept either way.
+    """
+    named = set(guide.get("related_guides") or [])
+    manual = [item for item in all_guides if item["slug"] in named and item["slug"] != guide["slug"]]
+    if len(manual) >= RELATED_GUIDE_SLOTS:
+        return manual
+    taken = {item["slug"] for item in manual}
+    taken.add(guide["slug"])
+    pool = [item for item in all_guides if item["slug"] not in taken]
+    if not is_about_reve(guide):
+        pool = [item for item in pool if not is_about_reve(item)]
+    category = guide.get("category")
+    same = [item for item in pool if item.get("category") == category]
+    other = [item for item in pool if item.get("category") != category]
+    need = RELATED_GUIDE_SLOTS - len(manual)
+    return manual + (same + other)[:need]
+
+
 def render_guide(g: dict, all_guides: list[dict]) -> str:
     body_html, toc, terms = md_to_html(g["body"])
     summary_html, _, _ = md_to_html(g["summary"])
@@ -461,9 +500,7 @@ def render_guide(g: dict, all_guides: list[dict]) -> str:
         </ol>
       </section>"""
 
-    related_slugs = g.get("related_guides", [])
-    related = [x for x in all_guides if x["slug"] in related_slugs]
-    related += [x for x in all_guides if x["slug"] != g["slug"] and x not in related][: max(0, 3 - len(related))]
+    related = related_guides_for(g, all_guides)
     rel_links = [(x["path"], plain(x["h1"])) for x in related] + [(p, dict(PRODUCT_PAGES)[p]) for p in g.get("related_pages", [])]
     rel_html = "\n".join(f'          <a class="card related-card" href="{p}"><span>{e(t)}</span></a>' for p, t in rel_links)
 
