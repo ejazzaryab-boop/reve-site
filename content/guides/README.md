@@ -27,7 +27,7 @@ lede = "One or two sentences under the H1."
 published = 2026-11-18
 updated = 2026-11-18                    # bump on every real edit; drives lastmod + byline
 about = ["Entity", "Entity"]            # schema.org about
-related_guides = ["other-slug"]
+related_guides = ["other-slug"]         # always shown. Open slots prefer this page's category.
 related_pages = ["/glp-1-tracker-for-women/"]   # must be in PRODUCT_PAGES in build.py
 faq_heading = "Questions about X"
 # reviewed_by = "Full Name"             # only a real person who actually reviewed it
@@ -52,6 +52,14 @@ url = "https://..."
 
 Body...
 ```
+
+`category` is the eyebrow on the guide and the label on the hub. When
+`related_guides` names fewer than three guides, the generator fills the open
+slots from other guides, same `category` first. It does not add About Revé
+pages onto guides outside that category. About Revé is the category, and also
+the slugs `is-reve-legit`, `how-much-does-reve-cost`, and `reve-privacy`, so
+pricing and privacy stay off health guides after they merge. A slug you put in
+`related_guides` is still shown.
 
 Markdown supported: `##`/`###` headings, paragraphs, `-` and `1.` lists,
 pipe tables, `> callouts`, `**bold**`, `*italic*`, `[links](/path/)`, inline code.
