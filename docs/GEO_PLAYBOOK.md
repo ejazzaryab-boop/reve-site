@@ -100,6 +100,20 @@ primary-source answers yet.
 - `_config.yml` excluding content/, tools/ and docs/ from GitHub Pages
 - `.github/workflows/guides-check.yml`: CI fails if the generated HTML is stale
 
+### Related cards
+
+Guides already set `category` in front matter. The generator prints that string
+as the eyebrow and on the hub, and uses it when `related_guides` names fewer
+than three guides.
+
+Cards named in `related_guides` are always shown. Open slots are filled from
+other guides, same `category` first, then guides in other categories, newest
+first. A guide outside About Revé does not receive an About Revé card this way.
+About Revé is the category used by `is-reve-legit`, `how-much-does-reve-cost`,
+and `reve-privacy`. Those three slugs are matched even if the category string
+differs, so pricing and privacy stay off health guides after they merge. Put
+the slug in `related_guides` when that card should still appear.
+
 ---
 
 ## 4. Do this week (needs a human with logins)
@@ -137,6 +151,7 @@ Verify every drug fact against the current label before writing.
 - ☑ is-reve-legit
 - ☑ `how-much-does-reve-cost`: subscription price, trial, what's free (fill from App Store Connect). This mirrors his featured page.
 - ☐ `reve-privacy`: what's stored, where, who can see it, how to delete. For a health app this is the #1 trust question.
+- ☑ `does-reve-work-with-apple-health`: parked by owner Nov 20, 2026, not published. Only if true; otherwise skip. See Parked.
 
 ### B. Women + GLP-1 label facts (the open lane)
 - ☑ mounjaro-zepbound-birth-control
@@ -153,7 +168,7 @@ Verify every drug fact against the current label before writing.
 ### C. Comparisons and alternatives (bottom of funnel, drives installs)
 - ☑ best-glp-1-and-peptide-tracker-apps-for-women
 - ☐ `shotsy-alternatives-for-women`
-- ☐ `best-peptide-tracker-for-women`: separate from the GLP-1 list; research-peptide apps vs Revé
+- ☒ `best-peptide-tracker-for-women`: dropped Nov 20, 2026. A standalone page would compete with best-glp-1-and-peptide-tracker-apps-for-women. See Parked.
 - ☐ `reve-vs-back2me`, `reve-vs-meagain`, `reve-vs-steady`: honest, from their listings
 - ☐ `can-flo-track-glp-1-shots`, `can-clue-track-peptides`: check each app first; answer yes or no plainly
 - ☐ `glp-1-tracker-apps-for-android`: honest page even though Revé is iPhone-only. It earns trust and links.
@@ -273,7 +288,7 @@ data, testimonials or "we tested" claims; publish two pages that answer the same
 
 ## Parked
 
-`does-reve-work-with-apple-health` moved here from section A. The section C line for `best-peptide-tracker-for-women` is unchanged.
+Not the next page to publish. Do not delete these.
 
-- ☐ `does-reve-work-with-apple-health`: only if true; otherwise skip. Parked by owner Nov 20, 2026 until he confirms Apple Health facts.
-- ☐ `best-peptide-tracker-for-women` (standalone page): separate from the GLP-1 list; research-peptide apps vs Revé. Dropped Nov 20, 2026: would compete with /guides/best-glp-1-and-peptide-tracker-apps-for-women/; replaced by one approved update to that guide.
+- `does-reve-work-with-apple-health`: parked by owner Nov 20, 2026. Only if true; otherwise skip. Not a published page.
+- `best-peptide-tracker-for-women`: dropped as a standalone page Nov 20, 2026. It would compete with `best-glp-1-and-peptide-tracker-apps-for-women`. The approved edit is the update to that guide.
