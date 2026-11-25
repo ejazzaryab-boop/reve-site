@@ -488,7 +488,7 @@ def render_guide(g: dict, all_guides: list[dict]) -> str:
     if sources:
         items = "\n".join(
             f'            <li><a href="{e(s["url"])}" rel="noopener">{e(s["title"])}</a>'
-            f'{" — " + e(s["publisher"]) if s.get("publisher") else ""}'
+            f'{", " + e(s["publisher"]) if s.get("publisher") else ""}'
             f'{" (" + e(s["note"]) + ")" if s.get("note") else ""}</li>' for s in sources)
         sources_html = f"""
       <section id="sources" class="wrap narrow content-section sources" aria-labelledby="sources-title">
