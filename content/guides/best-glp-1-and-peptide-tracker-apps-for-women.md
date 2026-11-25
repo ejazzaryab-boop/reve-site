@@ -7,7 +7,7 @@ category = "App comparison"
 description = "Shotsy, MeAgain, Back2Me, Steady, PeptidePilot and Revé compared for women: what each tracks, platforms, price model, and which ones log your menstrual cycle."
 lede = "Ten apps, compared on what women on GLP-1s or peptides ask about most: does it handle my medication, does it know where I am in my cycle, and what does it cost. Revé publishes this page and is one of the apps listed."
 published = 2026-11-18
-updated = 2026-11-23
+updated = 2026-11-25
 about = ["GLP-1 tracker app", "Peptide tracker app", "Menstrual cycle tracking"]
 related_guides = ["mounjaro-zepbound-birth-control", "is-reve-legit"]
 related_pages = ["/choosing-a-peptide-tracker-app/"]
@@ -196,4 +196,4 @@ There are dozens of peptide tracker apps on the App Store. [PeptidePilot](https:
 - **Privacy**: on-device only, or an account with cloud sync? Read the App Store privacy label.
 - **Price**: free tier limits and subscription cost.
 
-For a longer checklist, see [how to choose a peptide tracker app](/choosing-a-peptide-tracker-app/).
+For a longer checklist, see [how to choose a peptide tracker app](/choosing-a-peptide-tracker-app/). If you already track your cycle in Clue, [Can Clue track peptides?](/guides/can-clue-track-peptides/) quotes what its help center says about logging an entry with custom tags and daily notes.
