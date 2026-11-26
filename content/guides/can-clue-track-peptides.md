@@ -96,12 +96,12 @@ note = "US listing. Dose, time, schedule, reminders, and cycle phase on each ent
 |  | Clue | Peptide tracker |
 | --- | --- | --- |
 | What you log | A custom tag, or a daily note | Dose, time, and schedule |
-| Reminders | The reminders Clue already includes | A reminder when you log a dose |
+| Reminders | The reminders Clue already includes | Dose reminders |
 | Cycle phase | The phase you are in now | The cycle phase on each entry |
 
 Clue's column is from its help center. You use a tag or a daily note for a tracking option the app does not already include. Daily Notes come with Clue Plus.
 
-The peptide tracker column is [Revé's US listing](https://apps.apple.com/us/app/reve-peptide-cycle-tracker/id6810085933). You log peptides and supplements with a dose, a time, and a schedule, plus a reminder when you log a dose. Every dose, every check-in, and every measurement is tagged with your cycle phase. A supplement dose is tagged like any other dose. You can also record mood, energy, sleep, appetite, other changes you notice, and progress photos, and compare logs phase by phase and cycle to cycle.
+The peptide tracker column is [Revé's US listing](https://apps.apple.com/us/app/reve-peptide-cycle-tracker/id6810085933). You log peptides and supplements with a dose, a time, and a schedule, plus dose reminders. Every dose, every check-in, and every measurement is tagged with your cycle phase. A supplement dose is tagged like any other dose. You can also record mood, energy, sleep, appetite, other changes you notice, and progress photos, and compare logs phase by phase and cycle to cycle.
 
 ## How to log it in Clue
 
@@ -134,7 +134,7 @@ You [cannot create your own reminder](https://support.helloclue.com/hc/en-us/art
 
 ## Which app fits
 
-[Clue's US listing](https://apps.apple.com/us/app/clue-period-cycle-tracker/id657189652) shows 4.8 stars from 409K ratings. BioWink GmbH is the developer and the seller. Clue needs iOS 18.0 or later. It is only for iPhone, and the age rating is 13+. It predicts your period from cycle length, flow, and patterns. You can log a birth control method: the pill, an IUD, a ring, or a patch. The help center also documents an Android app.
+[Clue's US listing](https://apps.apple.com/us/app/clue-period-cycle-tracker/id657189652) shows 4.8 stars from 409K ratings. BioWink GmbH is the developer and the seller. Clue needs iOS 18.0 or later. The age rating is 13+. It predicts your period from cycle length, flow, and patterns. You can log a birth control method: the pill, an IUD, a ring, or a patch. The help center also documents an Android app.
 
 Clue is the closer fit for that period tracker, including on Android, when a tag or a note is enough.
 
