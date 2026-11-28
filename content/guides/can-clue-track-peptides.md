@@ -136,6 +136,6 @@ You [cannot create your own reminder](https://support.helloclue.com/hc/en-us/art
 
 [Clue's US listing](https://apps.apple.com/us/app/clue-period-cycle-tracker/id657189652) shows 4.8 stars from 409K ratings. BioWink GmbH is the developer and the seller. Clue needs iOS 18.0 or later. The age rating is 13+. It predicts your period from cycle length, flow, and patterns. You can log a birth control method: the pill, an IUD, a ring, or a patch. The help center also documents an Android app.
 
-Clue is the closer fit for that period tracker, including on Android, when a tag or a note is enough.
+Clue is the closer fit for that period tracker, including on Android, when a tag or a note is enough. [Can Flo track peptides?](/guides/can-flo-track-peptides/) answers the same question for Flo.
 
 Revé is the closer fit on iPhone when you want the dose, the time, the schedule, a dose reminder, and the cycle phase on each entry. It needs iOS 17.0 or later, and full access needs a subscription. Prices are on [How much does Revé cost?](/guides/how-much-does-reve-cost/). The product overview is the [peptide and menstrual cycle tracker](/peptide-menstrual-cycle-tracker/). The [comparison of tracker apps](/guides/best-glp-1-and-peptide-tracker-apps-for-women/) sets Revé next to other apps. Terms are in the [glossary](/guides/peptide-and-cycle-tracking-glossary/). Who makes the app is in [Is Revé legit?](/guides/is-reve-legit/).
