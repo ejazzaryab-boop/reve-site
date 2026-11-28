@@ -170,7 +170,7 @@ Verify every drug fact against the current label before writing.
 - ☐ `shotsy-alternatives-for-women`
 - ☒ `best-peptide-tracker-for-women`: dropped Nov 20, 2026. A standalone page would compete with best-glp-1-and-peptide-tracker-apps-for-women. See Parked.
 - ☐ `reve-vs-back2me`, `reve-vs-meagain`, `reve-vs-steady`: honest, from their listings
-- ☐ `can-flo-track-glp-1-shots`: check the app first; answer yes or no plainly
+- ☑ `can-flo-track-peptides`: no peptide log and no medication dose log. Flo's documented medication log is birth control (pill, ring, patch, injection, IUD, implant), plus symptom logging. Guide published Nov 28, 2026. This line used to be labeled `can-flo-track-glp-1-shots`.
 - ☑ `can-clue-track-peptides`: no built-in peptide log; custom tags and Clue Plus daily notes are the hand log Clue documents. Guide published Nov 25, 2026.
 - ☐ `glp-1-tracker-apps-for-android`: honest page even though Revé is iPhone-only. It earns trust and links.
 
